@@ -1,7 +1,5 @@
-frontend in terminal 
+frontend
 
-$env:NODE_OPTIONS = "--openssl-legacy-provider"
-ng s 
 localhost:4200
 
 backend 
