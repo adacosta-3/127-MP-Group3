@@ -5,79 +5,100 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="637a65ed-51d0-4e3c-ba35-cfaa781d3d3a" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/mysql_connector_java_5_1_48.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/127-MP-Group3.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Backend (Translated)/cafe-backend/src/main/java/mp/group3/backend/constants/CafeConstants.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Backend (Translated)/cafe-backend/src/main/java/mp/group3/backend/controllers/BillController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Backend (Translated)/cafe-backend/src/main/java/mp/group3/backend/controllers/CategoryController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Backend (Translated)/cafe-backend/src/main/java/mp/group3/backend/controllers/DashboardController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Backend (Translated)/cafe-backend/src/main/java/mp/group3/backend/controllers/ProductController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Backend (Translated)/cafe-backend/src/main/java/mp/group3/backend/controllers/UserController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Backend (Translated)/cafe-backend/src/main/java/mp/group3/backend/dtos/ProductDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Backend (Translated)/cafe-backend/src/main/java/mp/group3/backend/dtos/UserDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Backend (Translated)/cafe-backend/src/main/java/mp/group3/backend/entities/Bill.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Backend (Translated)/cafe-backend/src/main/java/mp/group3/backend/entities/Category.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Backend (Translated)/cafe-backend/src/main/java/mp/group3/backend/entities/Product.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Backend (Translated)/cafe-backend/src/main/java/mp/group3/backend/entities/User.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Backend (Translated)/cafe-backend/src/main/java/mp/group3/backend/exceptions/ResourceNotFoundException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Backend (Translated)/cafe-backend/src/main/java/mp/group3/backend/jwt/CustomerDetailsService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Backend (Translated)/cafe-backend/src/main/java/mp/group3/backend/jwt/JWTFilter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Backend (Translated)/cafe-backend/src/main/java/mp/group3/backend/jwt/JWTUtil.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Backend (Translated)/cafe-backend/src/main/java/mp/group3/backend/jwt/SecurityConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Backend (Translated)/cafe-backend/src/main/java/mp/group3/backend/repositories/BillRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Backend (Translated)/cafe-backend/src/main/java/mp/group3/backend/repositories/CategoryRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Backend (Translated)/cafe-backend/src/main/java/mp/group3/backend/repositories/ProductRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Backend (Translated)/cafe-backend/src/main/java/mp/group3/backend/repositories/UserRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Backend (Translated)/cafe-backend/src/main/java/mp/group3/backend/serviceImpl/BillServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Backend (Translated)/cafe-backend/src/main/java/mp/group3/backend/serviceImpl/CategoryServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Backend (Translated)/cafe-backend/src/main/java/mp/group3/backend/serviceImpl/DashboardServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Backend (Translated)/cafe-backend/src/main/java/mp/group3/backend/serviceImpl/ProductServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Backend (Translated)/cafe-backend/src/main/java/mp/group3/backend/serviceImpl/UserServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Backend (Translated)/cafe-backend/src/main/java/mp/group3/backend/services/BillService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Backend (Translated)/cafe-backend/src/main/java/mp/group3/backend/services/CategoryService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Backend (Translated)/cafe-backend/src/main/java/mp/group3/backend/services/DashboardService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Backend (Translated)/cafe-backend/src/main/java/mp/group3/backend/services/ProductService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Backend (Translated)/cafe-backend/src/main/java/mp/group3/backend/services/UserService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Backend (Translated)/cafe-backend/src/main/java/mp/group3/backend/utils/CafeUtils.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Backend (Translated)/cafe-backend/src/main/java/mp/group3/backend/utils/EmailUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/jpa-buddy.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/src/main/java/mp/group3/cafe/backend/DTO/CategorizationDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/src/main/java/mp/group3/cafe/backend/DTO/CustomerDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/src/main/java/mp/group3/cafe/backend/DTO/CustomerOrderDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/src/main/java/mp/group3/cafe/backend/DTO/CustomizationDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/src/main/java/mp/group3/cafe/backend/DTO/CustomizationOptionsDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/src/main/java/mp/group3/cafe/backend/DTO/ItemDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/src/main/java/mp/group3/cafe/backend/DTO/MemberDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/src/main/java/mp/group3/cafe/backend/DTO/OrderLineCustomizationDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/src/main/java/mp/group3/cafe/backend/DTO/OrderLineDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/src/main/java/mp/group3/cafe/backend/DTO/UserDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/src/main/java/mp/group3/cafe/backend/controllers/MemberController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/src/main/java/mp/group3/cafe/backend/controllers/UserController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/src/main/java/mp/group3/cafe/backend/entities/Categorization.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/src/main/java/mp/group3/cafe/backend/entities/Customer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/src/main/java/mp/group3/cafe/backend/entities/CustomerOrder.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/src/main/java/mp/group3/cafe/backend/entities/Customization.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/src/main/java/mp/group3/cafe/backend/entities/CustomizationOptions.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/src/main/java/mp/group3/cafe/backend/entities/Item.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/src/main/java/mp/group3/cafe/backend/entities/Member.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/src/main/java/mp/group3/cafe/backend/entities/OrderLine.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/src/main/java/mp/group3/cafe/backend/entities/OrderLineCustomization.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/src/main/java/mp/group3/cafe/backend/entities/User.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/src/main/java/mp/group3/cafe/backend/mapper/CategorizationMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/src/main/java/mp/group3/cafe/backend/mapper/CustomerMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/src/main/java/mp/group3/cafe/backend/mapper/CustomerOrderMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/src/main/java/mp/group3/cafe/backend/mapper/CustomizationMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/src/main/java/mp/group3/cafe/backend/mapper/CustomizationOptionsMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/src/main/java/mp/group3/cafe/backend/mapper/ItemMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/src/main/java/mp/group3/cafe/backend/mapper/MemberMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/src/main/java/mp/group3/cafe/backend/mapper/OrderLineCustomizationMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/src/main/java/mp/group3/cafe/backend/mapper/OrderLineMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/src/main/java/mp/group3/cafe/backend/mapper/UserMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/src/main/java/mp/group3/cafe/backend/repositories/CategorizationRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/src/main/java/mp/group3/cafe/backend/repositories/CustomerOrderRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/src/main/java/mp/group3/cafe/backend/repositories/CustomerRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/src/main/java/mp/group3/cafe/backend/repositories/CustomizationOptionsRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/src/main/java/mp/group3/cafe/backend/repositories/CustomizationRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/src/main/java/mp/group3/cafe/backend/repositories/ItemRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/src/main/java/mp/group3/cafe/backend/repositories/MemberRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/src/main/java/mp/group3/cafe/backend/repositories/OrderLineCustomizationRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/src/main/java/mp/group3/cafe/backend/repositories/OrderLineRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/src/main/java/mp/group3/cafe/backend/repositories/UserRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/src/main/java/mp/group3/cafe/backend/service/MemberService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/src/main/java/mp/group3/cafe/backend/service/UserService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/src/main/java/mp/group3/cafe/backend/serviceImpl/MemberServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/src/main/java/mp/group3/cafe/backend/serviceImpl/UserServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/com.inn.cafe/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/com.inn.cafe/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="ProjectErrors" />
   </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 5
+}]]></component>
+  <component name="ProjectId" id="2r1xLYj8mAXAdn8I8X13uMarY79" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "translation",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "D:/DOWNLOADS/THIRD-YEAR/127 LAB/MP REPO/127-MP-Group3/Backend (Translated)/cafe-backend",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Artifacts",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "MavenSettings",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;translation&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/DOWNLOADS/THIRD-YEAR/127 LAB/MP REPO/127-MP-Group3/Backend (Translated)/cafe-backend&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Artifacts&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;MavenSettings&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="jdk-17.0.10-corretto-17.0.10-4caba194b151-5cd809f4" />
+      </set>
+    </attachedChunks>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -86,7 +107,8 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1735712345136</updated>
-      <workItem from="1735712346256" duration="10292000" />
+      <workItem from="1735712346256" duration="10680000" />
+      <workItem from="1735740332499" duration="599000" />
     </task>
     <servers />
   </component>
