@@ -4,94 +4,93 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="214aebc8-7f3a-42b5-8101-315558b2cb09" name="Changes" comment="Signup API of User &amp; Structure">
+    <list default="true" id="637a65ed-51d0-4e3c-ba35-cfaa781d3d3a" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/mysql_connector_java_5_1_48.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/127-MP-Group3.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend (Translated)/cafe-backend/src/main/java/mp/group3/backend/constants/CafeConstants.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend (Translated)/cafe-backend/src/main/java/mp/group3/backend/controllers/BillController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend (Translated)/cafe-backend/src/main/java/mp/group3/backend/controllers/CategoryController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend (Translated)/cafe-backend/src/main/java/mp/group3/backend/controllers/DashboardController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend (Translated)/cafe-backend/src/main/java/mp/group3/backend/controllers/ProductController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend (Translated)/cafe-backend/src/main/java/mp/group3/backend/controllers/UserController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend (Translated)/cafe-backend/src/main/java/mp/group3/backend/dtos/ProductDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend (Translated)/cafe-backend/src/main/java/mp/group3/backend/dtos/UserDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend (Translated)/cafe-backend/src/main/java/mp/group3/backend/entities/Bill.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend (Translated)/cafe-backend/src/main/java/mp/group3/backend/entities/Category.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend (Translated)/cafe-backend/src/main/java/mp/group3/backend/entities/Product.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend (Translated)/cafe-backend/src/main/java/mp/group3/backend/entities/User.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend (Translated)/cafe-backend/src/main/java/mp/group3/backend/exceptions/ResourceNotFoundException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend (Translated)/cafe-backend/src/main/java/mp/group3/backend/jwt/CustomerDetailsService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend (Translated)/cafe-backend/src/main/java/mp/group3/backend/jwt/JWTFilter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend (Translated)/cafe-backend/src/main/java/mp/group3/backend/jwt/JWTUtil.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend (Translated)/cafe-backend/src/main/java/mp/group3/backend/jwt/SecurityConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend (Translated)/cafe-backend/src/main/java/mp/group3/backend/repositories/BillRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend (Translated)/cafe-backend/src/main/java/mp/group3/backend/repositories/CategoryRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend (Translated)/cafe-backend/src/main/java/mp/group3/backend/repositories/ProductRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend (Translated)/cafe-backend/src/main/java/mp/group3/backend/repositories/UserRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend (Translated)/cafe-backend/src/main/java/mp/group3/backend/serviceImpl/BillServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend (Translated)/cafe-backend/src/main/java/mp/group3/backend/serviceImpl/CategoryServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend (Translated)/cafe-backend/src/main/java/mp/group3/backend/serviceImpl/DashboardServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend (Translated)/cafe-backend/src/main/java/mp/group3/backend/serviceImpl/ProductServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend (Translated)/cafe-backend/src/main/java/mp/group3/backend/serviceImpl/UserServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend (Translated)/cafe-backend/src/main/java/mp/group3/backend/services/BillService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend (Translated)/cafe-backend/src/main/java/mp/group3/backend/services/CategoryService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend (Translated)/cafe-backend/src/main/java/mp/group3/backend/services/DashboardService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend (Translated)/cafe-backend/src/main/java/mp/group3/backend/services/ProductService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend (Translated)/cafe-backend/src/main/java/mp/group3/backend/services/UserService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend (Translated)/cafe-backend/src/main/java/mp/group3/backend/utils/CafeUtils.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend (Translated)/cafe-backend/src/main/java/mp/group3/backend/utils/EmailUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/jpa-buddy.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/com.inn.cafe/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/com.inn.cafe/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/com.inn.cafe/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/com.inn.cafe/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/com.inn.cafe/src/main/java/com/inn/cafe/POJO/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/com.inn.cafe/src/main/java/com/inn/cafe/POJO/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/com.inn.cafe/src/main/java/com/inn/cafe/constents/CafeConstants.java" beforeDir="false" afterPath="$PROJECT_DIR$/com.inn.cafe/src/main/java/com/inn/cafe/constents/CafeConstants.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/com.inn.cafe/src/main/java/com/inn/cafe/rest/UserRest.java" beforeDir="false" afterPath="$PROJECT_DIR$/com.inn.cafe/src/main/java/com/inn/cafe/rest/UserRest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/com.inn.cafe/src/main/java/com/inn/cafe/restImpl/UserRestImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/com.inn.cafe/src/main/java/com/inn/cafe/restImpl/UserRestImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/com.inn.cafe/src/main/java/com/inn/cafe/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/com.inn.cafe/src/main/java/com/inn/cafe/service/UserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/com.inn.cafe/src/main/java/com/inn/cafe/serviceImpl/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/com.inn.cafe/src/main/java/com/inn/cafe/serviceImpl/UserServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.inn.cafe/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/com.inn.cafe/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="ProjectErrors" />
   </component>
-  <component name="MarkdownSettingsMigration">
-    <option name="stateVersion" value="1" />
-  </component>
-  <component name="ProjectId" id="2IplwJBWMaf05aFkWHu6XnU2D6j" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "translation",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "D:/DOWNLOADS/THIRD-YEAR/127 LAB/MP REPO/127-MP-Group3/Backend (Translated)/cafe-backend",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Artifacts",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "MavenSettings",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
-  <component name="RunManager">
-    <configuration default="true" type="JetRunConfigurationType">
-      <module name="Cafe-Management-System" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
-      <module name="Cafe-Management-System" />
-      <option name="filePath" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-  </component>
+}]]></component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="214aebc8-7f3a-42b5-8101-315558b2cb09" name="Changes" comment="" />
-      <created>1670886642980</created>
+      <changelist id="637a65ed-51d0-4e3c-ba35-cfaa781d3d3a" name="Changes" comment="" />
+      <created>1735712345136</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1670886642980</updated>
+      <updated>1735712345136</updated>
+      <workItem from="1735712346256" duration="9788000" />
     </task>
-    <task id="LOCAL-00001" summary="Signup API of User &amp; Structure">
-      <created>1670886744440</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1670886744440</updated>
-    </task>
-    <task id="LOCAL-00002" summary="Signup API of User &amp; Structure">
-      <created>1670887285524</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1670887285524</updated>
-    </task>
-    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
-  <component name="Vcs.Log.Tabs.Properties">
-    <option name="TAB_STATES">
-      <map>
-        <entry key="MAIN">
-          <value>
-            <State />
-          </value>
-        </entry>
-      </map>
-    </option>
-  </component>
-  <component name="VcsManagerConfiguration">
-    <MESSAGE value="Signup API of User &amp; Structure" />
-    <option name="LAST_COMMIT_MESSAGE" value="Signup API of User &amp; Structure" />
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
   </component>
 </project>
