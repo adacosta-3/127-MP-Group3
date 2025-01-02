@@ -43,10 +43,18 @@ public class ItemServiceImpl implements ItemService {
         }
 
         Categorization category = categoryOpt.get();
+
+        // Generate code for the item dynamically
+        String generatedCode = generateItemCode(itemDTO.getName(), category);
+
+        // Map DTO to Item entity and set the generated code
         Item item = ItemMapper.mapToItem(itemDTO, category);
+        item.setItemCode(generatedCode); // Ensure the entity has a `code` field
+
         Item savedItem = itemRepository.save(item);
         return ItemMapper.mapToItemDTO(savedItem);
     }
+
 
     @Override
     public ItemDTO updateItem(Integer itemId, ItemDTO itemDTO) {
@@ -82,5 +90,23 @@ public class ItemServiceImpl implements ItemService {
                 .stream()
                 .map(ItemMapper::mapToItemDTO)
                 .collect(Collectors.toList());
+    }
+
+    private String generateItemCode(String name, Categorization category) {
+        String prefix = (category.getName().substring(0, 1) +
+                category.getName().substring(category.getName().length() - 1))
+                .toUpperCase();
+
+        String nameSegment = name.replaceAll(" ", "")
+                .toUpperCase()
+                .substring(0, Math.min(name.length(), 4));
+        if (nameSegment.length() < 4) {
+            nameSegment = String.format("%-4s", nameSegment).replace(' ', 'Y');
+        }
+
+        long itemCount = itemRepository.countByCategory_CategoryId(category.getCategoryId());
+        String incrementingNumber = String.format("%03d", itemCount + 1);
+
+        return prefix + nameSegment + incrementingNumber;
     }
 }
