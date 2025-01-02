@@ -2,6 +2,8 @@ package mp.group3.cafe.backend.controllers;
 
 import lombok.RequiredArgsConstructor;
 import mp.group3.cafe.backend.DTO.UserDTO;
+import mp.group3.cafe.backend.DTO.UserResponseDTO;
+import mp.group3.cafe.backend.mapper.UserMapper;
 import mp.group3.cafe.backend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -38,9 +40,11 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<UserDTO> createUser(@RequestBody UserDTO userDTO) {
+    public ResponseEntity<UserResponseDTO> createUser(@RequestBody UserDTO userDTO) {
         UserDTO createdUser = userService.createUser(userDTO);
-        return ResponseEntity.ok(createdUser);
+        UserResponseDTO responseDTO = UserMapper.toUserResponseDTO(createdUser);
+
+        return ResponseEntity.ok(responseDTO);
     }
 
     @PutMapping("/{id}")
