@@ -14,6 +14,8 @@ public interface CategorizationService {
 
     CategorizationDTO updateCategory(Integer categoryId, CategorizationDTO categorizationDTO);
 
+    List<CategorizationDTO> createCategories(List<CategorizationDTO> categorizationDTOs);
+
     void deleteCategory(Integer categoryId);
 }
 
