@@ -4,9 +4,12 @@ import lombok.RequiredArgsConstructor;
 import mp.group3.cafe.backend.DTO.ItemDTO;
 import mp.group3.cafe.backend.DTO.ItemSizeDTO;
 import mp.group3.cafe.backend.service.ItemService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -39,6 +42,27 @@ public class ItemController {
             return ResponseEntity.badRequest().body(null);
         }
     }
+
+    @PostMapping("/upload-csv")
+    public ResponseEntity<?> uploadItemsFromCSV(@RequestParam("file") MultipartFile file) {
+        try {
+            if (!file.getContentType().equals("text/csv")) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("File must be a CSV.");
+            }
+
+            List<ItemDTO> itemDTOs = itemService.parseCSVToItems(file);
+            List<ItemDTO> createdItems = itemService.createItems(itemDTOs);
+
+            return ResponseEntity.status(HttpStatus.CREATED).body(createdItems);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid CSV file format.");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An unexpected error occurred.");
+        }
+    }
+
 
     @PutMapping("/{id}")
     public ResponseEntity<ItemDTO> updateItem(@PathVariable Integer id, @RequestBody ItemDTO itemDTO) {

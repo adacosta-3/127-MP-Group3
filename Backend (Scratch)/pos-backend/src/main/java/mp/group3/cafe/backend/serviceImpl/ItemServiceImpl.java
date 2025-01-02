@@ -1,13 +1,20 @@
 package mp.group3.cafe.backend.serviceImpl;
 
+import com.opencsv.CSVReader;
+import com.opencsv.exceptions.CsvException;
+import com.opencsv.CSVReader;
+import com.opencsv.exceptions.CsvException;
 import lombok.RequiredArgsConstructor;
 import mp.group3.cafe.backend.DTO.ItemDTO;
+import mp.group3.cafe.backend.DTO.ItemSizeDTO;
 import mp.group3.cafe.backend.DTO.ItemSizeDTO;
 import mp.group3.cafe.backend.entities.Categorization;
 import mp.group3.cafe.backend.entities.Customization;
 import mp.group3.cafe.backend.entities.Item;
 import mp.group3.cafe.backend.entities.ItemSize;
+import mp.group3.cafe.backend.entities.ItemSize;
 import mp.group3.cafe.backend.mapper.ItemMapper;
+import mp.group3.cafe.backend.mapper.ItemSizeMapper;
 import mp.group3.cafe.backend.mapper.ItemSizeMapper;
 import mp.group3.cafe.backend.repositories.CategorizationRepository;
 import mp.group3.cafe.backend.repositories.CustomizationRepository;
@@ -15,7 +22,15 @@ import mp.group3.cafe.backend.repositories.ItemRepository;
 import mp.group3.cafe.backend.repositories.ItemSizeRepository;
 import mp.group3.cafe.backend.service.ItemService;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -157,7 +172,6 @@ public class ItemServiceImpl implements ItemService {
         // Delete the item
         itemRepository.delete(item);
     }
-
     @Override
     public List<ItemSizeDTO> addSizesToItem(String itemCode, List<ItemSizeDTO> sizes) {
         Optional<Item> itemOpt = itemRepository.findByItemCode(itemCode);
@@ -197,4 +211,33 @@ public class ItemServiceImpl implements ItemService {
     }
 
 
+    @Override
+    public List<ItemDTO> parseCSVToItems(MultipartFile file) throws IOException, CsvException {
+        List<ItemDTO> items = new ArrayList<>();
+
+        try (CSVReader csvReader = new CSVReader(new InputStreamReader(file.getInputStream()))) {
+            String[] values;
+            csvReader.readNext(); // Skip header row
+            while ((values = csvReader.readNext()) != null) {
+                ItemDTO dto = new ItemDTO();
+                dto.setName(values[0]);
+                dto.setBasePrice(Double.parseDouble(values[1]));
+                dto.setCategoryId(Integer.parseInt(values[2])); // Assumes category ID is in the CSV
+                items.add(dto);
+            }
+        }
+
+        return items;
+    }
+
+    @Override
+    public List<ItemDTO> createItems(List<ItemDTO> itemDTOs) {
+        List<ItemDTO> createdItems = new ArrayList<>();
+
+        for (ItemDTO itemDTO : itemDTOs) {
+            createdItems.add(createItem(itemDTO)); // Reuse your existing createItem logic
+        }
+
+        return createdItems;
+    }
 }

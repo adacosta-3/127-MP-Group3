@@ -7,7 +7,13 @@ import mp.group3.cafe.backend.mapper.CategorizationMapper;
 import mp.group3.cafe.backend.repositories.CategorizationRepository;
 import mp.group3.cafe.backend.service.CategorizationService;
 import org.springframework.stereotype.Service;
+import com.opencsv.CSVReader;
+import com.opencsv.exceptions.CsvException;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -69,6 +75,24 @@ public class CategorizationServiceImpl implements CategorizationService {
     @Override
     public void deleteCategory(Integer categoryId) {
         categorizationRepository.deleteById(categoryId);
+    }
+
+    @Override
+    public List<CategorizationDTO> parseCSVToCategories(MultipartFile file) throws IOException, CsvException {
+        List<CategorizationDTO> categories = new ArrayList<>();
+
+        try (CSVReader csvReader = new CSVReader(new InputStreamReader(file.getInputStream()))) {
+            String[] values;
+            csvReader.readNext();
+            while ((values = csvReader.readNext()) != null) {
+                CategorizationDTO dto = new CategorizationDTO();
+                dto.setName(values[0]);
+                dto.setItemType(values[1]);
+                categories.add(dto);
+            }
+        }
+
+        return categories;
     }
 }
 

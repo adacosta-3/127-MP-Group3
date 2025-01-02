@@ -44,8 +44,8 @@ public class CategorizationController {
         }
     }
 
-    // Uploading a JSON file
-    @PostMapping("/upload")
+    // Uploading a JSON file - Initial file-handling
+    @PostMapping("/upload-json")
     public ResponseEntity<?> uploadCategories(@RequestParam("file") MultipartFile file) {
         try {
             System.out.println("Uploaded file: " + file.getOriginalFilename());
@@ -60,7 +60,7 @@ public class CategorizationController {
             );
 
             List<CategorizationDTO> createdCategories = categorizationService.createCategories(categorizationDTOs);
-            return ResponseEntity.status(HttpStatus.CREATED).body(createdCategories);
+            return new ResponseEntity<>(createdCategories, HttpStatus.CREATED);
         } catch (IOException e) {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid JSON file format.");
@@ -69,6 +69,28 @@ public class CategorizationController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("An unexpected error occurred.");
         }
     }
+
+    // Uploading a CSV file
+    @PostMapping("/upload-csv")
+    public ResponseEntity<?> uploadCategoriesFromCSV(@RequestParam("file") MultipartFile file) {
+        try {
+            if (!file.getContentType().equals("text/csv")) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("File must be a CSV.");
+            }
+
+            List<CategorizationDTO> categorizationDTOs = categorizationService.parseCSVToCategories(file);
+            List<CategorizationDTO> createdCategories = categorizationService.createCategories(categorizationDTOs);
+
+            return ResponseEntity.status(HttpStatus.CREATED).body(createdCategories);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid CSV file format.");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An unexpected error occurred.");
+        }
+    }
+
 
     @PutMapping("/{id}")
     public ResponseEntity<CategorizationDTO> updateCategory(@PathVariable Integer id, @RequestBody CategorizationDTO categorizationDTO) {
