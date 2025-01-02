@@ -1,11 +1,16 @@
 package mp.group3.cafe.backend.controllers;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import mp.group3.cafe.backend.DTO.CategorizationDTO;
 import mp.group3.cafe.backend.service.CategorizationService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,6 +41,32 @@ public class CategorizationController {
             return ResponseEntity.ok(createdCategory);
         } catch (RuntimeException e) {
             return ResponseEntity.badRequest().body(null);
+        }
+    }
+
+    // Uploading a JSON file
+    @PostMapping("/upload")
+    public ResponseEntity<?> uploadCategories(@RequestParam("file") MultipartFile file) {
+        try {
+            System.out.println("Uploaded file: " + file.getOriginalFilename());
+
+            String fileContent = new String(file.getBytes());
+            System.out.println("File content: " + fileContent);
+
+            ObjectMapper objectMapper = new ObjectMapper();
+            List<CategorizationDTO> categorizationDTOs = objectMapper.readValue(
+                    file.getInputStream(),
+                    new TypeReference<List<CategorizationDTO>>() {}
+            );
+
+            List<CategorizationDTO> createdCategories = categorizationService.createCategories(categorizationDTOs);
+            return ResponseEntity.status(HttpStatus.CREATED).body(createdCategories);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid JSON file format.");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("An unexpected error occurred.");
         }
     }
 

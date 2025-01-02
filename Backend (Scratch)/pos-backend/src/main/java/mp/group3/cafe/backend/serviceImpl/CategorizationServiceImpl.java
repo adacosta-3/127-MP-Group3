@@ -39,6 +39,18 @@ public class CategorizationServiceImpl implements CategorizationService {
         return CategorizationMapper.mapToCategorizationDTO(savedCategory);
     }
 
+    public List<CategorizationDTO> createCategories(List<CategorizationDTO> categorizationDTOs) {
+        List<Categorization> categorizations = categorizationDTOs.stream()
+                .map(CategorizationMapper::mapToCategorization)
+                .toList();
+
+        List<Categorization> savedCategories = categorizationRepository.saveAll(categorizations);
+
+        return savedCategories.stream()
+                .map(CategorizationMapper::mapToCategorizationDTO)
+                .toList();
+    }
+
     @Override
     public CategorizationDTO updateCategory(Integer categoryId, CategorizationDTO categorizationDTO) {
         Optional<Categorization> existingCategoryOpt = categorizationRepository.findById(categoryId);
