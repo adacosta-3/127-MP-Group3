@@ -1,6 +1,7 @@
 package mp.group3.cafe.backend.mapper;
 
 import mp.group3.cafe.backend.DTO.UserDTO;
+import mp.group3.cafe.backend.DTO.UserResponseDTO;
 import mp.group3.cafe.backend.entities.User;
 
 public class UserMapper {
@@ -20,5 +21,13 @@ public class UserMapper {
         user.setPassword(userDTO.getPassword());
         user.setRole(userDTO.getRole());
         return user;
+    }
+
+    public static UserResponseDTO toUserResponseDTO(UserDTO userDTO) {
+        UserResponseDTO responseDTO = new UserResponseDTO();
+        responseDTO.setUserId(userDTO.getUserId());
+        responseDTO.setUsername(userDTO.getUsername());
+        responseDTO.setRole(userDTO.getRole());
+        return responseDTO;
     }
 }
