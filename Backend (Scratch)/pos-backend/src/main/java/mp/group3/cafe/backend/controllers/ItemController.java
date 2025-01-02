@@ -72,5 +72,16 @@ public class ItemController {
         }
     }
 
+    @DeleteMapping("/code/{itemCode}")
+    public ResponseEntity<Void> deleteItemByItemCode(@PathVariable String itemCode) {
+        try {
+            itemService.deleteItemByItemCode(itemCode);
+            return ResponseEntity.noContent().build();
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+
 }
 
