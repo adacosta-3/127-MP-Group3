@@ -60,5 +60,17 @@ public class CustomizationController {
         customizationService.deleteCustomization(id);
         return ResponseEntity.noContent().build();
     }
+
+    @PutMapping("/item/{itemCode}")
+    public ResponseEntity<List<CustomizationDTO>> updateCustomizationsByItemCode(
+            @PathVariable String itemCode, @RequestBody List<CustomizationDTO> customizations) {
+        try {
+            List<CustomizationDTO> updatedCustomizations = customizationService.updateCustomizationsByItemCode(itemCode, customizations);
+            return ResponseEntity.ok(updatedCustomizations);
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
 }
 

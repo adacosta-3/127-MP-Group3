@@ -60,5 +60,17 @@ public class ItemController {
         List<ItemDTO> items = itemService.getItemsByCategoryId(categoryId);
         return ResponseEntity.ok(items);
     }
+
+
+    @PutMapping("/code/{itemCode}")
+    public ResponseEntity<ItemDTO> updateItemByItemCode(@PathVariable String itemCode, @RequestBody ItemDTO itemDTO) {
+        try {
+            ItemDTO updatedItem = itemService.updateItemByItemCode(itemCode, itemDTO);
+            return ResponseEntity.ok(updatedItem);
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
 }
 

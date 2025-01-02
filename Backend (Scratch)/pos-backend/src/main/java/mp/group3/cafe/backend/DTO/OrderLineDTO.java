@@ -1,7 +1,6 @@
 package mp.group3.cafe.backend.DTO;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,4 +15,5 @@ public class OrderLineDTO {
     private Integer quantity;
     private Double linePrice;
 }
+
 

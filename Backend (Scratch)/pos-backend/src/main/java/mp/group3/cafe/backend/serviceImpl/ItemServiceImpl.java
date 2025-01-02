@@ -3,9 +3,11 @@ package mp.group3.cafe.backend.serviceImpl;
 import lombok.RequiredArgsConstructor;
 import mp.group3.cafe.backend.DTO.ItemDTO;
 import mp.group3.cafe.backend.entities.Categorization;
+import mp.group3.cafe.backend.entities.Customization;
 import mp.group3.cafe.backend.entities.Item;
 import mp.group3.cafe.backend.mapper.ItemMapper;
 import mp.group3.cafe.backend.repositories.CategorizationRepository;
+import mp.group3.cafe.backend.repositories.CustomizationRepository;
 import mp.group3.cafe.backend.repositories.ItemRepository;
 import mp.group3.cafe.backend.service.ItemService;
 import org.springframework.stereotype.Service;
@@ -20,6 +22,7 @@ public class ItemServiceImpl implements ItemService {
 
     private final ItemRepository itemRepository;
     private final CategorizationRepository categorizationRepository;
+    private final CustomizationRepository customizationRepository;
 
     @Override
     public List<ItemDTO> getAllItems() {
@@ -28,6 +31,31 @@ public class ItemServiceImpl implements ItemService {
                 .map(ItemMapper::mapToItemDTO)
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public ItemDTO updateItemByItemCode(String itemCode, ItemDTO itemDTO) {
+        Optional<Item> existingItemOpt = itemRepository.findByItemCode(itemCode);
+        if (existingItemOpt.isEmpty()) {
+            throw new RuntimeException("Item not found with itemCode: " + itemCode);
+        }
+
+        Optional<Categorization> categoryOpt = categorizationRepository.findById(itemDTO.getCategoryId());
+        if (categoryOpt.isEmpty()) {
+            throw new RuntimeException("Category not found with ID: " + itemDTO.getCategoryId());
+        }
+
+        Item existingItem = existingItemOpt.get();
+        Categorization category = categoryOpt.get();
+
+        // Update item details
+        existingItem.setName(itemDTO.getName());
+        existingItem.setBasePrice(itemDTO.getBasePrice());
+        existingItem.setCategory(category);
+
+        Item updatedItem = itemRepository.save(existingItem);
+        return ItemMapper.mapToItemDTO(updatedItem);
+    }
+
 
     @Override
     public Optional<ItemDTO> getItemById(Integer itemId) {
@@ -83,4 +111,23 @@ public class ItemServiceImpl implements ItemService {
                 .map(ItemMapper::mapToItemDTO)
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public void deleteItemByItemCode(String itemCode) {
+        // Find the item by itemCode
+        Optional<Item> itemOpt = itemRepository.findByItemCode(itemCode);
+        if (itemOpt.isEmpty()) {
+            throw new RuntimeException("Item not found with itemCode: " + itemCode);
+        }
+
+        Item item = itemOpt.get();
+
+        // Delete all customizations associated with the item
+        List<Customization> customizations = customizationRepository.findByItem_ItemId(item.getItemId());
+        customizationRepository.deleteAll(customizations);
+
+        // Delete the item
+        itemRepository.delete(item);
+    }
+
 }

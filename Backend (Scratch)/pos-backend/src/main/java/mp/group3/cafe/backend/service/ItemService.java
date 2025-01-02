@@ -8,6 +8,8 @@ import java.util.Optional;
 public interface ItemService {
     List<ItemDTO> getAllItems();
 
+    ItemDTO updateItemByItemCode(String itemCode, ItemDTO itemDTO);
+
     Optional<ItemDTO> getItemById(Integer itemId);
 
     ItemDTO createItem(ItemDTO itemDTO);
@@ -17,5 +19,7 @@ public interface ItemService {
     void deleteItem(Integer itemId);
 
     List<ItemDTO> getItemsByCategoryId(Integer categoryId);
+
+    void deleteItemByItemCode(String itemCode);
 }
 
