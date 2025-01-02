@@ -1,6 +1,7 @@
 package mp.group3.cafe.backend.service;
 
 import mp.group3.cafe.backend.DTO.ItemDTO;
+import mp.group3.cafe.backend.DTO.ItemSizeDTO;
 
 import java.util.List;
 import java.util.Optional;
@@ -21,5 +22,10 @@ public interface ItemService {
     List<ItemDTO> getItemsByCategoryId(Integer categoryId);
 
     void deleteItemByItemCode(String itemCode);
+
+    List<ItemSizeDTO> addSizesToItem(String itemCode, List<ItemSizeDTO> sizes);
+    List<ItemSizeDTO> getSizesForItem(String itemCode);
+    void deleteSize(Integer sizeId);
+
 }
 

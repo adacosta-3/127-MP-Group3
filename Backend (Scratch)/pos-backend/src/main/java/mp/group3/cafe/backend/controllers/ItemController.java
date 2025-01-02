@@ -2,6 +2,7 @@ package mp.group3.cafe.backend.controllers;
 
 import lombok.RequiredArgsConstructor;
 import mp.group3.cafe.backend.DTO.ItemDTO;
+import mp.group3.cafe.backend.DTO.ItemSizeDTO;
 import mp.group3.cafe.backend.service.ItemService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -81,6 +82,37 @@ public class ItemController {
             return ResponseEntity.notFound().build();
         }
     }
+
+    @PutMapping("/sizes/{itemCode}")
+    public ResponseEntity<List<ItemSizeDTO>> addSizesToItem(@PathVariable String itemCode, @RequestBody List<ItemSizeDTO> sizes) {
+        System.out.println("Received PUT request for itemCode: " + itemCode);
+        System.out.println("Sizes payload: " + sizes);
+        try {
+            List<ItemSizeDTO> updatedSizes = itemService.addSizesToItem(itemCode, sizes);
+            return ResponseEntity.ok(updatedSizes);
+        } catch (RuntimeException e) {
+            e.printStackTrace(); // Print the stack trace for debugging
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+
+    @GetMapping("/sizes/{itemCode}")
+    public ResponseEntity<List<ItemSizeDTO>> getSizesForItem(@PathVariable String itemCode) {
+        try {
+            List<ItemSizeDTO> sizes = itemService.getSizesForItem(itemCode);
+            return ResponseEntity.ok(sizes);
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @DeleteMapping("/sizes/{sizeId}")
+    public ResponseEntity<Void> deleteSize(@PathVariable Integer sizeId) {
+        itemService.deleteSize(sizeId);
+        return ResponseEntity.noContent().build();
+    }
+
 
 
 }

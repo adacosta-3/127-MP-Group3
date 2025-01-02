@@ -2,13 +2,17 @@ package mp.group3.cafe.backend.serviceImpl;
 
 import lombok.RequiredArgsConstructor;
 import mp.group3.cafe.backend.DTO.ItemDTO;
+import mp.group3.cafe.backend.DTO.ItemSizeDTO;
 import mp.group3.cafe.backend.entities.Categorization;
 import mp.group3.cafe.backend.entities.Customization;
 import mp.group3.cafe.backend.entities.Item;
+import mp.group3.cafe.backend.entities.ItemSize;
 import mp.group3.cafe.backend.mapper.ItemMapper;
+import mp.group3.cafe.backend.mapper.ItemSizeMapper;
 import mp.group3.cafe.backend.repositories.CategorizationRepository;
 import mp.group3.cafe.backend.repositories.CustomizationRepository;
 import mp.group3.cafe.backend.repositories.ItemRepository;
+import mp.group3.cafe.backend.repositories.ItemSizeRepository;
 import mp.group3.cafe.backend.service.ItemService;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +25,7 @@ import java.util.stream.Collectors;
 public class ItemServiceImpl implements ItemService {
 
     private final ItemRepository itemRepository;
+    private final ItemSizeRepository itemSizeRepository;
     private final CategorizationRepository categorizationRepository;
     private final CustomizationRepository customizationRepository;
 
@@ -152,5 +157,44 @@ public class ItemServiceImpl implements ItemService {
         // Delete the item
         itemRepository.delete(item);
     }
+
+    @Override
+    public List<ItemSizeDTO> addSizesToItem(String itemCode, List<ItemSizeDTO> sizes) {
+        Optional<Item> itemOpt = itemRepository.findByItemCode(itemCode);
+        if (itemOpt.isEmpty()) {
+            throw new RuntimeException("Item not found with itemCode: " + itemCode);
+        }
+
+        Item item = itemOpt.get();
+
+        List<ItemSize> itemSizes = sizes.stream()
+                .map(sizeDTO -> ItemSizeMapper.mapToItemSize(sizeDTO, item))
+                .collect(Collectors.toList());
+
+        itemSizeRepository.saveAll(itemSizes);
+
+        return itemSizes.stream()
+                .map(ItemSizeMapper::mapToItemSizeDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ItemSizeDTO> getSizesForItem(String itemCode) {
+        Optional<Item> itemOpt = itemRepository.findByItemCode(itemCode);
+        if (itemOpt.isEmpty()) {
+            throw new RuntimeException("Item not found with itemCode: " + itemCode);
+        }
+
+        return itemSizeRepository.findByItem_ItemId(itemOpt.get().getItemId())
+                .stream()
+                .map(ItemSizeMapper::mapToItemSizeDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public void deleteSize(Integer sizeId) {
+        itemSizeRepository.deleteById(sizeId);
+    }
+
 
 }
