@@ -36,17 +36,17 @@ export class RouteGuardService {
       }
 
 
-      if(tokenPayload.role == 'user' || tokenPayload.role == 'admin'){
+      if(tokenPayload.role == 'user' || tokenPayload.role == 'admin' || tokenPayload.role == 'manager'){
         if(this.auth.isAuthenticated() && tokenPayload.role == expectedRole){
           return true;
         }
-        
+
         this.snackbarService.openSnackBar(GlobalConstants.unauthroized , GlobalConstants.error);
         this.router.navigate(['/cafe/dashboard']);
         return false;
       }
       else{
-        this.router.navigate(['/']);  
+        this.router.navigate(['/']);
         localStorage.clear();
         return false;
       }

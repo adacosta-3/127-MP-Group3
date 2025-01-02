@@ -11,39 +11,41 @@ export class UserService {
 
   constructor(private httpClient: HttpClient) { }
 
-  signup(data: { name: any; email: any; contactNumber: any; password: any; }) {
-    return this.httpClient.post(this.url + "/user/signup", data, {
-      headers: new HttpHeaders().set('Content-type', 'application/json')
-    })
+  signup(data: { name: string; password: string; role: string; status: string }) {
+    return this.httpClient.post(this.url + "/user/createUser", data, {
+      headers: new HttpHeaders().set('Content-Type', 'application/json')
+    });
   }
 
   forgotPassword(data: any) {
     return this.httpClient.post(this.url + "/user/forgotPassword", data, {
       headers: new HttpHeaders().set('Content-Type', 'application/json')
-    })
+    });
   }
+
   changePassword(data: any) {
     return this.httpClient.post(this.url + "/user/changePassword", data, {
       headers: new HttpHeaders().set('Content-Type', 'application/json')
-    })
+    });
   }
 
   login(data: any) {
     return this.httpClient.post(this.url + "/user/login", data, {
       headers: new HttpHeaders().set('Content-Type', 'application/json')
-    })
+    });
   }
+
   checkToken() {
     return this.httpClient.get(this.url + "/user/checkToken");
   }
 
-  getUsers(){
+  getUsers() {
     return this.httpClient.get(this.url + "/user/get");
   }
 
-  update(data:any){
-    return this.httpClient.post(this.url + "/user/update" , data , {
-      headers:new HttpHeaders().set('Content-Type' , 'application/json')
-    })
+  update(data: any) {
+    return this.httpClient.post(this.url + "/user/update", data, {
+      headers: new HttpHeaders().set('Content-Type', 'application/json')
+    });
   }
 }

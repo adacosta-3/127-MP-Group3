@@ -5,7 +5,11 @@ import { Route, Router } from '@angular/router';
   providedIn: 'root'
 })
 export class AuthService {
-
+// Example function to retrieve the current user's role
+  getUserRole(): string {
+    const user = JSON.parse(localStorage.getItem('currentUser') || '{}'); // Replace with your logic
+    return user.role || '';
+  }
 
   constructor(private router:Router) { }
 
@@ -19,5 +23,5 @@ export class AuthService {
       return true;
     }
   }
-  
+
 }

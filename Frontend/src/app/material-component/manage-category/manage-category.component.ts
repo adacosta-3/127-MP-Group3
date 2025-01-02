@@ -14,8 +14,7 @@ import { CategoryComponent } from '../dialog/view-bill-products/category/categor
   styleUrls: ['./manage-category.component.scss']
 })
 export class ManageCategoryComponent implements OnInit {
-
-  displayedColumns: string[] = ['name' , 'edit'];
+  displayedColumns: string[] = ['name', 'category', 'edit'];
   dataSource:any;
   responseMessage:any;
 
@@ -33,7 +32,7 @@ export class ManageCategoryComponent implements OnInit {
     },(error:any)=>{
       console.log(error.error?.message);
       if(error.error?.message){
-        this.responseMessage = error.error?.message; 
+        this.responseMessage = error.error?.message;
       }else{
         this.responseMessage = GlobalConstants.genericError;
       }
@@ -55,7 +54,7 @@ export class ManageCategoryComponent implements OnInit {
     const dialogRef = this.dialog.open(CategoryComponent , dialogConfog);
     this.router.events.subscribe(()=>{
       dialogRef.close();
-    }); 
+    });
     const sub = dialogRef.componentInstance.onAddCategory.subscribe((response)=>{
       this.tableData();
     })
@@ -70,7 +69,7 @@ export class ManageCategoryComponent implements OnInit {
     const dialogRef = this.dialog.open(CategoryComponent , dialogConfog);
     this.router.events.subscribe(()=>{
       dialogRef.close();
-    }); 
+    });
     const sub = dialogRef.componentInstance.onEditCatefory.subscribe((response)=>{
       this.tableData();
     })

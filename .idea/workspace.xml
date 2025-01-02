@@ -5,15 +5,82 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="214aebc8-7f3a-42b5-8101-315558b2cb09" name="Changes" comment="Signup API of User &amp; Structure">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/com.inn.cafe/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/com.inn.cafe/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/com.inn.cafe/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/com.inn.cafe/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/com.inn.cafe/src/main/java/com/inn/cafe/POJO/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/com.inn.cafe/src/main/java/com/inn/cafe/POJO/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/com.inn.cafe/src/main/java/com/inn/cafe/constents/CafeConstants.java" beforeDir="false" afterPath="$PROJECT_DIR$/com.inn.cafe/src/main/java/com/inn/cafe/constents/CafeConstants.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/com.inn.cafe/src/main/java/com/inn/cafe/rest/UserRest.java" beforeDir="false" afterPath="$PROJECT_DIR$/com.inn.cafe/src/main/java/com/inn/cafe/rest/UserRest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/com.inn.cafe/src/main/java/com/inn/cafe/restImpl/UserRestImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/com.inn.cafe/src/main/java/com/inn/cafe/restImpl/UserRestImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/com.inn.cafe/src/main/java/com/inn/cafe/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/com.inn.cafe/src/main/java/com/inn/cafe/service/UserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/com.inn.cafe/src/main/java/com/inn/cafe/serviceImpl/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/com.inn.cafe/src/main/java/com/inn/cafe/serviceImpl/UserServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/app/app-routing.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/app/app-routing.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/app/dashboard/dashboard.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/app/dashboard/dashboard.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/app/dashboard/dashboard.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/app/dashboard/dashboard.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/app/material-component/manage-category/manage-category.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/app/material-component/manage-category/manage-category.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/app/material-component/manage-category/manage-category.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/app/material-component/manage-category/manage-category.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/app/material-component/material.routing.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/app/material-component/material.routing.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/app/services/auth.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/app/services/auth.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/app/services/route-guard.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/app/services/route-guard.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/app/shared/menu-items.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/app/shared/menu-items.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/app/signup/signup.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/app/signup/signup.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/app/signup/signup.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/app/signup/signup.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/app/user.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/app/user.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.inn.cafe/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/com.inn.cafe/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.inn.cafe/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.inn.cafe/.idea/compiler.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.inn.cafe/.idea/encodings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.inn.cafe/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.inn.cafe/.idea/jarRepositories.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.inn.cafe/.idea/jpa-buddy.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.inn.cafe/.idea/libraries/io_jsonwebtoken_jjwt.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.inn.cafe/.idea/libraries/mysql_connector_java_5_1_48.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.inn.cafe/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.inn.cafe/.idea/uiDesigner.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.inn.cafe/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.inn.cafe/CafeStoredFiles/BILL1673205447509.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.inn.cafe/CafeStoredFiles/BILL1673284227877.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.inn.cafe/CafeStoredFiles/BILL1674616148878.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.inn.cafe/CafeStoredFiles/BILL1674616766624.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.inn.cafe/CafeStoredFiles/BILL1674754529020.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.inn.cafe/CafeStoredFiles/BILL1674784110598.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.inn.cafe/HELP.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.inn.cafe/jars/mysql-connector-java-5.1.48.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.inn.cafe/mvnw" beforeDir="false" afterPath="$PROJECT_DIR$/com.inn.cafe/mvnw" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.inn.cafe/mvnw.cmd" beforeDir="false" afterPath="$PROJECT_DIR$/com.inn.cafe/mvnw.cmd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.inn.cafe/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/com.inn.cafe/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.inn.cafe/src/main/java/com/inn/cafe/Application.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.inn.cafe/src/main/java/com/inn/cafe/JWT/CustomerUserDetailsService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.inn.cafe/src/main/java/com/inn/cafe/JWT/JwtFilter.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.inn.cafe/src/main/java/com/inn/cafe/JWT/SecurityConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.inn.cafe/src/main/java/com/inn/cafe/JWT/jwtUtil.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.inn.cafe/src/main/java/com/inn/cafe/POJO/Bill.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.inn.cafe/src/main/java/com/inn/cafe/POJO/Category.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.inn.cafe/src/main/java/com/inn/cafe/POJO/Product.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.inn.cafe/src/main/java/com/inn/cafe/POJO/User.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.inn.cafe/src/main/java/com/inn/cafe/constents/CafeConstants.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.inn.cafe/src/main/java/com/inn/cafe/dao/BillDao.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.inn.cafe/src/main/java/com/inn/cafe/dao/CategoryDao.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.inn.cafe/src/main/java/com/inn/cafe/dao/UserDao.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.inn.cafe/src/main/java/com/inn/cafe/dao/productDao.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.inn.cafe/src/main/java/com/inn/cafe/rest/BillRest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.inn.cafe/src/main/java/com/inn/cafe/rest/CategoryRest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.inn.cafe/src/main/java/com/inn/cafe/rest/DashboardRest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.inn.cafe/src/main/java/com/inn/cafe/rest/UserRest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.inn.cafe/src/main/java/com/inn/cafe/rest/productRest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.inn.cafe/src/main/java/com/inn/cafe/restImpl/BillRestImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.inn.cafe/src/main/java/com/inn/cafe/restImpl/CategoryRestImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.inn.cafe/src/main/java/com/inn/cafe/restImpl/DashboardRestImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.inn.cafe/src/main/java/com/inn/cafe/restImpl/UserRestImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.inn.cafe/src/main/java/com/inn/cafe/restImpl/productRestImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.inn.cafe/src/main/java/com/inn/cafe/service/BillService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.inn.cafe/src/main/java/com/inn/cafe/service/CategoryService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.inn.cafe/src/main/java/com/inn/cafe/service/DashboardService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.inn.cafe/src/main/java/com/inn/cafe/service/UserService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.inn.cafe/src/main/java/com/inn/cafe/service/productService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.inn.cafe/src/main/java/com/inn/cafe/serviceImpl/BillServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.inn.cafe/src/main/java/com/inn/cafe/serviceImpl/CategoryServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.inn.cafe/src/main/java/com/inn/cafe/serviceImpl/DashboardServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.inn.cafe/src/main/java/com/inn/cafe/serviceImpl/UserServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.inn.cafe/src/main/java/com/inn/cafe/serviceImpl/productServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.inn.cafe/src/main/java/com/inn/cafe/utils/CafeUtils.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.inn.cafe/src/main/java/com/inn/cafe/utils/EmailUtil.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.inn.cafe/src/main/java/com/inn/cafe/wrapper/ProductWrapper.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.inn.cafe/src/main/java/com/inn/cafe/wrapper/UserWrapper.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.inn.cafe/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/com.inn.cafe/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,19 +93,43 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 2
+}</component>
   <component name="ProjectId" id="2IplwJBWMaf05aFkWHu6XnU2D6j" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.Application.executor": "Run",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Spring Boot.Application.executor": "Run",
+    "Spring Boot.PosBackendApplication.executor": "Run",
+    "git-widget-placeholder": "main",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/John/Desktop/MP1",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.0",
+    "ts.external.directory.path": "C:\\Users\\John\\Desktop\\MP1\\Frontend\\node_modules\\typescript\\lib",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
-  <component name="RunManager">
+}]]></component>
+  <component name="RunManager" selected="Spring Boot.PosBackendApplication">
     <configuration default="true" type="JetRunConfigurationType">
       <module name="Cafe-Management-System" />
       <method v="2">
@@ -52,6 +143,28 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="Application" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="com.inn.cafe" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.inn.cafe.Application" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="PosBackendApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="pos-backend" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="mp.group3.cafe.backend.PosBackendApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9f38398b9061-39b83d9b5494-intellij.indexing.shared.core-IU-241.17011.79" />
+        <option value="bundled-js-predefined-1d06a55b98c1-0b3e54e931b4-JavaScript-IU-241.17011.79" />
+      </set>
+    </attachedChunks>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -61,6 +174,15 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1670886642980</updated>
+      <workItem from="1735818801994" duration="498000" />
+      <workItem from="1735819311363" duration="134000" />
+      <workItem from="1735819461273" duration="49000" />
+      <workItem from="1735819556236" duration="77000" />
+      <workItem from="1735819712217" duration="4276000" />
+      <workItem from="1735828046465" duration="1245000" />
+      <workItem from="1735829945869" duration="3922000" />
+      <workItem from="1735834417212" duration="678000" />
+      <workItem from="1735835152907" duration="4784000" />
     </task>
     <task id="LOCAL-00001" summary="Signup API of User &amp; Structure">
       <created>1670886744440</created>
@@ -78,6 +200,9 @@
     </task>
     <option name="localTasksCounter" value="3" />
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">

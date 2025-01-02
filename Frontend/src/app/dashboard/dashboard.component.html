@@ -24,16 +24,19 @@
             </div>
         </div>
 
-        <div class="column">
-            <div class="card">
-
-                <div class="container">
-                    <h2 class="title">Our Bills Number</h2>
-                    <h1 class="title">{{data?.bill}}</h1>
-                    <p><button class="button" [routerLink]="['/cafe/bill']">View Bill</button></p>
-                </div>
-            </div>
+      <div class="column" *ngIf="isUserRole">
+        <div class="card">
+          <div class="container">
+            <h2 class="title">Our Bills Number</h2>
+            <h1 class="title">{{data?.bill}}</h1>
+            <!-- Button is shown only if the user has the 'user' role -->
+            <p>
+              <button class="button" [routerLink]="['/cafe/bill']">View Bill</button>
+            </p>
+          </div>
         </div>
+      </div>
+
 
 
     </div>

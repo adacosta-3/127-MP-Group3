@@ -1,73 +1,57 @@
-import { Component, OnInit } from '@angular/core';
-import { EmailValidator, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
-import { Router } from '@angular/router';
-import { GlobalConstants } from '../shared/global-constants';
-import { SnackbarService } from '../snackbar.service';
-import { UserService } from '../user.service';
-//import { NgxUiLoaderService } from 'ngx-ui-loader';
+import { Component } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.scss']
 })
-export class SignupComponent implements OnInit {
-  password = true;
-  confirmPassword = true;
-  signupForm:any = FormGroup;
-  responseMessage:any;
-  constructor(private formBuilder:FormBuilder,
-      private router:Router,
-      private userService:UserService,
-      private snackbarService:SnackbarService,
-      public dialogRef:MatDialogRef<SignupComponent>,
-      //private ngxService:NgxUiLoaderService,
-    ) {}
+export class SignupComponent {
+  signupForm: FormGroup;
 
-  ngOnInit(): void {
-    this.signupForm = this.formBuilder.group({
-      name:[null , [Validators.required]],
-      email:[null , Validators.required],
-      contactNumber:[null , [Validators.required]],
-      password:[null , Validators.required],
-      confirmPassword:[null , [Validators.required]]
-    })
+  // For toggling password visibility
+  password: boolean = true;
+  confirmPassword: boolean = true;
+
+  constructor(private fb: FormBuilder) {
+    // Initialize the form group
+    this.signupForm = this.fb.group({
+      username: ['', Validators.required],
+      password: ['', Validators.required],
+      confirmPassword: ['', Validators.required]
+    });
   }
-  validateSubmit(){
-    if(this.signupForm.controls['password'].value != this.signupForm.controls['confirmPassword'].value){
-      return true;
-    }else{
-      return false;
+
+  // Function to validate if the passwords match
+  validateSubmit(): boolean {
+    const password = this.signupForm.get('password')?.value;
+    const confirmPassword = this.signupForm.get('confirmPassword')?.value;
+    return password !== confirmPassword;
+  }
+
+  // Function to handle form submission
+  handleSubmit(): void {
+    if (this.signupForm.valid) {
+      // Simulate submitting additional data
+      const formData = {
+        ...this.signupForm.value,
+        role: 'user',       // Adding role as 'user'
+        status: 'true'        // Adding status as true
+      };
+
+      console.log('Form Submitted:', formData);
+
+      // Example: Display success message
+      alert('Sign-up successful!');
+
+      // Example: Clear the form after submission
+      this.signupForm.reset();
+
+      // Example: Navigate to another page (requires Angular Router)
+      // this.router.navigate(['/welcome']);
+    } else {
+      console.error('Form is invalid');
     }
   }
 
-  handleSubmit(){
-    //this.ngxService.start();
-    var formDate = this.signupForm.value;
-    var data = {
-      name: formDate.name,
-      email: formDate.email,
-      contactNumber: formDate.contactNumber,
-      password: formDate.password,
-    }
-
-    this.userService.signup(data).subscribe((response:any)=>{
-      //this.ngxService.stop();
-      this.dialogRef.close();
-      this.responseMessage = response?.message;
-      this.snackbarService.openSnackBar(this.responseMessage,"");
-      alert("Successfully Login");
-      this.router.navigate(['/cafe/login']);
-    },(error: { error: { message: any; }; })=>{
-      //this.ngxService.stop();
-      if(error.error?.message){
-        this.responseMessage = error.error?.message;
-      }else{
-        this.responseMessage = GlobalConstants.genericError;
-      }
-      alert(this.responseMessage +" " +GlobalConstants.error);
-      this.snackbarService.openSnackBar(this.responseMessage , GlobalConstants.error);
-    })
-  }
 }
