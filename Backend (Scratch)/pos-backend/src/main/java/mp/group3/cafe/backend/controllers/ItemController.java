@@ -137,6 +137,20 @@ public class ItemController {
         return ResponseEntity.noContent().build();
     }
 
+    @PutMapping("/sizes/modify/{itemCode}")
+    public ResponseEntity<List<ItemSizeDTO>> modifySizesForItem(
+            @PathVariable String itemCode,
+            @RequestBody List<ItemSizeDTO> sizes) {
+        try {
+            List<ItemSizeDTO> updatedSizes = itemService.modifySizesForItem(itemCode, sizes);
+            return ResponseEntity.ok(updatedSizes);
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+
 
 
 }

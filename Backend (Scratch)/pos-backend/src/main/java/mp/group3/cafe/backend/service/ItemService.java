@@ -34,5 +34,8 @@ public interface ItemService {
     List<ItemDTO> parseCSVToItems(MultipartFile file) throws IOException, CsvException;
 
     List<ItemDTO> createItems(List<ItemDTO> itemDTOs);
+
+    List<ItemSizeDTO> modifySizesForItem(String itemCode, List<ItemSizeDTO> sizes);
+
 }
 

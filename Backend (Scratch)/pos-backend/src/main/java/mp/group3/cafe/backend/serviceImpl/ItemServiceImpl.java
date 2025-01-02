@@ -2,19 +2,14 @@ package mp.group3.cafe.backend.serviceImpl;
 
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvException;
-import com.opencsv.CSVReader;
-import com.opencsv.exceptions.CsvException;
 import lombok.RequiredArgsConstructor;
 import mp.group3.cafe.backend.DTO.ItemDTO;
-import mp.group3.cafe.backend.DTO.ItemSizeDTO;
 import mp.group3.cafe.backend.DTO.ItemSizeDTO;
 import mp.group3.cafe.backend.entities.Categorization;
 import mp.group3.cafe.backend.entities.Customization;
 import mp.group3.cafe.backend.entities.Item;
 import mp.group3.cafe.backend.entities.ItemSize;
-import mp.group3.cafe.backend.entities.ItemSize;
 import mp.group3.cafe.backend.mapper.ItemMapper;
-import mp.group3.cafe.backend.mapper.ItemSizeMapper;
 import mp.group3.cafe.backend.mapper.ItemSizeMapper;
 import mp.group3.cafe.backend.repositories.CategorizationRepository;
 import mp.group3.cafe.backend.repositories.CustomizationRepository;
@@ -23,15 +18,12 @@ import mp.group3.cafe.backend.repositories.ItemSizeRepository;
 import mp.group3.cafe.backend.service.ItemService;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -240,4 +232,47 @@ public class ItemServiceImpl implements ItemService {
 
         return createdItems;
     }
+
+    @Override
+    public List<ItemSizeDTO> modifySizesForItem(String itemCode, List<ItemSizeDTO> sizes) {
+        // Find the item by its code
+        Optional<Item> itemOpt = itemRepository.findByItemCode(itemCode);
+        if (itemOpt.isEmpty()) {
+            throw new RuntimeException("Item not found with itemCode: " + itemCode);
+        }
+
+        Item item = itemOpt.get();
+
+        // Retrieve existing sizes for the item
+        List<ItemSize> existingSizes = itemSizeRepository.findByItem_ItemId(item.getItemId());
+
+        // Map existing sizes to their IDs for quick lookup
+        Map<Integer, ItemSize> existingSizeMap = existingSizes.stream()
+                .collect(Collectors.toMap(ItemSize::getSizeId, size -> size));
+
+        // Prepare the updated list of sizes
+        List<ItemSize> updatedSizes = new ArrayList<>();
+        for (ItemSizeDTO sizeDTO : sizes) {
+            if (sizeDTO.getSizeId() != null && existingSizeMap.containsKey(sizeDTO.getSizeId())) {
+                // Modify existing size
+                ItemSize existingSize = existingSizeMap.get(sizeDTO.getSizeId());
+                existingSize.setSizeName(sizeDTO.getSizeName());
+                existingSize.setPriceAdjustment(sizeDTO.getPriceAdjustment());
+                updatedSizes.add(existingSize);
+            } else {
+                // Add new size
+                ItemSize newSize = ItemSizeMapper.mapToItemSize(sizeDTO, item);
+                updatedSizes.add(newSize);
+            }
+        }
+
+        // Save all updated sizes
+        itemSizeRepository.saveAll(updatedSizes);
+
+        // Return updated sizes as DTOs
+        return updatedSizes.stream()
+                .map(ItemSizeMapper::mapToItemSizeDTO)
+                .collect(Collectors.toList());
+    }
+
 }

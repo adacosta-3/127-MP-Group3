@@ -6,6 +6,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -25,4 +28,7 @@ public class Customization {
     @ManyToOne
     @JoinColumn(name = "item_id", nullable = false)
     private Item item;
+
+    @OneToMany(mappedBy = "customization", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<CustomizationOptions> options = new ArrayList<>();
 }
