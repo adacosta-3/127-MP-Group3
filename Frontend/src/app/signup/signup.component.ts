@@ -1,73 +1,49 @@
-import { Component, OnInit } from '@angular/core';
-import { EmailValidator, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
-import { Router } from '@angular/router';
-import { GlobalConstants } from '../shared/global-constants';
-import { SnackbarService } from '../snackbar.service';
-import { UserService } from '../user.service';
-//import { NgxUiLoaderService } from 'ngx-ui-loader';
+import { Component } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
-  styleUrls: ['./signup.component.scss']
+  styleUrls: ['./signup.component.scss'],
 })
-export class SignupComponent implements OnInit {
-  password = true;
-  confirmPassword = true;
-  signupForm:any = FormGroup;
-  responseMessage:any;
-  constructor(private formBuilder:FormBuilder,
-      private router:Router,
-      private userService:UserService,
-      private snackbarService:SnackbarService,
-      public dialogRef:MatDialogRef<SignupComponent>,
-      //private ngxService:NgxUiLoaderService,
-    ) {}
+export class SignupComponent {
+  signupForm: FormGroup;
 
-  ngOnInit(): void {
-    this.signupForm = this.formBuilder.group({
-      name:[null , [Validators.required]],
-      email:[null , Validators.required],
-      contactNumber:[null , [Validators.required]],
-      password:[null , Validators.required],
-      confirmPassword:[null , [Validators.required]]
-    })
+  constructor(private fb: FormBuilder) {
+    this.signupForm = this.fb.group({
+      fullName: ['', [Validators.required]],
+      dateOfBirth: ['', [Validators.required]],
+      email: ['', []],
+      phoneNumber: ['', []],
+    }, { validators: this.contactMethodValidator });
   }
-  validateSubmit(){
-    if(this.signupForm.controls['password'].value != this.signupForm.controls['confirmPassword'].value){
-      return true;
-    }else{
-      return false;
+
+  // Custom validator to ensure at least one contact method is provided
+  contactMethodValidator(formGroup: FormGroup) {
+    const email = formGroup.get('email')?.value;
+    const phoneNumber = formGroup.get('phoneNumber')?.value;
+    return email || phoneNumber ? null : { contactMethod: true };
+  }
+
+  onSubmit() {
+    if (this.signupForm.valid) {
+      const membershipId = this.generateMembershipId();
+      const newMember = {
+        ...this.signupForm.value,
+        membershipId,
+      };
+      console.log('Member signed up:', newMember);
+      alert(`Sign-up successful! Your Membership ID is: ${membershipId}`);
+      this.signupForm.reset();
+    } else {
+      console.log('Form is invalid');
     }
   }
 
-  handleSubmit(){
-    //this.ngxService.start();
-    var formDate = this.signupForm.value;
-    var data = {
-      name: formDate.name,
-      email: formDate.email,
-      contactNumber: formDate.contactNumber,
-      password: formDate.password,
-    }
-
-    this.userService.signup(data).subscribe((response:any)=>{
-      //this.ngxService.stop();
-      this.dialogRef.close();
-      this.responseMessage = response?.message;
-      this.snackbarService.openSnackBar(this.responseMessage,"");
-      alert("Successfully Login");
-      this.router.navigate(['/cafe/login']);
-    },(error: { error: { message: any; }; })=>{
-      //this.ngxService.stop();
-      if(error.error?.message){
-        this.responseMessage = error.error?.message;
-      }else{
-        this.responseMessage = GlobalConstants.genericError;
-      }
-      alert(this.responseMessage +" " +GlobalConstants.error);
-      this.snackbarService.openSnackBar(this.responseMessage , GlobalConstants.error);
-    })
+  private generateMembershipId(): string {
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    return Array.from({ length: 5 }, () =>
+      chars.charAt(Math.floor(Math.random() * chars.length))
+    ).join('');
   }
 }

@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { ForgotPasswordComponent } from '../forgot-password/forgot-password.component';
 import { LoginComponent } from '../login/login.component';
 import { SignupComponent } from '../signup/signup.component';
+import { OrderComponent } from '../order/order.component';
 import { UserService } from '../user.service';
 @Component({
   selector: 'app-home',
@@ -23,6 +24,7 @@ export class HomeComponent implements OnInit {
     )
   }
 
+  // Connect signup component to home
   handleSignupAction(){
     const dialogConfig = new MatDialogConfig();
     dialogConfig.width = "550px";
@@ -39,6 +41,12 @@ export class HomeComponent implements OnInit {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.width = "550px";
     this.dialog.open(LoginComponent , dialogConfig)
+  }
+
+  handleOrderAction(){
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.width = "550px";
+    this.dialog.open(OrderComponent , dialogConfig)
   }
 
 }

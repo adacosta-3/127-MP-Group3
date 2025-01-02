@@ -1,0 +1,27 @@
+<!-- order.component.html -->
+<div class="container">
+    <mat-toolbar color="primary">Place Order</mat-toolbar>
+    <div class="button-container">
+      <button mat-raised-button color="primary" (click)="isGuest = true" style="margin-right: 10px;">Order as Guest</button>
+      <button mat-raised-button color="accent" (click)="isGuest = false">Order as Member</button>
+    </div>
+  
+    <form *ngIf="isGuest" [formGroup]="guestForm" (ngSubmit)="onGuestSubmit()" class="form-container">
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>First Name</mat-label>
+        <input matInput formControlName="firstName" />
+        <mat-error *ngIf="guestForm.get('firstName')?.invalid">First Name is required.</mat-error>
+      </mat-form-field>
+      <button mat-raised-button color="primary" type="submit">Proceed</button>
+    </form>
+  
+    <form *ngIf="!isGuest" [formGroup]="memberForm" (ngSubmit)="onMemberSubmit()" class="form-container">
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Membership ID</mat-label>
+        <input matInput formControlName="membershipId" maxlength="5" />
+        <mat-error *ngIf="memberForm.get('membershipId')?.invalid">Valid Membership ID is required.</mat-error>
+      </mat-form-field>
+      <button mat-raised-button color="accent" type="submit">Place Order</button>
+    </form>
+  </div>
+  

@@ -21,6 +21,8 @@ import { SignupComponent } from './signup/signup.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { LoginComponent } from './login/login.component';
 import { TokenInterceptorInterceptor } from './services/token-interceptor.interceptor';
+import { OrderComponent } from './order/order.component';
+import { ShopComponent } from './shop/shop.component';
 //import { NgxUiLoaderConfig, NgxUiLoaderModule , SPINNER} from 'ngx-ui-loader';
 
 //import { NgxUiLoaderConfig , SPINNER} from 'ngx-ui-loader';
@@ -48,7 +50,9 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig={
     AppSidebarComponent,
     SignupComponent,
     ForgotPasswordComponent,
-    LoginComponent
+    LoginComponent,
+    OrderComponent,
+    ShopComponent
    ],
   imports: [
     BrowserModule,

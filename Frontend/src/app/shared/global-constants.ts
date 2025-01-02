@@ -1,6 +1,6 @@
 export class GlobalConstants {
     // Meesage
-    public static genericError: string = "Something went wrong. pleases try again later";
+    public static genericError: string = "Something went wrong. Please try again later.";
 
     //Regex
     public static nameRegex: string = "[a-zA-Z0-9 ]*";

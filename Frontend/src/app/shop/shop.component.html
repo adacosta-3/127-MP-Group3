@@ -1,0 +1,22 @@
+<div class="shop-container">
+    <h2>Shop</h2>
+  
+    <div class="item-list">
+      <div *ngFor="let item of items" class="item-card">
+        <h3>{{ item.name }}</h3>
+        <p><strong>Category:</strong> {{ item.category }}</p>
+        <p><strong>Price:</strong> ₱{{ item.basePrice }}</p>
+  
+        <!-- Display sizes and prices if the item is a drink -->
+        <div *ngIf="item.type === 'Drink'">
+          <h4>Available Sizes:</h4>
+        </div>
+  
+        <!-- For Food and Merchandise, no sizes -->
+        <div *ngIf="item.type !== 'Drink'">
+          <p><em>No available sizes</em></p>
+        </div>
+      </div>
+    </div>
+  </div>
+  
