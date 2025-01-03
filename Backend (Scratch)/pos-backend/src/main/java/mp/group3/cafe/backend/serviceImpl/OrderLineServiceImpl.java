@@ -9,6 +9,7 @@ import mp.group3.cafe.backend.repositories.*;
 import mp.group3.cafe.backend.service.OrderLineService;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -39,27 +40,51 @@ public class OrderLineServiceImpl implements OrderLineService {
             throw new RuntimeException("Order not found with ID: " + orderLineDTO.getOrderId());
         }
 
+        // Fetch the item by itemCode
+        Optional<Item> itemOpt = itemRepository.findByItemCode(orderLineDTO.getItemCode());
+        if (itemOpt.isEmpty()) {
+            throw new RuntimeException("Item not found with code: " + orderLineDTO.getItemCode());
+        }
+        Item item = itemOpt.get();
+
         // Fetch the size by ID
         Optional<ItemSize> sizeOpt = itemSizeRepository.findById(orderLineDTO.getSizeId());
         if (sizeOpt.isEmpty()) {
             throw new RuntimeException("Size not found with ID: " + orderLineDTO.getSizeId());
         }
-
         ItemSize size = sizeOpt.get();
 
         // Calculate line price
-        double linePrice = (size.getItem().getBasePrice() + size.getPriceAdjustment()) * orderLineDTO.getQuantity();
+        double linePrice = (item.getBasePrice() + size.getPriceAdjustment()) * orderLineDTO.getQuantity();
 
-        // Create and save the order line
+        // Create the order line
         OrderLine orderLine = new OrderLine();
         orderLine.setOrder(orderOpt.get());
+        orderLine.setItem(item); // Set the item
         orderLine.setSizeId(size.getSizeId()); // Use sizeId directly
         orderLine.setQuantity(orderLineDTO.getQuantity());
         orderLine.setLinePrice(linePrice);
 
+        // Save customizations if any
+        if (orderLineDTO.getCustomizations() != null) {
+            List<OrderLineCustomization> customizations = new ArrayList<>();
+            for (OrderLineCustomizationDTO customizationDTO : orderLineDTO.getCustomizations()) {
+                CustomizationOptions option = customizationOptionsRepository.findById(customizationDTO.getOptionId())
+                        .orElseThrow(() -> new RuntimeException("Customization option not found with ID: " + customizationDTO.getOptionId()));
+
+                OrderLineCustomization customization = new OrderLineCustomization();
+                customization.setOrderLine(orderLine);
+                customization.setCustomizationOption(option);
+                customizations.add(customization);
+            }
+            orderLine.setCustomizations(customizations);
+        }
+
+        // Save the order line
         OrderLine savedOrderLine = orderLineRepository.save(orderLine);
         return OrderLineMapper.mapToOrderLineDTO(savedOrderLine);
     }
+
 
     @Override
     public OrderLineDTO updateOrderLine(Integer orderLineId, OrderLineDTO orderLineDTO) {
@@ -73,7 +98,7 @@ public class OrderLineServiceImpl implements OrderLineService {
             throw new RuntimeException("Order not found with ID: " + orderLineDTO.getOrderId());
         }
 
-        Optional<Item> itemOpt = itemRepository.findById(orderLineDTO.getItemCode());
+        Optional<Item> itemOpt = itemRepository.findByItemCode(orderLineDTO.getItemCode());
         if (itemOpt.isEmpty()) {
             throw new RuntimeException("Item not found with ID: " + orderLineDTO.getItemCode());
         }
@@ -109,7 +134,7 @@ public class OrderLineServiceImpl implements OrderLineService {
                 .orElseThrow(() -> new RuntimeException("Order not found"));
 
         // Fetch the item and size
-        Item item = itemRepository.findById(orderLineDTO.getItemId())
+        Item item = itemRepository.findById(orderLineDTO.getItemCode())
                 .orElseThrow(() -> new RuntimeException("Item not found"));
 
         ItemSize size = itemSizeRepository.findById(orderLineDTO.getSizeId())
@@ -136,7 +161,7 @@ public class OrderLineServiceImpl implements OrderLineService {
         // Check for duplicate order lines
         Optional<OrderLine> existingOrderLine = orderLineRepository.findDuplicateOrderLine(
                 orderId,
-                orderLineDTO.getItemId(),
+                orderLineDTO.getItemCode(),
                 orderLineDTO.getSizeId(),
                 selectedOptions.stream()
                         .map(CustomizationOptions::getOptionId)
