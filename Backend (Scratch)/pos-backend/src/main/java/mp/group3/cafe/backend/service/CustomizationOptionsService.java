@@ -17,5 +17,6 @@ public interface CustomizationOptionsService {
     CustomizationOptionsDTO updateOption(Integer optionId, CustomizationOptionsDTO optionsDTO);
 
     void deleteOption(Integer optionId);
+    CustomizationOptionsDTO updateCustomizationOptionByItemCode(String itemCode, Integer optionId, CustomizationOptionsDTO customizationOptionsDTO);
 }
 

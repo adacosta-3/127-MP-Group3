@@ -4,9 +4,11 @@ import lombok.RequiredArgsConstructor;
 import mp.group3.cafe.backend.DTO.CustomizationOptionsDTO;
 import mp.group3.cafe.backend.entities.Customization;
 import mp.group3.cafe.backend.entities.CustomizationOptions;
+import mp.group3.cafe.backend.entities.Item;
 import mp.group3.cafe.backend.mapper.CustomizationOptionsMapper;
 import mp.group3.cafe.backend.repositories.CustomizationOptionsRepository;
 import mp.group3.cafe.backend.repositories.CustomizationRepository;
+import mp.group3.cafe.backend.repositories.ItemRepository;
 import mp.group3.cafe.backend.service.CustomizationOptionsService;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +22,7 @@ public class CustomizationOptionsServiceImpl implements CustomizationOptionsServ
 
     private final CustomizationOptionsRepository optionsRepository;
     private final CustomizationRepository customizationRepository;
+    private final ItemRepository itemRepository;
 
     @Override
     public List<CustomizationOptionsDTO> getAllOptions() {
@@ -82,5 +85,36 @@ public class CustomizationOptionsServiceImpl implements CustomizationOptionsServ
     @Override
     public void deleteOption(Integer optionId) {
         optionsRepository.deleteById(optionId);
+    }
+
+    @Override
+    public CustomizationOptionsDTO updateCustomizationOptionByItemCode(String itemCode, Integer optionId, CustomizationOptionsDTO customizationOptionsDTO) {
+        // Fetch the item by item code
+        Item item = itemRepository.findByItemCode(itemCode)
+                .orElseThrow(() -> new RuntimeException("Item not found with code: " + itemCode));
+
+        // Fetch the customization option
+        CustomizationOptions customizationOption = optionsRepository.findById(optionId)
+                .orElseThrow(() -> new RuntimeException("Customization option not found with ID: " + optionId));
+
+        // Ensure the customization belongs to the correct item
+        if (!customizationOption.getCustomization().getItem().equals(item)) {
+            throw new RuntimeException("Customization option does not belong to the item with code: " + itemCode);
+        }
+
+        // Update fields
+        customizationOption.setOptionName(customizationOptionsDTO.getOptionName());
+        customizationOption.setAdditionalCost(customizationOptionsDTO.getAdditionalCost());
+
+        // Save updated option
+        CustomizationOptions updatedOption = optionsRepository.save(customizationOption);
+
+        // Return DTO
+        return new CustomizationOptionsDTO(
+                updatedOption.getOptionId(),
+                updatedOption.getCustomization().getCustomizationId(),
+                updatedOption.getOptionName(),
+                updatedOption.getAdditionalCost()
+        );
     }
 }
