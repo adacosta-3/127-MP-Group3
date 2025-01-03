@@ -12,7 +12,7 @@ import java.util.List;
 public class OrderLineDTO {
     private Integer orderLineId;
     private Integer orderId;
-    private Integer itemId;
+    private String itemCode;
     private Integer sizeId; // Nullable for non-sized items
     private Integer quantity;
     private Double linePrice;

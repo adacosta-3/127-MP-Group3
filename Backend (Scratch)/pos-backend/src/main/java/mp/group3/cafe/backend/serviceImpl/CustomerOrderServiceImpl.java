@@ -11,6 +11,9 @@ import mp.group3.cafe.backend.repositories.*;
 import mp.group3.cafe.backend.service.CustomerOrderService;
 import org.springframework.stereotype.Service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -24,6 +27,7 @@ public class CustomerOrderServiceImpl implements CustomerOrderService {
     private final OrderLineRepository orderLineRepository;
     private final OrderLineCustomizationRepository orderLineCustomizationRepository;
     private final UserRepository userRepository;
+    private static final Logger logger = LoggerFactory.getLogger(CustomerOrderServiceImpl.class);
 
     @Override
     public List<CustomerOrderDTO> getAllOrders() {
@@ -41,6 +45,8 @@ public class CustomerOrderServiceImpl implements CustomerOrderService {
 
     @Override
     public CustomerOrderDTO createOrder(CustomerOrderDTO orderDTO) {
+        logger.info("Starting to create order with payload: {}", orderDTO);
+
         Optional<Customer> customerOpt = Optional.empty();
         if (orderDTO.getCustomerId() != null) {
             customerOpt = customerRepository.findById(orderDTO.getCustomerId());
@@ -55,19 +61,17 @@ public class CustomerOrderServiceImpl implements CustomerOrderService {
         }
 
         CustomerOrder order = new CustomerOrder();
-        order.setOrderDate(java.sql.Date.valueOf(String.valueOf(orderDTO.getOrderDate())));
+        java.sql.Date sqlDate = new java.sql.Date(orderDTO.getOrderDate().getTime());
+        order.setOrderDate(sqlDate);
         order.setCustomer(customerOpt.orElse(null)); // Null for guest customers
         order.setCashier(cashierOpt.get());
         order.setTotalPrice(0.0); // Temporary value, will update after OrderLines are added
 
         CustomerOrder savedOrder = orderRepository.save(order);
-
-        // Calculate total price after OrderLines are added
         updateOrderTotalPrice(savedOrder.getOrderId());
 
         return CustomerOrderMapper.mapToCustomerOrderDTO(savedOrder);
     }
-
 
     @Override
     public CustomerOrderDTO updateOrder(Integer orderId, CustomerOrderDTO orderDTO) {
@@ -105,16 +109,18 @@ public class CustomerOrderServiceImpl implements CustomerOrderService {
     }
 
     public void updateOrderTotalPrice(Integer orderId) {
-        // Fetch the order
         CustomerOrder order = orderRepository.findById(orderId)
                 .orElseThrow(() -> new RuntimeException("Order not found with ID: " + orderId));
 
-        // Fetch all order lines for this order
         List<OrderLine> orderLines = orderLineRepository.findByOrder_OrderId(orderId);
 
-        // Calculate total price by summing up line prices
         double totalPrice = orderLines.stream()
-                .mapToDouble(OrderLine::getLinePrice) // Use the precomputed line price
+                .mapToDouble(orderLine -> {
+                    double customizationCost = orderLine.getCustomizations().stream()
+                            .mapToDouble(c -> c.getCustomizationOption().getAdditionalCost())
+                            .sum();
+                    return orderLine.getLinePrice() + customizationCost;
+                })
                 .sum();
 
         // Update the order's total price

@@ -14,13 +14,13 @@ public interface ItemService {
 
     ItemDTO updateItemByItemCode(String itemCode, ItemDTO itemDTO);
 
-    Optional<ItemDTO> getItemById(Integer itemId);
+    Optional<ItemDTO> getItemByCode(String itemCode);
 
     ItemDTO createItem(ItemDTO itemDTO);
 
-    ItemDTO updateItem(Integer itemId, ItemDTO itemDTO);
+    ItemDTO updateItem(String itemCode, ItemDTO itemDTO);
 
-    void deleteItem(Integer itemId);
+    void deleteItem(String itemCode);
 
     List<ItemDTO> getItemsByCategoryId(Integer categoryId);
 
@@ -30,12 +30,16 @@ public interface ItemService {
     List<ItemSizeDTO> getSizesForItem(String itemCode);
     void deleteSize(Integer sizeId);
 
+    List<ItemSizeDTO> uploadSizesToItemFromCSV(String itemCode, MultipartFile file) throws IOException, CsvException;
 
     List<ItemDTO> parseCSVToItems(MultipartFile file) throws IOException, CsvException;
+
+    List<ItemSizeDTO> parseSizesCSV(MultipartFile file) throws IOException, CsvException;
 
     List<ItemDTO> createItems(List<ItemDTO> itemDTOs);
 
     List<ItemSizeDTO> modifySizesForItem(String itemCode, List<ItemSizeDTO> sizes);
+
 
 }
 

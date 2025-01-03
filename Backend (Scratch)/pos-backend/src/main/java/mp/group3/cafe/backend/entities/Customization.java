@@ -26,7 +26,7 @@ public class Customization {
     private String name;
 
     @ManyToOne
-    @JoinColumn(name = "item_id", nullable = false)
+    @JoinColumn(name = "item_code", referencedColumnName = "item_code", nullable = false)
     private Item item;
 
     @OneToMany(mappedBy = "customization", cascade = CascadeType.ALL, orphanRemoval = true)

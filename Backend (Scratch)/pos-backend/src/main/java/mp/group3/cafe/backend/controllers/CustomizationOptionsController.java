@@ -3,9 +3,12 @@ package mp.group3.cafe.backend.controllers;
 import lombok.RequiredArgsConstructor;
 import mp.group3.cafe.backend.DTO.CustomizationOptionsDTO;
 import mp.group3.cafe.backend.service.CustomizationOptionsService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -74,4 +77,25 @@ public class CustomizationOptionsController {
             return ResponseEntity.badRequest().body(null);
         }
     }
+
+    @PostMapping("/customization/{customizationId}/upload-csv")
+    public ResponseEntity<List<CustomizationOptionsDTO>> uploadOptionsFromCSV(
+            @PathVariable Integer customizationId,
+            @RequestParam("file") MultipartFile file) {
+        try {
+            if (!file.getContentType().equals("text/csv")) {
+                return ResponseEntity.badRequest().body(null);
+            }
+
+            List<CustomizationOptionsDTO> options = optionsService.uploadOptionsFromCSV(customizationId, file);
+            return ResponseEntity.status(HttpStatus.CREATED).body(options);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return ResponseEntity.badRequest().body(null);
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
+    }
+
 }

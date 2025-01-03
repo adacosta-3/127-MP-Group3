@@ -13,7 +13,7 @@ import java.util.List;
 public class CustomizationDTO {
     private Integer customizationId;
     private String name;
-    private Integer itemId;
+    private String itemCode;
     private List<CustomizationOptionsDTO> options;
 }
 

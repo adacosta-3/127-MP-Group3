@@ -4,9 +4,12 @@ import lombok.RequiredArgsConstructor;
 import mp.group3.cafe.backend.DTO.CustomizationDTO;
 import mp.group3.cafe.backend.DTO.CustomizationOptionsDTO;
 import mp.group3.cafe.backend.service.CustomizationService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,9 +34,9 @@ public class CustomizationController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    @GetMapping("/item/{itemId}")
-    public ResponseEntity<List<CustomizationDTO>> getCustomizationsByItemId(@PathVariable Integer itemId) {
-        List<CustomizationDTO> customizations = customizationService.getCustomizationsByItemId(itemId);
+    @GetMapping("/item/{itemCode}")
+    public ResponseEntity<List<CustomizationDTO>> getCustomizationsByItemCode(@PathVariable String itemCode) {
+        List<CustomizationDTO> customizations = customizationService.getCustomizationsByItemCode(itemCode);
         return ResponseEntity.ok(customizations);
     }
 
@@ -83,6 +86,26 @@ public class CustomizationController {
             return ResponseEntity.ok(savedOptions);
         } catch (RuntimeException e) {
             return ResponseEntity.badRequest().body(null);
+        }
+    }
+
+    @PostMapping("/item/{itemCode}/upload-csv")
+    public ResponseEntity<List<CustomizationDTO>> uploadCustomizationsFromCSV(
+            @PathVariable String itemCode,
+            @RequestParam("file") MultipartFile file) {
+        try {
+            if (!file.getContentType().equals("text/csv")) {
+                return ResponseEntity.badRequest().body(null);
+            }
+
+            List<CustomizationDTO> customizations = customizationService.uploadCustomizationsFromCSV(itemCode, file);
+            return ResponseEntity.status(HttpStatus.CREATED).body(customizations);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return ResponseEntity.badRequest().body(null);
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
     }
 

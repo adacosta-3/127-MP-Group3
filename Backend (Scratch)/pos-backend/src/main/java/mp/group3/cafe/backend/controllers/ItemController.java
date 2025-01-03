@@ -1,6 +1,8 @@
 package mp.group3.cafe.backend.controllers;
 
+import com.opencsv.exceptions.CsvException;
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import mp.group3.cafe.backend.DTO.ItemDTO;
 import mp.group3.cafe.backend.DTO.ItemSizeDTO;
 import mp.group3.cafe.backend.service.ItemService;
@@ -27,9 +29,9 @@ public class ItemController {
         return ResponseEntity.ok(items);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<ItemDTO> getItemById(@PathVariable Integer id) {
-        Optional<ItemDTO> itemOpt = itemService.getItemById(id);
+    @GetMapping("/{code}")
+    public ResponseEntity<ItemDTO> getItemByCode(@PathVariable String code) {
+        Optional<ItemDTO> itemOpt = itemService.getItemByCode(code);
         return itemOpt.map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
@@ -64,20 +66,40 @@ public class ItemController {
         }
     }
 
-
-    @PutMapping("/{id}")
-    public ResponseEntity<ItemDTO> updateItem(@PathVariable Integer id, @RequestBody ItemDTO itemDTO) {
+    @PostMapping("/sizes/{itemCode}/upload-csv")
+    public ResponseEntity<List<ItemSizeDTO>> uploadSizesToItem(
+            @PathVariable String itemCode,
+            @RequestParam("file") MultipartFile file) {
         try {
-            ItemDTO updatedItem = itemService.updateItem(id, itemDTO);
+            if (!file.getContentType().equals("text/csv")) {
+                return ResponseEntity.badRequest().body(null);
+            }
+
+            List<ItemSizeDTO> sizes = itemService.uploadSizesToItemFromCSV(itemCode, file);
+            return ResponseEntity.status(HttpStatus.CREATED).body(sizes);
+        } catch (IOException | CsvException e) {
+            e.printStackTrace();
+            return ResponseEntity.badRequest().body(null);
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+    }
+
+
+    @PutMapping("/{code}")
+    public ResponseEntity<ItemDTO> updateItem(@PathVariable String code, @RequestBody ItemDTO itemDTO) {
+        try {
+            ItemDTO updatedItem = itemService.updateItem(code, itemDTO);
             return ResponseEntity.ok(updatedItem);
         } catch (RuntimeException e) {
             return ResponseEntity.notFound().build();
         }
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteItem(@PathVariable Integer id) {
-        itemService.deleteItem(id);
+    @DeleteMapping("/{code}")
+    public ResponseEntity<Void> deleteItem(@PathVariable String code) {
+        itemService.deleteItem(code);
         return ResponseEntity.noContent().build();
     }
 

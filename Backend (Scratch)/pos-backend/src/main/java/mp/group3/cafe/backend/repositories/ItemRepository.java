@@ -8,12 +8,12 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface ItemRepository extends JpaRepository<Item, Integer> {
+public interface ItemRepository extends JpaRepository<Item, String> {
     long countByCategory_CategoryId(Integer categoryId);
 
     List<Item> findByCategory_CategoryId(Integer categoryId);
-    List<Item> findByNameContainingIgnoreCase(String name);
-    Optional<Item> findByItemCode(String itemCode);
 
+    Optional<Item> findById( String itemCode);
 }
+
 

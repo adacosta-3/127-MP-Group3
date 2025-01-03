@@ -45,15 +45,23 @@ public class OrderLineServiceImpl implements OrderLineService {
             throw new RuntimeException("Size not found with ID: " + orderLineDTO.getSizeId());
         }
 
+        // Fetch the item by itemCode (primary key)
+        Optional<Item> itemOpt = itemRepository.findById(orderLineDTO.getItemCode());
+        if (itemOpt.isEmpty()) {
+            throw new RuntimeException("Item not found with code: " + orderLineDTO.getItemCode());
+        }
+
+        Item item = itemOpt.get();
         ItemSize size = sizeOpt.get();
 
         // Calculate line price
-        double linePrice = (size.getItem().getBasePrice() + size.getPriceAdjustment()) * orderLineDTO.getQuantity();
+        double linePrice = (item.getBasePrice() + size.getPriceAdjustment()) * orderLineDTO.getQuantity();
 
         // Create and save the order line
         OrderLine orderLine = new OrderLine();
         orderLine.setOrder(orderOpt.get());
-        orderLine.setSizeId(size.getSizeId()); // Use sizeId directly
+        orderLine.setItem(item);
+        orderLine.setSizeId(size.getSizeId());
         orderLine.setQuantity(orderLineDTO.getQuantity());
         orderLine.setLinePrice(linePrice);
 
@@ -73,9 +81,9 @@ public class OrderLineServiceImpl implements OrderLineService {
             throw new RuntimeException("Order not found with ID: " + orderLineDTO.getOrderId());
         }
 
-        Optional<Item> itemOpt = itemRepository.findById(orderLineDTO.getItemId());
+        Optional<Item> itemOpt = itemRepository.findById(orderLineDTO.getItemCode());
         if (itemOpt.isEmpty()) {
-            throw new RuntimeException("Item not found with ID: " + orderLineDTO.getItemId());
+            throw new RuntimeException("Item not found with ID: " + orderLineDTO.getItemCode());
         }
 
         // Retrieve existing order line, order, and item
@@ -109,7 +117,7 @@ public class OrderLineServiceImpl implements OrderLineService {
                 .orElseThrow(() -> new RuntimeException("Order not found"));
 
         // Fetch the item and size
-        Item item = itemRepository.findById(orderLineDTO.getItemId())
+        Item item = itemRepository.findById(orderLineDTO.getItemCode())
                 .orElseThrow(() -> new RuntimeException("Item not found"));
 
         ItemSize size = itemSizeRepository.findById(orderLineDTO.getSizeId())
@@ -136,7 +144,7 @@ public class OrderLineServiceImpl implements OrderLineService {
         // Check for duplicate order lines
         Optional<OrderLine> existingOrderLine = orderLineRepository.findDuplicateOrderLine(
                 orderId,
-                orderLineDTO.getItemId(),
+                orderLineDTO.getItemCode(),
                 orderLineDTO.getSizeId(),
                 selectedOptions.stream()
                         .map(CustomizationOptions::getOptionId)

@@ -16,11 +16,8 @@ import java.util.List;
 @Entity
 @Table(name = "ITEM")
 public class Item {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "item_id")
-    private Integer itemId;
 
+    @Id
     @Column(name = "item_code", nullable = false, unique = true, length = 20)
     private String itemCode;
 

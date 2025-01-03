@@ -11,7 +11,7 @@ public class CustomizationMapper {
         return new CustomizationDTO(
                 customization.getCustomizationId(),
                 customization.getName(),
-                customization.getItem().getItemId(),
+                customization.getItem().getItemCode(),
                 customization.getOptions().stream()
                         .map(CustomizationOptionsMapper::mapToCustomizationOptionsDTO)
                         .collect(Collectors.toList())

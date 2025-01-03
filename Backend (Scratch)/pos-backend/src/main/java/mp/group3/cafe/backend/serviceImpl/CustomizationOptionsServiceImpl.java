@@ -1,6 +1,8 @@
 package mp.group3.cafe.backend.serviceImpl;
 
+import com.opencsv.CSVReader;
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import mp.group3.cafe.backend.DTO.CustomizationOptionsDTO;
 import mp.group3.cafe.backend.entities.Customization;
 import mp.group3.cafe.backend.entities.CustomizationOptions;
@@ -11,7 +13,11 @@ import mp.group3.cafe.backend.repositories.CustomizationRepository;
 import mp.group3.cafe.backend.repositories.ItemRepository;
 import mp.group3.cafe.backend.service.CustomizationOptionsService;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -90,7 +96,7 @@ public class CustomizationOptionsServiceImpl implements CustomizationOptionsServ
     @Override
     public CustomizationOptionsDTO updateCustomizationOptionByItemCode(String itemCode, Integer optionId, CustomizationOptionsDTO customizationOptionsDTO) {
         // Fetch the item by item code
-        Item item = itemRepository.findByItemCode(itemCode)
+        Item item = itemRepository.findById(itemCode)
                 .orElseThrow(() -> new RuntimeException("Item not found with code: " + itemCode));
 
         // Fetch the customization option
@@ -117,4 +123,27 @@ public class CustomizationOptionsServiceImpl implements CustomizationOptionsServ
                 updatedOption.getAdditionalCost()
         );
     }
+
+    @SneakyThrows
+    @Override
+    public List<CustomizationOptionsDTO> uploadOptionsFromCSV(Integer customizationId, MultipartFile file) throws IOException {
+        List<CustomizationOptionsDTO> options = new ArrayList<>();
+
+        try (CSVReader csvReader = new CSVReader(new InputStreamReader(file.getInputStream()))) {
+            String[] values;
+            csvReader.readNext(); // Skip the header row
+            while ((values = csvReader.readNext()) != null) {
+                CustomizationOptionsDTO optionsDTO = new CustomizationOptionsDTO(
+                        null,
+                        customizationId,
+                        values[0],  // Option name
+                        Double.parseDouble(values[1])  // Additional cost
+                );
+                options.add(createOption(optionsDTO));
+            }
+        }
+
+        return options;
+    }
+
 }
