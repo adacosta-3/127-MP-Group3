@@ -52,7 +52,7 @@ public class CustomerOrderServiceImpl implements CustomerOrderService {
         }
 
         CustomerOrder order = new CustomerOrder();
-        order.setOrderDate(java.sql.Date.valueOf(orderDTO.getOrderDate()));
+        order.setOrderDate(java.sql.Date.valueOf(String.valueOf(orderDTO.getOrderDate())));
         order.setCustomer(customerOpt.orElse(null)); // Null for guest customers
         order.setCashier(cashierOpt.get());
         order.setTotalPrice(0.0); // Temporary value, will update after OrderLines are added
@@ -91,7 +91,7 @@ public class CustomerOrderServiceImpl implements CustomerOrderService {
             existingOrder.setCashier(cashierOpt.get());
         }
 
-        existingOrder.setOrderDate(java.sql.Date.valueOf(orderDTO.getOrderDate()));
+        existingOrder.setOrderDate(java.sql.Date.valueOf(String.valueOf(orderDTO.getOrderDate())));
 
         CustomerOrder updatedOrder = orderRepository.save(existingOrder);
 
@@ -102,34 +102,23 @@ public class CustomerOrderServiceImpl implements CustomerOrderService {
     }
 
     public void updateOrderTotalPrice(Integer orderId) {
-        Optional<CustomerOrder> orderOpt = orderRepository.findById(orderId);
-        if (orderOpt.isEmpty()) {
-            throw new RuntimeException("Order not found with ID: " + orderId);
-        }
-
-        CustomerOrder order = orderOpt.get();
+        // Fetch the order
+        CustomerOrder order = orderRepository.findById(orderId)
+                .orElseThrow(() -> new RuntimeException("Order not found with ID: " + orderId));
 
         // Fetch all order lines for this order
         List<OrderLine> orderLines = orderLineRepository.findByOrder_OrderId(orderId);
 
-        // Calculate total price
-        double totalPrice = 0.0;
-        for (OrderLine orderLine : orderLines) {
-            double linePrice = orderLine.getLinePrice();
-
-            // Add costs from customizations
-            List<OrderLineCustomization> customizations = orderLineCustomizationRepository.findByOrderLine_OrderLineId(orderLine.getOrderLineId());
-            for (OrderLineCustomization customization : customizations) {
-                linePrice += customization.getCustomizationOption().getAdditionalCost();
-            }
-
-            totalPrice += linePrice;
-        }
+        // Calculate total price by summing up line prices
+        double totalPrice = orderLines.stream()
+                .mapToDouble(OrderLine::getLinePrice) // Use the precomputed line price
+                .sum();
 
         // Update the order's total price
         order.setTotalPrice(totalPrice);
         orderRepository.save(order);
     }
+
 
 
 

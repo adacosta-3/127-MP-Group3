@@ -35,4 +35,17 @@ public class OrderLineController {
         orderLineService.deleteOrderLine(id);
         return ResponseEntity.noContent().build();
     }
+
+    @PostMapping("/{orderId}/items")
+    public ResponseEntity<OrderLineDTO> addOrUpdateOrderLine(
+            @PathVariable Integer orderId,
+            @RequestBody OrderLineDTO orderLineDTO) {
+        try {
+            OrderLineDTO savedOrderLine = orderLineService.addOrUpdateOrderLine(orderId, orderLineDTO);
+            return ResponseEntity.ok(savedOrderLine);
+        } catch (RuntimeException e) {
+            return ResponseEntity.badRequest().body(null);
+        }
+    }
+
 }

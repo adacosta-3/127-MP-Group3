@@ -1,16 +1,11 @@
 package mp.group3.cafe.backend.serviceImpl;
 
 import lombok.RequiredArgsConstructor;
+import mp.group3.cafe.backend.DTO.OrderLineCustomizationDTO;
 import mp.group3.cafe.backend.DTO.OrderLineDTO;
-import mp.group3.cafe.backend.entities.CustomerOrder;
-import mp.group3.cafe.backend.entities.Item;
-import mp.group3.cafe.backend.entities.ItemSize;
-import mp.group3.cafe.backend.entities.OrderLine;
+import mp.group3.cafe.backend.entities.*;
 import mp.group3.cafe.backend.mapper.OrderLineMapper;
-import mp.group3.cafe.backend.repositories.CustomerOrderRepository;
-import mp.group3.cafe.backend.repositories.ItemRepository;
-import mp.group3.cafe.backend.repositories.ItemSizeRepository;
-import mp.group3.cafe.backend.repositories.OrderLineRepository;
+import mp.group3.cafe.backend.repositories.*;
 import mp.group3.cafe.backend.service.OrderLineService;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +18,7 @@ import java.util.stream.Collectors;
 public class OrderLineServiceImpl implements OrderLineService {
 
     private final OrderLineRepository orderLineRepository;
+    private final CustomizationOptionsRepository customizationOptionsRepository;
     private final CustomerOrderRepository orderRepository;
     private final ItemRepository itemRepository;
     private final ItemSizeRepository itemSizeRepository;
@@ -105,4 +101,83 @@ public class OrderLineServiceImpl implements OrderLineService {
     public void deleteOrderLine(Integer orderLineId) {
         orderLineRepository.deleteById(orderLineId);
     }
+
+    @Override
+    public OrderLineDTO addOrUpdateOrderLine(Integer orderId, OrderLineDTO orderLineDTO) {
+        // Fetch the order
+        CustomerOrder order = orderRepository.findById(orderId)
+                .orElseThrow(() -> new RuntimeException("Order not found"));
+
+        // Fetch the item and size
+        Item item = itemRepository.findById(orderLineDTO.getItemId())
+                .orElseThrow(() -> new RuntimeException("Item not found"));
+
+        ItemSize size = itemSizeRepository.findById(orderLineDTO.getSizeId())
+                .orElseThrow(() -> new RuntimeException("Size not found"));
+
+        // Fetch customizations
+        List<CustomizationOptions> selectedOptions = customizationOptionsRepository.findAllById(
+                orderLineDTO.getCustomizations().stream()
+                        .map(OrderLineCustomizationDTO::getOptionId)
+                        .collect(Collectors.toList())
+        );
+
+        // Calculate the base price
+        double basePrice = item.getBasePrice() + size.getPriceAdjustment();
+
+        // Add customization costs
+        double customizationCost = selectedOptions.stream()
+                .mapToDouble(CustomizationOptions::getAdditionalCost)
+                .sum();
+
+        // Calculate the final line price
+        double linePrice = (basePrice + customizationCost) * orderLineDTO.getQuantity();
+
+        // Check for duplicate order lines
+        Optional<OrderLine> existingOrderLine = orderLineRepository.findDuplicateOrderLine(
+                orderId,
+                orderLineDTO.getItemId(),
+                orderLineDTO.getSizeId(),
+                selectedOptions.stream()
+                        .map(CustomizationOptions::getOptionId)
+                        .collect(Collectors.toList()),
+                (long) selectedOptions.size()
+        );
+
+        if (existingOrderLine.isPresent()) {
+            // Update quantity and price for the existing line
+            OrderLine line = existingOrderLine.get();
+            line.setQuantity(line.getQuantity() + orderLineDTO.getQuantity());
+            line.setLinePrice(line.getLinePrice() + linePrice);
+            orderLineRepository.save(line);
+            return OrderLineMapper.mapToOrderLineDTO(line);
+        }
+
+        // Create a new order line
+        OrderLine orderLine = new OrderLine();
+        orderLine.setOrder(order);
+        orderLine.setItem(item);
+        orderLine.setSizeId(orderLineDTO.getSizeId());
+        orderLine.setQuantity(orderLineDTO.getQuantity());
+        orderLine.setLinePrice(linePrice);
+
+        // Save customizations for the order line
+        List<OrderLineCustomization> orderLineCustomizations = selectedOptions.stream()
+                .map(option -> {
+                    OrderLineCustomization olc = new OrderLineCustomization();
+                    olc.setOrderLine(orderLine);
+                    olc.setCustomizationOption(option);
+                    return olc;
+                }).collect(Collectors.toList());
+        orderLine.setCustomizations(orderLineCustomizations);
+
+        orderLineRepository.save(orderLine);
+        return OrderLineMapper.mapToOrderLineDTO(orderLine);
+    }
+
+
+
+
+
+
 }
