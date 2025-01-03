@@ -68,10 +68,9 @@ public class ItemServiceImpl implements ItemService {
         return ItemMapper.mapToItemDTO(updatedItem);
     }
 
-
     @Override
-    public Optional<ItemDTO> getItemById(Integer itemId) {
-        return itemRepository.findById(itemId)
+    public Optional<ItemDTO> getItemById(String itemCode) {
+        return itemRepository.findById(itemCode)
                 .map(ItemMapper::mapToItemDTO);
     }
 
@@ -94,10 +93,10 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public ItemDTO updateItem(Integer itemId, ItemDTO itemDTO) {
-        Optional<Item> existingItemOpt = itemRepository.findById(itemId);
+    public ItemDTO updateItem(String itemCode, ItemDTO itemDTO) {
+        Optional<Item> existingItemOpt = itemRepository.findById(itemCode);
         if (existingItemOpt.isEmpty()) {
-            throw new RuntimeException("Item not found with ID: " + itemId);
+            throw new RuntimeException("Item not found with code: " + itemCode);
         }
 
         Optional<Categorization> categoryOpt = categorizationRepository.findById(itemDTO.getCategoryId());
@@ -117,8 +116,8 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public void deleteItem(Integer itemId) {
-        itemRepository.deleteById(itemId);
+    public void deleteItem(String itemCode) {
+        itemRepository.deleteById(itemCode);
     }
 
     @Override
@@ -158,12 +157,13 @@ public class ItemServiceImpl implements ItemService {
         Item item = itemOpt.get();
 
         // Delete all customizations associated with the item
-        List<Customization> customizations = customizationRepository.findByItem_ItemId(item.getItemId());
+        List<Customization> customizations = customizationRepository.findByItem_ItemCode(item.getItemCode());
         customizationRepository.deleteAll(customizations);
 
         // Delete the item
         itemRepository.delete(item);
     }
+
     @Override
     public List<ItemSizeDTO> addSizesToItem(String itemCode, List<ItemSizeDTO> sizes) {
         Optional<Item> itemOpt = itemRepository.findByItemCode(itemCode);
@@ -191,7 +191,7 @@ public class ItemServiceImpl implements ItemService {
             throw new RuntimeException("Item not found with itemCode: " + itemCode);
         }
 
-        return itemSizeRepository.findByItem_ItemId(itemOpt.get().getItemId())
+        return itemSizeRepository.findByItem_ItemCode(itemOpt.get().getItemCode())
                 .stream()
                 .map(ItemSizeMapper::mapToItemSizeDTO)
                 .collect(Collectors.toList());
@@ -201,7 +201,6 @@ public class ItemServiceImpl implements ItemService {
     public void deleteSize(Integer sizeId) {
         itemSizeRepository.deleteById(sizeId);
     }
-
 
     @Override
     public List<ItemDTO> parseCSVToItems(MultipartFile file) throws IOException, CsvException {
@@ -244,7 +243,7 @@ public class ItemServiceImpl implements ItemService {
         Item item = itemOpt.get();
 
         // Retrieve existing sizes for the item
-        List<ItemSize> existingSizes = itemSizeRepository.findByItem_ItemId(item.getItemId());
+        List<ItemSize> existingSizes = itemSizeRepository.findByItem_ItemCode(item.getItemCode());
 
         // Map existing sizes to their IDs for quick lookup
         Map<Integer, ItemSize> existingSizeMap = existingSizes.stream()
@@ -267,10 +266,10 @@ public class ItemServiceImpl implements ItemService {
         }
 
         // Save all updated sizes
-        itemSizeRepository.saveAll(updatedSizes);
+        List<ItemSize> savedSizes = new ArrayList<>(itemSizeRepository.saveAll(updatedSizes));
 
         // Return updated sizes as DTOs
-        return updatedSizes.stream()
+        return savedSizes.stream()
                 .map(ItemSizeMapper::mapToItemSizeDTO)
                 .collect(Collectors.toList());
     }

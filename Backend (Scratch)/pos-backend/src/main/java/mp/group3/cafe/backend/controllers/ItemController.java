@@ -15,6 +15,8 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/items")
+@CrossOrigin(origins = "*")
+
 @RequiredArgsConstructor
 public class ItemController {
 
@@ -24,13 +26,6 @@ public class ItemController {
     public ResponseEntity<List<ItemDTO>> getAllItems() {
         List<ItemDTO> items = itemService.getAllItems();
         return ResponseEntity.ok(items);
-    }
-
-    @GetMapping("/{id}")
-    public ResponseEntity<ItemDTO> getItemById(@PathVariable Integer id) {
-        Optional<ItemDTO> itemOpt = itemService.getItemById(id);
-        return itemOpt.map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
     }
 
     @PostMapping
@@ -63,31 +58,13 @@ public class ItemController {
         }
     }
 
-
-    @PutMapping("/{id}")
-    public ResponseEntity<ItemDTO> updateItem(@PathVariable Integer id, @RequestBody ItemDTO itemDTO) {
-        try {
-            ItemDTO updatedItem = itemService.updateItem(id, itemDTO);
-            return ResponseEntity.ok(updatedItem);
-        } catch (RuntimeException e) {
-            return ResponseEntity.notFound().build();
-        }
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteItem(@PathVariable Integer id) {
-        itemService.deleteItem(id);
-        return ResponseEntity.noContent().build();
-    }
-
     @GetMapping("/category/{categoryId}")
     public ResponseEntity<List<ItemDTO>> getItemsByCategoryId(@PathVariable Integer categoryId) {
         List<ItemDTO> items = itemService.getItemsByCategoryId(categoryId);
         return ResponseEntity.ok(items);
     }
 
-
-    @PutMapping("/code/{itemCode}")
+    @PutMapping("/{itemCode}")
     public ResponseEntity<ItemDTO> updateItemByItemCode(@PathVariable String itemCode, @RequestBody ItemDTO itemDTO) {
         try {
             ItemDTO updatedItem = itemService.updateItemByItemCode(itemCode, itemDTO);
@@ -97,7 +74,7 @@ public class ItemController {
         }
     }
 
-    @DeleteMapping("/code/{itemCode}")
+    @DeleteMapping("/{itemCode}")
     public ResponseEntity<Void> deleteItemByItemCode(@PathVariable String itemCode) {
         try {
             itemService.deleteItemByItemCode(itemCode);
@@ -107,8 +84,9 @@ public class ItemController {
         }
     }
 
-    @PutMapping("/sizes/{itemCode}")
-    public ResponseEntity<List<ItemSizeDTO>> addSizesToItem(@PathVariable String itemCode, @RequestBody List<ItemSizeDTO> sizes) {
+    @PutMapping("/{itemCode}/sizes")
+    public ResponseEntity<List<ItemSizeDTO>> addSizesToItem(@PathVariable String itemCode,
+            @RequestBody List<ItemSizeDTO> sizes) {
         System.out.println("Received PUT request for itemCode: " + itemCode);
         System.out.println("Sizes payload: " + sizes);
         try {
@@ -120,8 +98,7 @@ public class ItemController {
         }
     }
 
-
-    @GetMapping("/sizes/{itemCode}")
+    @GetMapping("/{itemCode}")
     public ResponseEntity<List<ItemSizeDTO>> getSizesForItem(@PathVariable String itemCode) {
         try {
             List<ItemSizeDTO> sizes = itemService.getSizesForItem(itemCode);
@@ -149,9 +126,4 @@ public class ItemController {
             return ResponseEntity.notFound().build();
         }
     }
-
-
-
-
 }
-

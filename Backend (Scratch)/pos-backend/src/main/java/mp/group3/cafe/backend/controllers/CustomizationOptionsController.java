@@ -12,6 +12,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api/customization-options")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "*")
 public class CustomizationOptionsController {
 
     private final CustomizationOptionsService optionsService;
@@ -30,7 +31,8 @@ public class CustomizationOptionsController {
     }
 
     @GetMapping("/customization/{customizationId}")
-    public ResponseEntity<List<CustomizationOptionsDTO>> getOptionsByCustomizationId(@PathVariable Integer customizationId) {
+    public ResponseEntity<List<CustomizationOptionsDTO>> getOptionsByCustomizationId(
+            @PathVariable Integer customizationId) {
         List<CustomizationOptionsDTO> options = optionsService.getOptionsByCustomizationId(customizationId);
         return ResponseEntity.ok(options);
     }
@@ -46,7 +48,8 @@ public class CustomizationOptionsController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<CustomizationOptionsDTO> updateOption(@PathVariable Integer id, @RequestBody CustomizationOptionsDTO optionsDTO) {
+    public ResponseEntity<CustomizationOptionsDTO> updateOption(@PathVariable Integer id,
+            @RequestBody CustomizationOptionsDTO optionsDTO) {
         try {
             CustomizationOptionsDTO updatedOption = optionsService.updateOption(id, optionsDTO);
             return ResponseEntity.ok(updatedOption);

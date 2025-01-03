@@ -12,6 +12,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api/customizations")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "*")
 public class CustomizationController {
 
     private final CustomizationService customizationService;
@@ -29,9 +30,9 @@ public class CustomizationController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    @GetMapping("/item/{itemId}")
-    public ResponseEntity<List<CustomizationDTO>> getCustomizationsByItemId(@PathVariable Integer itemId) {
-        List<CustomizationDTO> customizations = customizationService.getCustomizationsByItemId(itemId);
+    @GetMapping("/item/{itemCode}")
+    public ResponseEntity<List<CustomizationDTO>> getCustomizationsByItemCode(@PathVariable String itemCode) {
+        List<CustomizationDTO> customizations = customizationService.getCustomizationsByItemCode(itemCode);
         return ResponseEntity.ok(customizations);
     }
 
@@ -46,7 +47,8 @@ public class CustomizationController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<CustomizationDTO> updateCustomization(@PathVariable Integer id, @RequestBody CustomizationDTO customizationDTO) {
+    public ResponseEntity<CustomizationDTO> updateCustomization(@PathVariable Integer id,
+            @RequestBody CustomizationDTO customizationDTO) {
         try {
             CustomizationDTO updatedCustomization = customizationService.updateCustomization(id, customizationDTO);
             return ResponseEntity.ok(updatedCustomization);
@@ -65,7 +67,8 @@ public class CustomizationController {
     public ResponseEntity<List<CustomizationDTO>> updateCustomizationsByItemCode(
             @PathVariable String itemCode, @RequestBody List<CustomizationDTO> customizations) {
         try {
-            List<CustomizationDTO> updatedCustomizations = customizationService.updateCustomizationsByItemCode(itemCode, customizations);
+            List<CustomizationDTO> updatedCustomizations = customizationService.updateCustomizationsByItemCode(itemCode,
+                    customizations);
             return ResponseEntity.ok(updatedCustomizations);
         } catch (RuntimeException e) {
             return ResponseEntity.notFound().build();
@@ -73,4 +76,3 @@ public class CustomizationController {
     }
 
 }
-

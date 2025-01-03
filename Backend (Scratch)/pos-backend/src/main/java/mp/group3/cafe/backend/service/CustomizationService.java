@@ -10,7 +10,7 @@ public interface CustomizationService {
 
     Optional<CustomizationDTO> getCustomizationById(Integer customizationId);
 
-    List<CustomizationDTO> getCustomizationsByItemId(Integer itemId);
+    List<CustomizationDTO> getCustomizationsByItemCode(String itemCode);
 
     CustomizationDTO createCustomization(CustomizationDTO customizationDTO);
 

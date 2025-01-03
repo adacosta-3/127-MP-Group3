@@ -11,6 +11,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/order-lines")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "*")
 public class OrderLineController {
 
     private final OrderLineService orderLineService;
@@ -26,7 +27,8 @@ public class OrderLineController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<OrderLineDTO> updateOrderLine(@PathVariable Integer id, @RequestBody OrderLineDTO orderLineDTO) {
+    public ResponseEntity<OrderLineDTO> updateOrderLine(@PathVariable Integer id,
+            @RequestBody OrderLineDTO orderLineDTO) {
         return ResponseEntity.ok(orderLineService.updateOrderLine(id, orderLineDTO));
     }
 
@@ -35,4 +37,17 @@ public class OrderLineController {
         orderLineService.deleteOrderLine(id);
         return ResponseEntity.noContent().build();
     }
+
+    @PostMapping("/{orderId}/items")
+    public ResponseEntity<OrderLineDTO> addOrUpdateOrderLine(
+            @PathVariable Integer orderId,
+            @RequestBody OrderLineDTO orderLineDTO) {
+        try {
+            OrderLineDTO savedOrderLine = orderLineService.addOrUpdateOrderLine(orderId, orderLineDTO);
+            return ResponseEntity.ok(savedOrderLine);
+        } catch (RuntimeException e) {
+            return ResponseEntity.badRequest().body(null);
+        }
+    }
+
 }

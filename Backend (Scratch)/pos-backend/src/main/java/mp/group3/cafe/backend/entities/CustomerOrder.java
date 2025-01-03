@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -33,6 +35,10 @@ public class CustomerOrder {
 
     @Column(name = "total_price", nullable = false)
     private Double totalPrice = 0.0; // Default value
+
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<OrderLine> orderLines = new ArrayList<>();
+
 }
 
 

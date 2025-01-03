@@ -17,6 +17,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api/categories")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "*")
 public class CategorizationController {
 
     private final CategorizationService categorizationService;
@@ -56,8 +57,8 @@ public class CategorizationController {
             ObjectMapper objectMapper = new ObjectMapper();
             List<CategorizationDTO> categorizationDTOs = objectMapper.readValue(
                     file.getInputStream(),
-                    new TypeReference<List<CategorizationDTO>>() {}
-            );
+                    new TypeReference<List<CategorizationDTO>>() {
+                    });
 
             List<CategorizationDTO> createdCategories = categorizationService.createCategories(categorizationDTOs);
             return new ResponseEntity<>(createdCategories, HttpStatus.CREATED);
@@ -91,9 +92,9 @@ public class CategorizationController {
         }
     }
 
-
     @PutMapping("/{id}")
-    public ResponseEntity<CategorizationDTO> updateCategory(@PathVariable Integer id, @RequestBody CategorizationDTO categorizationDTO) {
+    public ResponseEntity<CategorizationDTO> updateCategory(@PathVariable Integer id,
+            @RequestBody CategorizationDTO categorizationDTO) {
         try {
             CategorizationDTO updatedCategory = categorizationService.updateCategory(id, categorizationDTO);
             return ResponseEntity.ok(updatedCategory);
@@ -106,5 +107,14 @@ public class CategorizationController {
     public ResponseEntity<Void> deleteCategory(@PathVariable Integer id) {
         categorizationService.deleteCategory(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/item-type/{itemType}")
+    public ResponseEntity<List<CategorizationDTO>> getCategoriesByItemType(@PathVariable String itemType) {
+        List<CategorizationDTO> categories = categorizationService.getCategoriesByItemType(itemType);
+        if (categories.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(categories);
     }
 }

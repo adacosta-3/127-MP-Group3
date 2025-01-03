@@ -6,13 +6,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
 @Entity
-@Table(name = "CATEGORIZATION")
+@Table(name = "categorization")
 public class Categorization {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,4 +24,3 @@ public class Categorization {
     @Column(name = "item_type", nullable = false, length = 10)
     private String itemType;
 }
-
