@@ -9,7 +9,6 @@ import java.util.stream.Collectors;
 public class ItemMapper {
     public static ItemDTO mapToItemDTO(Item item) {
         return new ItemDTO(
-                item.getItemId(),
                 item.getItemCode(),
                 item.getName(),
                 item.getBasePrice(),
@@ -22,7 +21,6 @@ public class ItemMapper {
 
     public static Item mapToItem(ItemDTO itemDTO, Categorization category) {
         Item item = new Item();
-        item.setItemId(itemDTO.getItemId());
         item.setItemCode(itemDTO.getItemCode());
         item.setName(itemDTO.getName());
         item.setBasePrice(itemDTO.getBasePrice());

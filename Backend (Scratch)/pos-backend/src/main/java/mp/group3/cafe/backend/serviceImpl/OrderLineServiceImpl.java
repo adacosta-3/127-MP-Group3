@@ -73,9 +73,9 @@ public class OrderLineServiceImpl implements OrderLineService {
             throw new RuntimeException("Order not found with ID: " + orderLineDTO.getOrderId());
         }
 
-        Optional<Item> itemOpt = itemRepository.findById(orderLineDTO.getItemId());
+        Optional<Item> itemOpt = itemRepository.findById(orderLineDTO.getItemCode());
         if (itemOpt.isEmpty()) {
-            throw new RuntimeException("Item not found with ID: " + orderLineDTO.getItemId());
+            throw new RuntimeException("Item not found with ID: " + orderLineDTO.getItemCode());
         }
 
         // Retrieve existing order line, order, and item

@@ -12,7 +12,7 @@ public class OrderLineMapper {
         return new OrderLineDTO(
                 orderLine.getOrderLineId(),
                 orderLine.getOrder().getOrderId(),
-                orderLine.getItem().getItemId(),
+                orderLine.getItem().getItemCode(),
                 orderLine.getSizeId(),
                 orderLine.getQuantity(),
                 orderLine.getLinePrice(),

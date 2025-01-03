@@ -26,7 +26,7 @@ public class OrderLine {
     private CustomerOrder order;
 
     @ManyToOne
-    @JoinColumn(name = "item_id", nullable = false)
+    @JoinColumn(name = "item_code", nullable = false)
     private Item item;
 
     @Column(name = "size_id")

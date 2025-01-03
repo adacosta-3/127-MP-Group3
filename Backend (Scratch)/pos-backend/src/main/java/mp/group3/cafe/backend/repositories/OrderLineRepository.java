@@ -12,7 +12,7 @@ import java.util.Optional;
 @Repository
 public interface OrderLineRepository extends JpaRepository<OrderLine, Integer> {
     List<OrderLine> findByOrder_OrderId(Integer orderId);
-    List<OrderLine> findByItem_ItemId(Integer itemId);
+    List<OrderLine> findByItem_ItemCode(String ItemCode);
 
 //    @Query("""
 //    SELECT ol

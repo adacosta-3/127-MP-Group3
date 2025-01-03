@@ -12,7 +12,6 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ItemDTO {
-    private Integer itemId;
     private String itemCode;
     private String name;
     private Double basePrice;
