@@ -1,6 +1,7 @@
 package mp.group3.cafe.backend.service;
 
 import mp.group3.cafe.backend.DTO.CustomizationDTO;
+import mp.group3.cafe.backend.DTO.CustomizationOptionsDTO;
 
 import java.util.List;
 import java.util.Optional;
@@ -19,6 +20,7 @@ public interface CustomizationService {
     void deleteCustomization(Integer customizationId);
 
     List<CustomizationDTO> updateCustomizationsByItemCode(String itemCode, List<CustomizationDTO> customizations);
+    List<CustomizationOptionsDTO> addOptionsToCustomization(Integer customizationId, List<CustomizationOptionsDTO> options);
 
 }
 

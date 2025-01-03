@@ -2,9 +2,12 @@ package mp.group3.cafe.backend.serviceImpl;
 
 import lombok.RequiredArgsConstructor;
 import mp.group3.cafe.backend.DTO.CustomizationDTO;
+import mp.group3.cafe.backend.DTO.CustomizationOptionsDTO;
 import mp.group3.cafe.backend.entities.Customization;
+import mp.group3.cafe.backend.entities.CustomizationOptions;
 import mp.group3.cafe.backend.entities.Item;
 import mp.group3.cafe.backend.mapper.CustomizationMapper;
+import mp.group3.cafe.backend.repositories.CustomizationOptionsRepository;
 import mp.group3.cafe.backend.repositories.CustomizationRepository;
 import mp.group3.cafe.backend.repositories.ItemRepository;
 import mp.group3.cafe.backend.service.CustomizationService;
@@ -20,6 +23,7 @@ public class CustomizationServiceImpl implements CustomizationService {
 
     private final CustomizationRepository customizationRepository;
     private final ItemRepository itemRepository;
+    private final CustomizationOptionsRepository customizationOptionsRepository;
 
     @Override
     public List<CustomizationDTO> getAllCustomizations() {
@@ -107,6 +111,34 @@ public class CustomizationServiceImpl implements CustomizationService {
         return newCustomizations.stream()
                 .map(CustomizationMapper::mapToCustomizationDTO)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<CustomizationOptionsDTO> addOptionsToCustomization(Integer customizationId, List<CustomizationOptionsDTO> options) {
+        Customization customization = customizationRepository.findById(customizationId)
+                .orElseThrow(() -> new RuntimeException("Customization not found"));
+
+        // Map DTOs to entities
+        List<CustomizationOptions> customizationOptions = options.stream()
+                .map(option -> {
+                    CustomizationOptions newOption = new CustomizationOptions();
+                    newOption.setOptionName(option.getOptionName());
+                    newOption.setAdditionalCost(option.getAdditionalCost());
+                    newOption.setCustomization(customization);
+                    return newOption;
+                }).collect(Collectors.toList());
+
+        // Save options
+        List<CustomizationOptions> savedOptions = customizationOptionsRepository.saveAll(customizationOptions);
+
+        // Return DTOs
+        return savedOptions.stream()
+                .map(option -> new CustomizationOptionsDTO(
+                        option.getOptionId(),
+                        option.getCustomization().getCustomizationId(),
+                        option.getOptionName(),
+                        option.getAdditionalCost()
+                )).collect(Collectors.toList());
     }
 }
 

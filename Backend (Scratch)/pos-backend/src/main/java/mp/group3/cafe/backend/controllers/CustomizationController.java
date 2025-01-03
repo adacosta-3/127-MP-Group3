@@ -2,6 +2,7 @@ package mp.group3.cafe.backend.controllers;
 
 import lombok.RequiredArgsConstructor;
 import mp.group3.cafe.backend.DTO.CustomizationDTO;
+import mp.group3.cafe.backend.DTO.CustomizationOptionsDTO;
 import mp.group3.cafe.backend.service.CustomizationService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -69,6 +70,18 @@ public class CustomizationController {
             return ResponseEntity.ok(updatedCustomizations);
         } catch (RuntimeException e) {
             return ResponseEntity.notFound().build();
+        }
+    }
+
+    @PostMapping("/{customizationId}/options")
+    public ResponseEntity<List<CustomizationOptionsDTO>> addOptionsToCustomization(
+            @PathVariable Integer customizationId,
+            @RequestBody List<CustomizationOptionsDTO> options) {
+        try {
+            List<CustomizationOptionsDTO> savedOptions = customizationService.addOptionsToCustomization(customizationId, options);
+            return ResponseEntity.ok(savedOptions);
+        } catch (RuntimeException e) {
+            return ResponseEntity.badRequest().body(null);
         }
     }
 
