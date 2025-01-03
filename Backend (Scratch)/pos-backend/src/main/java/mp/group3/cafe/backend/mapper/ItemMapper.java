@@ -14,7 +14,8 @@ public class ItemMapper {
                 item.getName(),
                 item.getBasePrice(),
                 item.getCategory().getCategoryId(),
-                item.getSizes().stream().map(ItemSizeMapper::mapToItemSizeDTO).collect(Collectors.toList())
+                item.getSizes().stream().map(ItemSizeMapper::mapToItemSizeDTO).collect(Collectors.toList()),
+                item.getCustomizations().stream().map(CustomizationMapper::mapToCustomizationDTO).collect(Collectors.toList())
         );
     }
 

@@ -18,5 +18,5 @@ public class ItemDTO {
     private Double basePrice;
     private Integer categoryId;
     private List<ItemSizeDTO> sizes; // New field for sizes
-
+    private List<CustomizationDTO> customizations;
 }
