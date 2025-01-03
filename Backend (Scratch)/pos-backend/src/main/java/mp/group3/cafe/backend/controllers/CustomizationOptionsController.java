@@ -61,4 +61,17 @@ public class CustomizationOptionsController {
         optionsService.deleteOption(id);
         return ResponseEntity.noContent().build();
     }
+
+    @PutMapping("/item/{itemCode}/option/{optionId}")
+    public ResponseEntity<CustomizationOptionsDTO> updateCustomizationOptionByItemCode(
+            @PathVariable String itemCode,
+            @PathVariable Integer optionId,
+            @RequestBody CustomizationOptionsDTO customizationOptionsDTO) {
+        try {
+            CustomizationOptionsDTO updatedOption = optionsService.updateCustomizationOptionByItemCode(itemCode, optionId, customizationOptionsDTO);
+            return ResponseEntity.ok(updatedOption);
+        } catch (RuntimeException e) {
+            return ResponseEntity.badRequest().body(null);
+        }
+    }
 }
