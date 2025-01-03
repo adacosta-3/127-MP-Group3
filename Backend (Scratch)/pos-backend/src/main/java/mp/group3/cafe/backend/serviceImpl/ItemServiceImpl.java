@@ -68,7 +68,6 @@ public class ItemServiceImpl implements ItemService {
         return ItemMapper.mapToItemDTO(updatedItem);
     }
 
-
     @Override
     public Optional<ItemDTO> getItemById(String itemCode) {
         return itemRepository.findById(itemCode)
@@ -164,6 +163,7 @@ public class ItemServiceImpl implements ItemService {
         // Delete the item
         itemRepository.delete(item);
     }
+
     @Override
     public List<ItemSizeDTO> addSizesToItem(String itemCode, List<ItemSizeDTO> sizes) {
         Optional<Item> itemOpt = itemRepository.findByItemCode(itemCode);
@@ -201,7 +201,6 @@ public class ItemServiceImpl implements ItemService {
     public void deleteSize(Integer sizeId) {
         itemSizeRepository.deleteById(sizeId);
     }
-
 
     @Override
     public List<ItemDTO> parseCSVToItems(MultipartFile file) throws IOException, CsvException {
