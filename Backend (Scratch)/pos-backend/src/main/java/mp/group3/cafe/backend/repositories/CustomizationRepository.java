@@ -8,7 +8,7 @@ import java.util.List;
 
 @Repository
 public interface CustomizationRepository extends JpaRepository<Customization, Integer> {
-    List<Customization> findByItem_ItemId(Integer itemId);
+    List<Customization> findByItem_ItemCode(String itemCode);
     List<Customization> findByNameContainingIgnoreCase(String name);
 
 

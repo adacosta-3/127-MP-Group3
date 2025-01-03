@@ -12,7 +12,7 @@ import java.util.Optional;
 @Repository
 public interface OrderLineRepository extends JpaRepository<OrderLine, Integer> {
     List<OrderLine> findByOrder_OrderId(Integer orderId);
-    List<OrderLine> findByItem_ItemId(Integer itemId);
+    List<OrderLine> findByItem_ItemCode(String ItemCode);
 
 //    @Query("""
 //    SELECT ol
@@ -38,7 +38,7 @@ public interface OrderLineRepository extends JpaRepository<OrderLine, Integer> {
     FROM OrderLine ol 
     JOIN ol.customizations olc 
     WHERE ol.order.orderId = :orderId 
-      AND ol.item.itemId = :itemId 
+      AND ol.item.itemCode = :itemCode
       AND ol.sizeId = :sizeId 
     GROUP BY ol, olc.lineCustomizationId, olc.customizationOption.optionId 
     HAVING COUNT(olc) = :customizationCount 
@@ -46,7 +46,7 @@ public interface OrderLineRepository extends JpaRepository<OrderLine, Integer> {
 """)
     Optional<OrderLine> findDuplicateOrderLine(
             @Param("orderId") Integer orderId,
-            @Param("itemId") Integer itemId,
+            @Param("itemCode") String itemCode,
             @Param("sizeId") Integer sizeId,
             @Param("customizationIds") List<Integer> customizationIds,
             @Param("customizationCount") Long customizationCount

@@ -18,7 +18,7 @@ public class ItemSize {
     private Integer sizeId; // Unique ID for each size
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "item_id", nullable = false)
+    @JoinColumn(name = "item_code", nullable = false)
     private Item item; // Associated item
 
     @Column(name = "size_name", nullable = false, length = 20)
