@@ -17,6 +17,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api/categories")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "*")
 public class CategorizationController {
 
     private final CategorizationService categorizationService;
@@ -56,8 +57,8 @@ public class CategorizationController {
             ObjectMapper objectMapper = new ObjectMapper();
             List<CategorizationDTO> categorizationDTOs = objectMapper.readValue(
                     file.getInputStream(),
-                    new TypeReference<List<CategorizationDTO>>() {}
-            );
+                    new TypeReference<List<CategorizationDTO>>() {
+                    });
 
             List<CategorizationDTO> createdCategories = categorizationService.createCategories(categorizationDTOs);
             return new ResponseEntity<>(createdCategories, HttpStatus.CREATED);
@@ -91,9 +92,9 @@ public class CategorizationController {
         }
     }
 
-
     @PutMapping("/{id}")
-    public ResponseEntity<CategorizationDTO> updateCategory(@PathVariable Integer id, @RequestBody CategorizationDTO categorizationDTO) {
+    public ResponseEntity<CategorizationDTO> updateCategory(@PathVariable Integer id,
+            @RequestBody CategorizationDTO categorizationDTO) {
         try {
             CategorizationDTO updatedCategory = categorizationService.updateCategory(id, categorizationDTO);
             return ResponseEntity.ok(updatedCategory);

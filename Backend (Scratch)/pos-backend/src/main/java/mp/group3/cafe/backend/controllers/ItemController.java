@@ -15,6 +15,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/items")
+@CrossOrigin(origins = "*")
 @RequiredArgsConstructor
 public class ItemController {
 
@@ -62,7 +63,6 @@ public class ItemController {
         return ResponseEntity.ok(items);
     }
 
-
     @PutMapping("/{itemCode}")
     public ResponseEntity<ItemDTO> updateItemByItemCode(@PathVariable String itemCode, @RequestBody ItemDTO itemDTO) {
         try {
@@ -84,7 +84,8 @@ public class ItemController {
     }
 
     @PutMapping("/{itemCode}/sizes")
-    public ResponseEntity<List<ItemSizeDTO>> addSizesToItem(@PathVariable String itemCode, @RequestBody List<ItemSizeDTO> sizes) {
+    public ResponseEntity<List<ItemSizeDTO>> addSizesToItem(@PathVariable String itemCode,
+            @RequestBody List<ItemSizeDTO> sizes) {
         System.out.println("Received PUT request for itemCode: " + itemCode);
         System.out.println("Sizes payload: " + sizes);
         try {
@@ -95,7 +96,6 @@ public class ItemController {
             return ResponseEntity.notFound().build();
         }
     }
-
 
     @GetMapping("/{itemCode}")
     public ResponseEntity<List<ItemSizeDTO>> getSizesForItem(@PathVariable String itemCode) {
@@ -126,4 +126,3 @@ public class ItemController {
         }
     }
 }
-

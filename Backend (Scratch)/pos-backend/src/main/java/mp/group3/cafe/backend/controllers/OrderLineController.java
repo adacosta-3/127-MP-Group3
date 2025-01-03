@@ -11,6 +11,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/order-lines")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "*")
 public class OrderLineController {
 
     private final OrderLineService orderLineService;
@@ -26,7 +27,8 @@ public class OrderLineController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<OrderLineDTO> updateOrderLine(@PathVariable Integer id, @RequestBody OrderLineDTO orderLineDTO) {
+    public ResponseEntity<OrderLineDTO> updateOrderLine(@PathVariable Integer id,
+            @RequestBody OrderLineDTO orderLineDTO) {
         return ResponseEntity.ok(orderLineService.updateOrderLine(id, orderLineDTO));
     }
 
