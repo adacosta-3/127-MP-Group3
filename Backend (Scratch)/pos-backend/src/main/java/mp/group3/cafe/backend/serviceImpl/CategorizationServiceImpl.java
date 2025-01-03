@@ -94,5 +94,13 @@ public class CategorizationServiceImpl implements CategorizationService {
 
         return categories;
     }
+
+    @Override
+    public List<CategorizationDTO> getCategoriesByItemType(String itemType) {
+        List<Categorization> categories = categorizationRepository.findByItemType(itemType);
+        return categories.stream()
+                .map(CategorizationMapper::mapToCategorizationDTO)
+                .collect(Collectors.toList());
+    }
 }
 

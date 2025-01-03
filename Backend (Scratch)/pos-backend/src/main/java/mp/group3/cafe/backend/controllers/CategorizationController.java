@@ -107,4 +107,13 @@ public class CategorizationController {
         categorizationService.deleteCategory(id);
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/item-type/{itemType}")
+    public ResponseEntity<List<CategorizationDTO>> getCategoriesByItemType(@PathVariable String itemType) {
+        List<CategorizationDTO> categories = categorizationService.getCategoriesByItemType(itemType);
+        if (categories.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(categories);
+    }
 }
