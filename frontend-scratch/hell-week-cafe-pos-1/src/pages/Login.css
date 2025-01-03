@@ -1,0 +1,136 @@
+.login-signup-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Full viewport height */
+    margin-left: 180px; /* Adjust for sidebar width */
+}
+
+.container {
+    width: 400px; /* Adjust as needed */
+    padding: 20px;
+    background-color: #f0f0f0;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+/* Styling the header and centering text */
+.header {
+    width: 100%; /* Make sure header takes up the full width of the container */
+    text-align: center; /* Center the text */
+    margin-bottom: 30px; /* Space between header and inputs */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center the header content */
+    font-family: var(--font-family1);
+}
+
+.text {
+    font-size: 40px;
+    font-weight: 700;
+    color: #333;
+}
+
+.underline {
+    width: 100px;
+    height: 10px;
+    background-color: #e62c22;
+    border-radius: 9px;
+    margin-top: 10px;
+}
+
+/* Style for the input fields and icons */
+.inputs {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.input {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    gap: 10px;
+}
+
+.icon {
+    font-size: 18px;
+    color: #555;
+}
+
+input {
+    border: none;
+    outline: none;
+    width: 100%;
+    padding: 8px;
+    font-size: 16px;
+    color: #f0f0f0; /* Dark text color for better readability */
+}
+
+input::placeholder {
+    color: #555;
+}
+
+/* Styling for the error message */
+.error-message {
+    color: red;
+    font-size: 14px;
+    margin-top: 10px;
+    text-align: center;
+}
+
+/* Styling for the buttons */
+.submit-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 30px;
+    gap: 20px;
+}
+
+.submit {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 170px;
+    height: 45px;
+    color: #ffffff;
+    background: #e62c22;
+    border-radius: 50px;
+    font-size: 19px;
+    font-weight: 700;
+    font-family: var(--font-family2);
+    cursor: pointer;
+}
+
+.gray {
+    background: #ccc;
+    color: #676767;
+}
+
+/* Styling for the check mark button */
+.submit i {
+    font-size: 24px;
+    color: #fff;
+}
+
+/* Circular and green check button */
+button.submit {
+    width: 45px;
+    height: 45px;
+    background-color: #28a745; /* Green background */
+    border-radius: 50%; /* Circular button */
+    font-size: 20px; /* Smaller font size for the check mark */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    cursor: pointer;
+}
+
+button.submit i {
+    color: #fff; /* White color for the check mark */
+}
