@@ -15,7 +15,7 @@ export const MaterialRoutes: Routes = [
         component:ManageCategoryComponent,
         canActivate:[RouteGuardService],
         data:{
-            expectedRole: ['admin' , 'user']
+            expectedRole: ['manager']
         }
     },
 
@@ -24,7 +24,7 @@ export const MaterialRoutes: Routes = [
         component:ManageProductComponent,
         canActivate:[RouteGuardService],
         data:{
-            expectedRole: ['admin']
+            expectedRole: ['manager']
         }
     },
 
@@ -34,7 +34,7 @@ export const MaterialRoutes: Routes = [
         component:ManageOrderComponent,
         canActivate:[RouteGuardService],
         data:{
-            expectedRole: ['admin' , 'user']
+            expectedRole: ['user']
         }
     },
 
@@ -43,7 +43,7 @@ export const MaterialRoutes: Routes = [
         component:ViewBillComponent,
         canActivate:[RouteGuardService],
         data:{
-            expectedRole: ['admin' , 'user']
+            expectedRole: ['user']
         }
     },
 

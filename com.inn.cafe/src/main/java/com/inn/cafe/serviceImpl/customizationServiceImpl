@@ -1,0 +1,50 @@
+@Service
+@Slf4j
+public class CustomizationServiceImpl implements CustomizationService {
+
+    @Autowired
+    private CustomizationDao customizationDao;
+
+    @Autowired
+    private CustomizationOptionDao customizationOptionDao;
+
+    @Override
+    public ResponseEntity<String> addCustomization(Map<String, String> requestMap) {
+        log.info("Inside addCustomization {}", requestMap);
+        try {
+            if (validateCustomizationMap(requestMap)) {
+                Customization customization = new Customization();
+                Product product = new Product();
+                product.setId(Integer.parseInt(requestMap.get("productId")));
+
+                customization.setName(requestMap.get("name"));
+                customization.setProduct(product);
+                customizationDao.save(customization);
+
+                return new ResponseEntity<>("Customization added successfully", HttpStatus.OK);
+            }
+            return new ResponseEntity<>("Invalid data", HttpStatus.BAD_REQUEST);
+        } catch (Exception ex) {
+            log.error("Error in addCustomization", ex);
+            return new ResponseEntity<>("Something went wrong", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @Override
+    public ResponseEntity<List<CustomizationWrapper>> getCustomizationsByProductId(Integer productId) {
+        try {
+            List<Customization> customizations = customizationDao.findByProductId(productId);
+            List<CustomizationWrapper> wrappers = customizations.stream()
+                    .map(c -> new CustomizationWrapper(c.getId(), c.getName()))
+                    .collect(Collectors.toList());
+            return new ResponseEntity<>(wrappers, HttpStatus.OK);
+        } catch (Exception ex) {
+            log.error("Error in getCustomizationsByProductId", ex);
+            return new ResponseEntity<>(new ArrayList<>(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    private boolean validateCustomizationMap(Map<String, String> requestMap) {
+        return requestMap.containsKey("name") && requestMap.containsKey("productId");
+    }
+}
