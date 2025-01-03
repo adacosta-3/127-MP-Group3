@@ -12,6 +12,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api/customization-options")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "*")
 public class CustomizationOptionsController {
 
     private final CustomizationOptionsService optionsService;

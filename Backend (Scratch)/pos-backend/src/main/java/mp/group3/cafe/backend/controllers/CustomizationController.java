@@ -13,6 +13,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api/customizations")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "*")
 public class CustomizationController {
 
     private final CustomizationService customizationService;
