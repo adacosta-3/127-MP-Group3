@@ -33,24 +33,56 @@ public interface OrderLineRepository extends JpaRepository<OrderLine, Integer> {
 //            @Param("customizationCount") Long customizationCount
 //    );
 
-    @Query("""
-    SELECT ol 
-    FROM OrderLine ol 
-    JOIN ol.customizations olc 
-    WHERE ol.order.orderId = :orderId 
-      AND ol.item.itemId = :itemId 
-      AND ol.sizeId = :sizeId 
-    GROUP BY ol, olc.lineCustomizationId, olc.customizationOption.optionId 
-    HAVING COUNT(olc) = :customizationCount 
-       AND SUM(CASE WHEN olc.customizationOption.optionId IN :customizationIds THEN 1 ELSE 0 END) = :customizationCount
-""")
+//    @Query("""
+//    SELECT ol
+//    FROM OrderLine ol
+//    JOIN ol.customizations olc
+//    WHERE ol.order.orderId = :orderId
+//      AND ol.item.itemId = :itemId
+//      AND ol.sizeId = :sizeId
+//    GROUP BY ol, olc.lineCustomizationId, olc.customizationOption.optionId
+//    HAVING COUNT(olc) = :customizationCount
+//       AND SUM(CASE WHEN olc.customizationOption.optionId IN :customizationIds THEN 1 ELSE 0 END) = :customizationCount
+//""")
+//    Optional<OrderLine> findDuplicateOrderLine(
+//            @Param("orderId") Integer orderId,
+//            @Param("itemId") Integer itemId,
+//            @Param("sizeId") Integer sizeId,
+//            @Param("customizationIds") List<Integer> customizationIds,
+//            @Param("customizationCount") Long customizationCount
+//    );
+
+//    @Query("SELECT ol FROM OrderLine ol " +
+//            "JOIN ol.customizations olc " +
+//            "WHERE ol.order.orderId = :orderId " +
+//            "AND ol.item.itemId = :itemId " +
+//            "AND ol.sizeId = :sizeId " +
+//            "GROUP BY ol.orderLineId " +
+//            "HAVING COUNT(olc.customizationOption.optionId) = :customizationCount " +
+//            "AND SUM(CASE WHEN olc.customizationOption.optionId IN (:customizationOptionIds) THEN 1 ELSE 0 END) = :customizationCount")
+//    Optional<OrderLine> findDuplicateOrderLine(
+//            @Param("orderId") Integer orderId,
+//            @Param("itemId") Integer itemId,
+//            @Param("sizeId") Integer sizeId,
+//            @Param("customizationOptionIds") List<Integer> customizationOptionIds,
+//            @Param("customizationCount") Long customizationCount);
+
+    @Query("SELECT ol FROM OrderLine ol " +
+            "JOIN ol.customizations olc " +
+            "WHERE ol.order.orderId = :orderId " +
+            "AND ol.item.itemId = :itemId " +
+            "AND ol.sizeId = :sizeId " +
+            "GROUP BY ol.orderLineId " +
+            "HAVING COUNT(olc.customizationOption.optionId) = :customizationCount " +
+            "AND SUM(CASE WHEN olc.customizationOption.optionId IN (:customizationOptionIds) THEN 1 ELSE 0 END) = :customizationCount")
     Optional<OrderLine> findDuplicateOrderLine(
             @Param("orderId") Integer orderId,
             @Param("itemId") Integer itemId,
             @Param("sizeId") Integer sizeId,
-            @Param("customizationIds") List<Integer> customizationIds,
-            @Param("customizationCount") Long customizationCount
-    );
+            @Param("customizationOptionIds") List<Integer> customizationOptionIds,
+            @Param("customizationCount") Long customizationCount);
+
+
 
 
 
