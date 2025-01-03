@@ -2,6 +2,9 @@ package mp.group3.cafe.backend.serviceImpl;
 
 import lombok.RequiredArgsConstructor;
 import mp.group3.cafe.backend.DTO.CustomerOrderDTO;
+import mp.group3.cafe.backend.DTO.Receipt.ReceiptCustomizationDTO;
+import mp.group3.cafe.backend.DTO.Receipt.ReceiptDTO;
+import mp.group3.cafe.backend.DTO.Receipt.ReceiptItemDTO;
 import mp.group3.cafe.backend.entities.*;
 import mp.group3.cafe.backend.mapper.CustomerOrderMapper;
 import mp.group3.cafe.backend.repositories.*;
@@ -119,6 +122,45 @@ public class CustomerOrderServiceImpl implements CustomerOrderService {
         orderRepository.save(order);
     }
 
+    @Override
+    public ReceiptDTO completeTransaction(Integer orderId) {
+        CustomerOrder order = orderRepository.findById(orderId)
+                .orElseThrow(() -> new RuntimeException("Order not found"));
+
+        // Fetch all order lines for the order
+        List<OrderLine> orderLines = orderLineRepository.findByOrder_OrderId(orderId);
+
+        // Aggregate receipt details
+        List<ReceiptItemDTO> receiptItems = orderLines.stream().map(orderLine -> {
+            // Fetch customizations for each order line
+            List<OrderLineCustomization> customizations = orderLine.getCustomizations();
+
+            // Map customizations to DTOs
+            List<ReceiptCustomizationDTO> customizationDTOs = customizations.stream()
+                    .map(c -> new ReceiptCustomizationDTO(
+                            c.getCustomizationOption().getOptionName(),
+                            c.getCustomizationOption().getAdditionalCost()
+                    ))
+                    .collect(Collectors.toList());
+
+            // Calculate price per item
+            double itemPrice = orderLine.getLinePrice();
+
+            // Return the ReceiptItemDTO
+            return new ReceiptItemDTO(
+                    orderLine.getItem().getName(),
+                    orderLine.getQuantity(),
+                    itemPrice,
+                    customizationDTOs
+            );
+        }).collect(Collectors.toList());
+
+        // Calculate total price
+        double totalPrice = order.getTotalPrice();
+
+        // Return the receipt
+        return new ReceiptDTO(orderId, order.getOrderDate(), receiptItems, totalPrice);
+    }
 
 
 
