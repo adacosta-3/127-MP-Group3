@@ -5,6 +5,8 @@ import mp.group3.cafe.backend.entities.CustomerOrder;
 import mp.group3.cafe.backend.entities.Item;
 import mp.group3.cafe.backend.entities.OrderLine;
 
+import java.util.stream.Collectors;
+
 public class OrderLineMapper {
     public static OrderLineDTO mapToOrderLineDTO(OrderLine orderLine) {
         return new OrderLineDTO(
@@ -13,7 +15,10 @@ public class OrderLineMapper {
                 orderLine.getItem().getItemId(),
                 orderLine.getSizeId(),
                 orderLine.getQuantity(),
-                orderLine.getLinePrice()
+                orderLine.getLinePrice(),
+                orderLine.getCustomizations().stream()
+                        .map(OrderLineCustomizationMapper::mapToOrderLineCustomizationDTO)
+                        .collect(Collectors.toList())
         );
     }
 
@@ -28,3 +33,5 @@ public class OrderLineMapper {
         return orderLine;
     }
 }
+
+

@@ -17,5 +17,8 @@ public interface CustomizationService {
     CustomizationDTO updateCustomization(Integer customizationId, CustomizationDTO customizationDTO);
 
     void deleteCustomization(Integer customizationId);
+
+    List<CustomizationDTO> updateCustomizationsByItemCode(String itemCode, List<CustomizationDTO> customizations);
+
 }
 

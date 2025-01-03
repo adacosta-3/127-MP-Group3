@@ -4,12 +4,17 @@ import mp.group3.cafe.backend.DTO.CustomizationDTO;
 import mp.group3.cafe.backend.entities.Customization;
 import mp.group3.cafe.backend.entities.Item;
 
+import java.util.stream.Collectors;
+
 public class CustomizationMapper {
     public static CustomizationDTO mapToCustomizationDTO(Customization customization) {
         return new CustomizationDTO(
                 customization.getCustomizationId(),
                 customization.getName(),
-                customization.getItem().getItemId()
+                customization.getItem().getItemId(),
+                customization.getOptions().stream()
+                        .map(CustomizationOptionsMapper::mapToCustomizationOptionsDTO)
+                        .collect(Collectors.toList())
         );
     }
 
@@ -21,4 +26,5 @@ public class CustomizationMapper {
         return customization;
     }
 }
+
 

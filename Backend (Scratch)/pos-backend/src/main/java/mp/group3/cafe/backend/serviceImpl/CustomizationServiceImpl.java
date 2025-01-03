@@ -82,5 +82,31 @@ public class CustomizationServiceImpl implements CustomizationService {
     public void deleteCustomization(Integer customizationId) {
         customizationRepository.deleteById(customizationId);
     }
+
+
+    @Override
+    public List<CustomizationDTO> updateCustomizationsByItemCode(String itemCode, List<CustomizationDTO> customizations) {
+        Optional<Item> itemOpt = itemRepository.findByItemCode(itemCode);
+        if (itemOpt.isEmpty()) {
+            throw new RuntimeException("Item not found with itemCode: " + itemCode);
+        }
+
+        Item item = itemOpt.get();
+
+        // Remove old customizations
+        List<Customization> oldCustomizations = customizationRepository.findByItem_ItemId(item.getItemId());
+        customizationRepository.deleteAll(oldCustomizations);
+
+        // Add new customizations
+        List<Customization> newCustomizations = customizations.stream()
+                .map(dto -> CustomizationMapper.mapToCustomization(dto, item))
+                .collect(Collectors.toList());
+
+        customizationRepository.saveAll(newCustomizations);
+
+        return newCustomizations.stream()
+                .map(CustomizationMapper::mapToCustomizationDTO)
+                .collect(Collectors.toList());
+    }
 }
 
