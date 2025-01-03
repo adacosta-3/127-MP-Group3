@@ -14,13 +14,13 @@ public interface ItemService {
 
     ItemDTO updateItemByItemCode(String itemCode, ItemDTO itemDTO);
 
-    Optional<ItemDTO> getItemById(Integer itemId);
+    Optional<ItemDTO> getItemById(String itemCode);
 
     ItemDTO createItem(ItemDTO itemDTO);
 
-    ItemDTO updateItem(Integer itemId, ItemDTO itemDTO);
+    ItemDTO updateItem(String itemCode, ItemDTO itemDTO);
 
-    void deleteItem(Integer itemId);
+    void deleteItem(String itemCode);
 
     List<ItemDTO> getItemsByCategoryId(Integer categoryId);
 

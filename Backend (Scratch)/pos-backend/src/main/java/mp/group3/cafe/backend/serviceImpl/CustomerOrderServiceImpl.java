@@ -2,6 +2,9 @@ package mp.group3.cafe.backend.serviceImpl;
 
 import lombok.RequiredArgsConstructor;
 import mp.group3.cafe.backend.DTO.CustomerOrderDTO;
+import mp.group3.cafe.backend.DTO.Receipt.ReceiptCustomizationDTO;
+import mp.group3.cafe.backend.DTO.Receipt.ReceiptDTO;
+import mp.group3.cafe.backend.DTO.Receipt.ReceiptItemDTO;
 import mp.group3.cafe.backend.entities.*;
 import mp.group3.cafe.backend.mapper.CustomerOrderMapper;
 import mp.group3.cafe.backend.repositories.*;
@@ -52,7 +55,7 @@ public class CustomerOrderServiceImpl implements CustomerOrderService {
         }
 
         CustomerOrder order = new CustomerOrder();
-        order.setOrderDate(java.sql.Date.valueOf(orderDTO.getOrderDate()));
+        order.setOrderDate(java.sql.Date.valueOf(String.valueOf(orderDTO.getOrderDate())));
         order.setCustomer(customerOpt.orElse(null)); // Null for guest customers
         order.setCashier(cashierOpt.get());
         order.setTotalPrice(0.0); // Temporary value, will update after OrderLines are added
@@ -91,7 +94,7 @@ public class CustomerOrderServiceImpl implements CustomerOrderService {
             existingOrder.setCashier(cashierOpt.get());
         }
 
-        existingOrder.setOrderDate(java.sql.Date.valueOf(orderDTO.getOrderDate()));
+        existingOrder.setOrderDate(java.sql.Date.valueOf(String.valueOf(orderDTO.getOrderDate())));
 
         CustomerOrder updatedOrder = orderRepository.save(existingOrder);
 
@@ -102,33 +105,61 @@ public class CustomerOrderServiceImpl implements CustomerOrderService {
     }
 
     public void updateOrderTotalPrice(Integer orderId) {
-        Optional<CustomerOrder> orderOpt = orderRepository.findById(orderId);
-        if (orderOpt.isEmpty()) {
-            throw new RuntimeException("Order not found with ID: " + orderId);
-        }
-
-        CustomerOrder order = orderOpt.get();
+        // Fetch the order
+        CustomerOrder order = orderRepository.findById(orderId)
+                .orElseThrow(() -> new RuntimeException("Order not found with ID: " + orderId));
 
         // Fetch all order lines for this order
         List<OrderLine> orderLines = orderLineRepository.findByOrder_OrderId(orderId);
 
-        // Calculate total price
-        double totalPrice = 0.0;
-        for (OrderLine orderLine : orderLines) {
-            double linePrice = orderLine.getLinePrice();
-
-            // Add costs from customizations
-            List<OrderLineCustomization> customizations = orderLineCustomizationRepository.findByOrderLine_OrderLineId(orderLine.getOrderLineId());
-            for (OrderLineCustomization customization : customizations) {
-                linePrice += customization.getCustomizationOption().getAdditionalCost();
-            }
-
-            totalPrice += linePrice;
-        }
+        // Calculate total price by summing up line prices
+        double totalPrice = orderLines.stream()
+                .mapToDouble(OrderLine::getLinePrice) // Use the precomputed line price
+                .sum();
 
         // Update the order's total price
         order.setTotalPrice(totalPrice);
         orderRepository.save(order);
+    }
+
+    @Override
+    public ReceiptDTO completeTransaction(Integer orderId) {
+        CustomerOrder order = orderRepository.findById(orderId)
+                .orElseThrow(() -> new RuntimeException("Order not found"));
+
+        // Fetch all order lines for the order
+        List<OrderLine> orderLines = orderLineRepository.findByOrder_OrderId(orderId);
+
+        // Aggregate receipt details
+        List<ReceiptItemDTO> receiptItems = orderLines.stream().map(orderLine -> {
+            // Fetch customizations for each order line
+            List<OrderLineCustomization> customizations = orderLine.getCustomizations();
+
+            // Map customizations to DTOs
+            List<ReceiptCustomizationDTO> customizationDTOs = customizations.stream()
+                    .map(c -> new ReceiptCustomizationDTO(
+                            c.getCustomizationOption().getOptionName(),
+                            c.getCustomizationOption().getAdditionalCost()
+                    ))
+                    .collect(Collectors.toList());
+
+            // Calculate price per item
+            double itemPrice = orderLine.getLinePrice();
+
+            // Return the ReceiptItemDTO
+            return new ReceiptItemDTO(
+                    orderLine.getItem().getName(),
+                    orderLine.getQuantity(),
+                    itemPrice,
+                    customizationDTOs
+            );
+        }).collect(Collectors.toList());
+
+        // Calculate total price
+        double totalPrice = order.getTotalPrice();
+
+        // Return the receipt
+        return new ReceiptDTO(orderId, order.getOrderDate(), receiptItems, totalPrice);
     }
 
 

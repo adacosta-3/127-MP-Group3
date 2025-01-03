@@ -17,10 +17,6 @@ import java.util.List;
 @Table(name = "ITEM")
 public class Item {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "item_id")
-    private Integer itemId;
-
     @Column(name = "item_code", nullable = false, unique = true, length = 20)
     private String itemCode;
 

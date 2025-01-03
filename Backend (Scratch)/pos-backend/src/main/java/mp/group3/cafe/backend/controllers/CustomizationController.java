@@ -29,9 +29,9 @@ public class CustomizationController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    @GetMapping("/item/{itemId}")
-    public ResponseEntity<List<CustomizationDTO>> getCustomizationsByItemId(@PathVariable Integer itemId) {
-        List<CustomizationDTO> customizations = customizationService.getCustomizationsByItemId(itemId);
+    @GetMapping("/item/{itemCode}")
+    public ResponseEntity<List<CustomizationDTO>> getCustomizationsByItemCode(@PathVariable String itemCode) {
+        List<CustomizationDTO> customizations = customizationService.getCustomizationsByItemCode(itemCode);
         return ResponseEntity.ok(customizations);
     }
 

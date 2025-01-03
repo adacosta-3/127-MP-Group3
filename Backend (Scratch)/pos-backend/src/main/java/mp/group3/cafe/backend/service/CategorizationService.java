@@ -22,5 +22,6 @@ public interface CategorizationService {
     void deleteCategory(Integer categoryId);
 
     List<CategorizationDTO> parseCSVToCategories(MultipartFile file) throws IOException, CsvException;
+    List<CategorizationDTO> getCategoriesByItemType(String itemType);
 }
 
