@@ -13,4 +13,3 @@ public class OrderHistoryPerDayDTO {
     private LocalDate orderDate;
     private Long orderCount;
 }
-

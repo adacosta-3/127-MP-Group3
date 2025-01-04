@@ -19,13 +19,13 @@ public interface CustomerOrderRepository extends JpaRepository<CustomerOrder, In
 
     List<CustomerOrder> findByCashier_UserId(Integer userId);
 
-    @Query("SELECT new mp.group3.cafe.backend.DTO.AdminDashboard.OrderHistoryPerDayDTO(DATE(o.orderDate), COUNT(o)) " +
+    @Query("SELECT new mp.group3.cafe.backend.DTO.AdminDashboard.OrderHistoryPerDayDTO(CAST(o.orderDate AS LocalDate), COUNT(o)) " +
             "FROM CustomerOrder o " +
-            "GROUP BY DATE(o.orderDate) " +
-            "ORDER BY DATE(o.orderDate) ASC")
+            "GROUP BY CAST(o.orderDate AS LocalDate) " +
+            "ORDER BY CAST(o.orderDate AS LocalDate) ASC")
     List<OrderHistoryPerDayDTO> findOrderHistoryPerDay();
 
-    @Query("SELECT new mp.group3.cafe.backend.DTO.AdminDashboard.OrderHistoryForMemberDTO(o.orderId, DATE(o.orderDate), o.totalPrice) " +
+    @Query("SELECT new mp.group3.cafe.backend.DTO.AdminDashboard.OrderHistoryForMemberDTO(o.orderId, o.orderDate, o.totalPrice) " +
             "FROM CustomerOrder o " +
             "JOIN o.customer c " +
             "JOIN Member m ON c.customerId = m.customer.customerId " +
