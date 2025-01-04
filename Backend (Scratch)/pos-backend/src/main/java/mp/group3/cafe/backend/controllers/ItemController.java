@@ -86,7 +86,6 @@ public class ItemController {
         }
     }
 
-
     @PutMapping("/{code}")
     public ResponseEntity<ItemDTO> updateItem(@PathVariable String code, @RequestBody ItemDTO itemDTO) {
         try {
@@ -109,7 +108,6 @@ public class ItemController {
         return ResponseEntity.ok(items);
     }
 
-
     @PutMapping("/code/{itemCode}")
     public ResponseEntity<ItemDTO> updateItemByItemCode(@PathVariable String itemCode, @RequestBody ItemDTO itemDTO) {
         try {
@@ -131,7 +129,8 @@ public class ItemController {
     }
 
     @PutMapping("/sizes/{itemCode}")
-    public ResponseEntity<List<ItemSizeDTO>> addSizesToItem(@PathVariable String itemCode, @RequestBody List<ItemSizeDTO> sizes) {
+    public ResponseEntity<List<ItemSizeDTO>> addSizesToItem(@PathVariable String itemCode,
+            @RequestBody List<ItemSizeDTO> sizes) {
         System.out.println("Received PUT request for itemCode: " + itemCode);
         System.out.println("Sizes payload: " + sizes);
         try {
@@ -142,7 +141,6 @@ public class ItemController {
             return ResponseEntity.notFound().build();
         }
     }
-
 
     @GetMapping("/sizes/{itemCode}")
     public ResponseEntity<List<ItemSizeDTO>> getSizesForItem(@PathVariable String itemCode) {
@@ -173,8 +171,4 @@ public class ItemController {
         }
     }
 
-
-
-
 }
-
