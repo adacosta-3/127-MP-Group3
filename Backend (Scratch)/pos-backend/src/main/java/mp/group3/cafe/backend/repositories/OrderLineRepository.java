@@ -1,5 +1,6 @@
 package mp.group3.cafe.backend.repositories;
 
+import mp.group3.cafe.backend.DTO.AdminDashboard.ItemOrderStatsDTO;
 import mp.group3.cafe.backend.entities.OrderLine;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -81,6 +82,21 @@ public interface OrderLineRepository extends JpaRepository<OrderLine, Integer> {
             @Param("sizeId") Integer sizeId,
             @Param("customizationOptionIds") List<Integer> customizationOptionIds,
             @Param("customizationCount") Long customizationCount);
+
+    @Query("SELECT new mp.group3.cafe.backend.DTO.AdminDashboard.ItemOrderStatsDTO(ol.item.itemCode, ol.item.name, SUM(ol.quantity)) " +
+            "FROM OrderLine ol " +
+            "GROUP BY ol.item.itemCode, ol.item.name " +
+            "ORDER BY SUM(ol.quantity) DESC")
+    List<ItemOrderStatsDTO> findMostOrderedItems();
+
+    @Query("SELECT new mp.group3.cafe.backend.DTO.AdminDashboard.ItemOrderStatsDTO(ol.item.itemCode, ol.item.name, SUM(ol.quantity)) " +
+            "FROM OrderLine ol " +
+            "GROUP BY ol.item.itemCode, ol.item.name " +
+            "ORDER BY SUM(ol.quantity) ASC")
+    List<ItemOrderStatsDTO> findLeastOrderedItems();
+
+
+
 
 
 

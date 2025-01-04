@@ -1,7 +1,9 @@
 package mp.group3.cafe.backend.serviceImpl;
 
 import lombok.RequiredArgsConstructor;
+import mp.group3.cafe.backend.DTO.AdminDashboard.OrderHistoryForMemberDTO;
 import mp.group3.cafe.backend.DTO.CustomerOrderDTO;
+import mp.group3.cafe.backend.DTO.AdminDashboard.OrderHistoryPerDayDTO;
 import mp.group3.cafe.backend.DTO.Receipt.ReceiptCustomizationDTO;
 import mp.group3.cafe.backend.DTO.Receipt.ReceiptDTO;
 import mp.group3.cafe.backend.DTO.Receipt.ReceiptItemDTO;
@@ -168,6 +170,15 @@ public class CustomerOrderServiceImpl implements CustomerOrderService {
         return new ReceiptDTO(orderId, order.getOrderDate(), receiptItems, totalPrice);
     }
 
+    @Override
+    public List<OrderHistoryPerDayDTO> getOrderHistoryPerDay() {
+        return orderRepository.findOrderHistoryPerDay();
+    }
+
+    @Override
+    public List<OrderHistoryForMemberDTO> getOrderHistoryForMember(String memberId) {
+        return orderRepository.findOrderHistoryForMember(memberId);
+    }
 
 
     @Override

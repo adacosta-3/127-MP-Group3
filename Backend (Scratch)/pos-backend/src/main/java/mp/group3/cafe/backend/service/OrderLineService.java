@@ -1,5 +1,6 @@
 package mp.group3.cafe.backend.service;
 
+import mp.group3.cafe.backend.DTO.AdminDashboard.ItemOrderStatsDTO;
 import mp.group3.cafe.backend.DTO.OrderLineDTO;
 
 import java.util.List;
@@ -13,5 +14,8 @@ public interface OrderLineService {
 
     void deleteOrderLine(Integer orderLineId);
     OrderLineDTO addOrUpdateOrderLine(Integer orderId, OrderLineDTO orderLineDTO);
+    List<ItemOrderStatsDTO> getMostOrderedItems();
+    List<ItemOrderStatsDTO> getLeastOrderedItems();
+
 }
 

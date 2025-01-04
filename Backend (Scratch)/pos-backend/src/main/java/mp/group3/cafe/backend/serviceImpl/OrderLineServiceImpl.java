@@ -1,6 +1,7 @@
 package mp.group3.cafe.backend.serviceImpl;
 
 import lombok.RequiredArgsConstructor;
+import mp.group3.cafe.backend.DTO.AdminDashboard.ItemOrderStatsDTO;
 import mp.group3.cafe.backend.DTO.OrderLineCustomizationDTO;
 import mp.group3.cafe.backend.DTO.OrderLineDTO;
 import mp.group3.cafe.backend.entities.*;
@@ -183,9 +184,15 @@ public class OrderLineServiceImpl implements OrderLineService {
         return OrderLineMapper.mapToOrderLineDTO(orderLine);
     }
 
+    @Override
+    public List<ItemOrderStatsDTO> getMostOrderedItems() {
+        return orderLineRepository.findMostOrderedItems();
+    }
 
-
-
+    @Override
+    public List<ItemOrderStatsDTO> getLeastOrderedItems() {
+        return orderLineRepository.findLeastOrderedItems();
+    }
 
 
 }

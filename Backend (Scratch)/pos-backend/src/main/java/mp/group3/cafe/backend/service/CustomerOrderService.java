@@ -1,6 +1,8 @@
 package mp.group3.cafe.backend.service;
 
+import mp.group3.cafe.backend.DTO.AdminDashboard.OrderHistoryForMemberDTO;
 import mp.group3.cafe.backend.DTO.CustomerOrderDTO;
+import mp.group3.cafe.backend.DTO.AdminDashboard.OrderHistoryPerDayDTO;
 import mp.group3.cafe.backend.DTO.Receipt.ReceiptDTO;
 
 import java.util.List;
@@ -21,6 +23,10 @@ public interface CustomerOrderService {
 
     void updateOrderTotalPrice(Integer orderId);
     ReceiptDTO completeTransaction(Integer orderId);
+    List<OrderHistoryPerDayDTO> getOrderHistoryPerDay();
+    List<OrderHistoryForMemberDTO> getOrderHistoryForMember(String memberId);
+
+
 
 }
 
