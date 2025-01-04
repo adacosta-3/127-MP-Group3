@@ -77,7 +77,6 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public ItemDTO createItem(ItemDTO itemDTO) {
-        // Ensure category exists
         Optional<Categorization> categoryOpt = categorizationRepository.findById(itemDTO.getCategoryId());
         if (categoryOpt.isEmpty()) {
             throw new RuntimeException("Category not found with ID: " + itemDTO.getCategoryId());
@@ -85,16 +84,14 @@ public class ItemServiceImpl implements ItemService {
 
         Categorization category = categoryOpt.get();
 
-        // Generate item code if null
         if (itemDTO.getItemCode() == null || itemDTO.getItemCode().isEmpty()) {
             String generatedCode = generateItemCode(itemDTO.getName(), category);
             itemDTO.setItemCode(generatedCode);
-            System.out.println("Generated Item Code: " + generatedCode); // Debugging log
+            System.out.println("Generated Item Code: " + generatedCode);
         }
 
-        // Map and save
         Item item = ItemMapper.mapToItem(itemDTO, category);
-        System.out.println("Saving item: " + item); // Debugging log
+        System.out.println("Saving item: " + item);
         Item savedItem = itemRepository.save(item);
         return ItemMapper.mapToItemDTO(savedItem);
     }
@@ -136,21 +133,26 @@ public class ItemServiceImpl implements ItemService {
     }
 
     private String generateItemCode(String name, Categorization category) {
+        // Extract prefix from category
         String prefix = (category.getName().substring(0, 1) +
                 category.getName().substring(category.getName().length() - 1)).toUpperCase();
 
+        // Create the name segment, ensuring it is exactly 4 characters
         String nameSegment = name.replaceAll(" ", "")
                 .toUpperCase()
-                .substring(0, Math.min(name.length(), 4));
+                .substring(0, Math.min(name.replaceAll(" ", "").length(), 4));
         if (nameSegment.length() < 4) {
             nameSegment = String.format("%-4s", nameSegment).replace(' ', 'Y');
         }
 
+        // Generate incrementing number with leading zeros
         long itemCount = itemRepository.countByCategory_CategoryId(category.getCategoryId());
         String incrementingNumber = String.format("%03d", itemCount + 1);
 
-        return prefix + nameSegment + incrementingNumber;
+        // Return the formatted code with dashes
+        return String.format("%s-%s-%s", prefix, nameSegment, incrementingNumber);
     }
+
 
 
     @Override
@@ -245,7 +247,6 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public List<ItemSizeDTO> uploadSizesToItemFromCSV(String itemCode, MultipartFile file) throws IOException, CsvException {
-        // Retrieve the item by its code
         Optional<Item> itemOpt = itemRepository.findById(itemCode);
         if (itemOpt.isEmpty()) {
             throw new RuntimeException("Item not found with itemCode: " + itemCode);
@@ -253,21 +254,16 @@ public class ItemServiceImpl implements ItemService {
 
         Item item = itemOpt.get();
 
-        // Parse CSV to extract sizes
         List<ItemSizeDTO> sizes = parseSizesCSV(file);
 
-        // Map CSV sizes to entities
         List<ItemSize> itemSizes = sizes.stream()
                 .map(sizeDTO -> ItemSizeMapper.mapToItemSize(sizeDTO, item))
                 .collect(Collectors.toList());
 
-        // Save all sizes directly
         itemSizeRepository.saveAll(itemSizes);
 
-        // Reload sizes from the database to ensure consistency
         List<ItemSize> updatedSizes = itemSizeRepository.findByItem_ItemCode(item.getItemCode());
 
-        // Return the updated list of sizes as DTOs
         return updatedSizes.stream()
                 .map(ItemSizeMapper::mapToItemSizeDTO)
                 .collect(Collectors.toList());
@@ -279,7 +275,7 @@ public class ItemServiceImpl implements ItemService {
 
         try (CSVReader csvReader = new CSVReader(new InputStreamReader(file.getInputStream()))) {
             String[] values;
-            csvReader.readNext(); // Skip header row
+            csvReader.readNext();
             while ((values = csvReader.readNext()) != null) {
                 ItemSizeDTO sizeDTO = new ItemSizeDTO();
                 sizeDTO.setSizeName(values[0]);
