@@ -24,6 +24,8 @@ const ManageItems = () => {
     hasSizes: false,
     sizes: [],
   });
+  const [isEditing, setIsEditing] = useState(false);
+  const [editingItem, setEditingItem] = useState(null);
 
   useEffect(() => {
     if (itemType && selectedCategory) {
@@ -72,52 +74,96 @@ const ManageItems = () => {
 
   const handleDeleteItem = async (itemCode) => {
     try {
-      // Call the correct endpoint that deletes by itemCode
       await axios.delete(`http://localhost:8081/api/items/code/${itemCode}`);
-
-      // Update the state by filtering out the deleted item
       setItems(items.filter((item) => item.itemCode !== itemCode));
     } catch (error) {
       console.error('Error deleting item:', error);
     }
   };
 
-
   const handleEditItem = (itemCode) => {
-    console.log('Edit item with code:', itemCode);
+    const item = items.find((item) => item.itemCode === itemCode);
+    
+    // Ensure the item has sizes or initialize an empty array if none
+    setNewItem({
+      ...item,
+      sizes: item.sizes || [{ sizeName: '', priceAdjustment: '' }], // Default size if empty
+      hasSizes: item.sizes && item.sizes.length > 0,
+    });
+  
+    setEditingItem(item); // Set the editing state
+    setIsEditing(true); // Trigger edit mode
   };
-
+  
+  
+  
   const handleSizeChange = (index, field, value) => {
-    const updatedSizes = newItem.sizes.map((size, i) =>
-      i === index ? { ...size, [field]: value } : size
-    );
-    setNewItem((prev) => ({ ...prev, sizes: updatedSizes }));
+    const updatedSizes = [...newItem.sizes];  // Make a shallow copy of sizes
+    updatedSizes[index] = { ...updatedSizes[index], [field]: value }; // Update the specific size field
+    setNewItem((prev) => ({ ...prev, sizes: updatedSizes })); // Set the updated sizes state
   };
+  
 
   const handleAddSize = () => {
-    setNewItem((prev) => ({
-      ...prev,
-      sizes: [...prev.sizes, { sizeName: '', priceAdjustment: '' }],
+    // Add a new empty size object to the sizes array
+    setNewItem((prevState) => ({
+      ...prevState,
+      sizes: [...prevState.sizes, { sizeName: '', priceAdjustment: '' }], // Add an empty size
     }));
   };
-
+  
+  
+  const handleUpdateSize = (index) => {
+    const updatedSizes = [...newItem.sizes];
+    const updatedSize = updatedSizes[index];
+  
+    // If no changes are made, don't update
+    if (
+      updatedSize.sizeName === originalSizes[index].sizeName &&
+      updatedSize.priceAdjustment === originalSizes[index].priceAdjustment
+    ) {
+      return; // Do nothing if there is no change
+    }
+  
+    // Update size only if it has been modified
+    updatedSizes[index] = updatedSize;
+    setNewItem((prevState) => ({
+      ...prevState,
+      sizes: updatedSizes,
+    }));
+  
+    // Optionally, send update to backend if needed
+    // updateSizeInBackend(updatedSize);
+  };
+  
   const handleAddItem = async () => {
+    // Check if the item name and price are provided
     if (!newItem.name || !newItem.basePrice) {
-      alert('Please fill in all fields');
+      alert('Cannot add item due to incomplete fields: Item Name and Base Price are required.');
       return;
     }
 
+    // If 'Has Size' is selected, ensure each size has both a name and an additional cost
+    if (newItem.hasSizes) {
+      for (const size of newItem.sizes) {
+        if (!size.sizeName || !size.priceAdjustment) {
+          alert('Cannot add item due to incomplete fields: Each size must have a name and an additional cost.');
+          return;
+        }
+      }
+    }
+
     try {
-      // Add the item
+      // Send request to add the item
       const response = await axios.post('http://localhost:8081/api/items', {
         ...newItem,
         categoryId: selectedCategory,
       });
 
-      // Update the items list with the newly added item
+      // Add the newly created item to the list
       setItems([...items, response.data]);
 
-      // If the item has sizes, save them after adding the item
+      // If item has sizes, save sizes
       if (newItem.hasSizes) {
         const sizeData = newItem.sizes.map((size) => ({
           sizeName: size.sizeName,
@@ -125,38 +171,82 @@ const ManageItems = () => {
         }));
 
         try {
-          await axios.put(
-            `http://localhost:8081/api/items/sizes/${response.data.itemCode}`,
-            sizeData
-          );
+          await axios.put(`http://localhost:8081/api/items/sizes/${response.data.itemCode}`, sizeData);
           console.log('Sizes saved successfully');
         } catch (error) {
           console.error('Error saving sizes:', error);
         }
       }
 
-      // Reset the form after adding the item and sizes
+      // Reset the form fields
       setNewItem({ name: '', basePrice: '', hasSizes: false, sizes: [] });
     } catch (error) {
       console.error('Error adding item:', error);
+      alert('Error adding item. Please try again.');
     }
   };
+  const handleUpdateItem = async () => {
+    try {
+      // Ensure no duplicates in sizes
+      const uniqueSizes = [
+        ...newItem.sizes.reduce((map, size) => map.set(size.sizeName, size), new Map()).values(),
+      ];
+  
+      const updatedItemData = {
+        itemCode: editingItem.itemCode,
+        name: newItem.name,
+        basePrice: newItem.basePrice,
+        categoryId: editingItem.categoryId,
+        sizes: uniqueSizes, // Send only unique sizes
+      };
+  
+      // Update the item with sizes
+      const updateItemResponse = await axios.put(
+        `http://localhost:8081/api/items/code/${editingItem.itemCode}`,
+        updatedItemData
+      );
+  
+      if (updateItemResponse.status !== 200) {
+        console.error("Error updating item:", updateItemResponse.data);
+        return;
+      }
+  
+      // Now send sizes to the backend (ensuring no duplicates)
+      const modifySizesResponse = await axios.put(
+        `http://localhost:8081/api/items/sizes/modify/${editingItem.itemCode}`,
+        uniqueSizes
+      );
+  
+      if (modifySizesResponse.status !== 200) {
+        console.error("Error modifying item sizes:", modifySizesResponse.data);
+        return;
+      }
+  
+      alert("Item updated successfully!");
+      setEditingItem(null);
+      setIsEditing(false);
+  
+      // Refresh item list
+      const response = await axios.get(
+        `http://localhost:8081/api/items/category/${selectedCategory}`
+      );
+      setItems(response.data);
+  
+      // Make sure the sizes are updated correctly in the UI
+      const updatedItem = response.data.find((item) => item.itemCode === editingItem.itemCode);
+      setNewItem(updatedItem); // This ensures that the updated item, including sizes, is set to state
+    } catch (error) {
+      console.error("Error updating item:", error);
+      alert("Failed to update item. Please try again.");
+    }
+  };
+  
+  
 
   return (
-    <Box
-      sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        minHeight: 'calc(100vh - 64px)',
-        padding: 2,
-        paddingTop: '10vh',
-        position: 'relative',
-        marginTop: '64px',
-        width: '70vh',
-      }}
-    >
+    <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', minHeight: 'calc(100vh - 64px)', padding: 2, paddingTop: '10vh', position: 'relative', marginTop: '64px', width: '70vh' }}>
       <form>
+        {/* Item Type and Category Selectors */}
         <Grid container spacing={2} justifyContent="center" sx={{ mb: 3 }}>
           <Grid item xs={5} sx={{ minWidth: 250 }}>
             <FormControl fullWidth>
@@ -174,7 +264,6 @@ const ManageItems = () => {
               </Select>
             </FormControl>
           </Grid>
-
           <Grid item xs={5} sx={{ minWidth: 250 }}>
             <FormControl fullWidth>
               <InputLabel id="category-select-label">Category</InputLabel>
@@ -202,7 +291,6 @@ const ManageItems = () => {
 
         {/* Item Name and Base Price */}
         <Grid container spacing={2} justifyContent="center" sx={{ mb: 3 }}>
-          {/* Item Name */}
           <Grid item xs={5} sx={{ minWidth: 250 }}>
             <Input
               placeholder="Item Name"
@@ -215,7 +303,6 @@ const ManageItems = () => {
             />
           </Grid>
 
-          {/* Amount (Base Price) */}
           <Grid item xs={5} sx={{ minWidth: 250 }}>
             <FormControl fullWidth sx={{ m: 0 }} variant="standard">
               <InputLabel htmlFor="standard-adornment-amount">Amount</InputLabel>
@@ -251,7 +338,7 @@ const ManageItems = () => {
           </Grid>
         </Grid>
 
-        {/* Size and Price Inputs */}
+        {/* Size Inputs */}
         {newItem.hasSizes &&
           newItem.sizes.map((size, index) => (
             <Grid container spacing={2} key={index} sx={{ mb: 2, alignItems: 'center', justifyContent: 'center' }}>
@@ -288,11 +375,15 @@ const ManageItems = () => {
           </Grid>
         )}
 
-        {/* Add Item Button */}
+        {/* Add/Update Item Button */}
         <Grid container justifyContent="center" sx={{ mt: 3 }}>
           <Grid item>
-            <Button variant="contained" color="primary" onClick={handleAddItem}>
-              Add Item
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={isEditing ? handleUpdateItem : handleAddItem}
+            >
+              {isEditing ? 'Update Item' : 'Add Item'}
             </Button>
           </Grid>
         </Grid>

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import AppBarComponent from './AppBar';
 import ManageItems from './ManageItem';
-import ManageCustomizations from './ManageCustomization'; // Your ManageCustomizations component
+import ManageCustomizations from './Customization'; // Your ManageCustomizations component
 
 const Manager = () => {
   const [selectedView, setSelectedView] = useState('ManageItems'); // Default view is ManageItems
