@@ -34,21 +34,39 @@ public class OrderLineCustomizationServiceImpl implements OrderLineCustomization
 
     @Override
     public OrderLineCustomizationDTO addCustomizationToOrderLine(OrderLineCustomizationDTO customizationDTO) {
+        // Retrieve the OrderLine
         Optional<OrderLine> orderLineOpt = orderLineRepository.findById(customizationDTO.getOrderLineId());
         if (orderLineOpt.isEmpty()) {
             throw new RuntimeException("Order line not found with ID: " + customizationDTO.getOrderLineId());
         }
 
+        OrderLine orderLine = orderLineOpt.get();
+
+        // Retrieve the CustomizationOptions
         Optional<CustomizationOptions> optionOpt = optionsRepository.findById(customizationDTO.getOptionId());
         if (optionOpt.isEmpty()) {
             throw new RuntimeException("Customization option not found with ID: " + customizationDTO.getOptionId());
         }
 
+        CustomizationOptions customizationOption = optionOpt.get();
+
+        // Map DTO to Entity and save
         OrderLineCustomization customization = OrderLineCustomizationMapper.mapToOrderLineCustomization(
-                customizationDTO, orderLineOpt.get(), optionOpt.get());
+                customizationDTO, orderLine, customizationOption);
+
         OrderLineCustomization savedCustomization = customizationRepository.save(customization);
+
+        // Update the OrderLine's total price with the customization price
+        double updatedPrice = orderLine.getLinePrice() + customizationOption.getAdditionalCost();
+        orderLine.setLinePrice(updatedPrice);
+
+        // Save the updated OrderLine
+        orderLineRepository.save(orderLine);
+
+        // Map the saved customization back to DTO
         return OrderLineCustomizationMapper.mapToOrderLineCustomizationDTO(savedCustomization);
     }
+
 
     @Override
     public void removeCustomizationFromOrderLine(Integer customizationId) {
