@@ -59,7 +59,6 @@ public class ItemServiceImpl implements ItemService {
         Item existingItem = existingItemOpt.get();
         Categorization category = categoryOpt.get();
 
-        // Update item details
         existingItem.setName(itemDTO.getName());
         existingItem.setBasePrice(itemDTO.getBasePrice());
         existingItem.setCategory(category);
@@ -133,11 +132,9 @@ public class ItemServiceImpl implements ItemService {
     }
 
     private String generateItemCode(String name, Categorization category) {
-        // Extract prefix from category
         String prefix = (category.getName().substring(0, 1) +
                 category.getName().substring(category.getName().length() - 1)).toUpperCase();
 
-        // Create the name segment, ensuring it is exactly 4 characters
         String nameSegment = name.replaceAll(" ", "")
                 .toUpperCase()
                 .substring(0, Math.min(name.replaceAll(" ", "").length(), 4));
@@ -145,11 +142,9 @@ public class ItemServiceImpl implements ItemService {
             nameSegment = String.format("%-4s", nameSegment).replace(' ', 'Y');
         }
 
-        // Generate incrementing number with leading zeros
         long itemCount = itemRepository.countByCategory_CategoryId(category.getCategoryId());
         String incrementingNumber = String.format("%03d", itemCount + 1);
 
-        // Return the formatted code with dashes
         return String.format("%s-%s-%s", prefix, nameSegment, incrementingNumber);
     }
 
@@ -157,7 +152,6 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public void deleteItemByItemCode(String itemCode) {
-        // Find the item by itemCode
         Optional<Item> itemOpt = itemRepository.findById(itemCode);
         if (itemOpt.isEmpty()) {
             throw new RuntimeException("Item not found with itemCode: " + itemCode);
@@ -165,11 +159,9 @@ public class ItemServiceImpl implements ItemService {
 
         Item item = itemOpt.get();
 
-        // Delete all customizations associated with the item
         List<Customization> customizations = customizationRepository.findByItem_ItemCode(item.getItemCode());
         customizationRepository.deleteAll(customizations);
 
-        // Delete the item
         itemRepository.delete(item);
     }
     @Override
@@ -181,10 +173,8 @@ public class ItemServiceImpl implements ItemService {
 
         Item item = itemOpt.get();
 
-        // Fetch existing sizes for the item
         List<ItemSize> existingSizes = itemSizeRepository.findByItem_ItemCode(item.getItemCode());
 
-        // Remove duplicates from the incoming sizes list
         List<ItemSizeDTO> uniqueSizes = sizes.stream()
                 .filter(sizeDTO -> existingSizes.stream()
                         .noneMatch(existingSize ->
@@ -192,15 +182,12 @@ public class ItemServiceImpl implements ItemService {
                                         && existingSize.getPriceAdjustment().equals(sizeDTO.getPriceAdjustment())))
                 .collect(Collectors.toList());
 
-        // Map the unique sizes to entities
         List<ItemSize> itemSizes = uniqueSizes.stream()
                 .map(sizeDTO -> ItemSizeMapper.mapToItemSize(sizeDTO, item))
                 .collect(Collectors.toList());
 
-        // Save the new unique sizes
         itemSizeRepository.saveAll(itemSizes);
 
-        // Return all sizes (existing + new unique sizes) as DTOs
         List<ItemSize> updatedSizes = itemSizeRepository.findByItem_ItemCode(item.getItemCode());
         return updatedSizes.stream()
                 .map(ItemSizeMapper::mapToItemSizeDTO)
@@ -300,7 +287,6 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public List<ItemSizeDTO> modifySizesForItem(String itemCode, List<ItemSizeDTO> sizes) {
-        // Find the item by its code
         Optional<Item> itemOpt = itemRepository.findById(itemCode);
         if (itemOpt.isEmpty()) {
             throw new RuntimeException("Item not found with itemCode: " + itemCode);
@@ -308,33 +294,26 @@ public class ItemServiceImpl implements ItemService {
 
         Item item = itemOpt.get();
 
-        // Retrieve existing sizes for the item
         List<ItemSize> existingSizes = itemSizeRepository.findByItem_ItemCode(item.getItemCode());
 
-        // Map existing sizes to their IDs for quick lookup
         Map<Integer, ItemSize> existingSizeMap = existingSizes.stream()
                 .collect(Collectors.toMap(ItemSize::getSizeId, size -> size));
 
-        // Prepare the updated list of sizes
         List<ItemSize> updatedSizes = new ArrayList<>();
         for (ItemSizeDTO sizeDTO : sizes) {
             if (sizeDTO.getSizeId() != null && existingSizeMap.containsKey(sizeDTO.getSizeId())) {
-                // Modify existing size
                 ItemSize existingSize = existingSizeMap.get(sizeDTO.getSizeId());
                 existingSize.setSizeName(sizeDTO.getSizeName());
                 existingSize.setPriceAdjustment(sizeDTO.getPriceAdjustment());
                 updatedSizes.add(existingSize);
             } else {
-                // Add new size
                 ItemSize newSize = ItemSizeMapper.mapToItemSize(sizeDTO, item);
                 updatedSizes.add(newSize);
             }
         }
 
-        // Save all updated sizes
         itemSizeRepository.saveAll(updatedSizes);
 
-        // Return updated sizes as DTOs
         return updatedSizes.stream()
                 .map(ItemSizeMapper::mapToItemSizeDTO)
                 .collect(Collectors.toList());
