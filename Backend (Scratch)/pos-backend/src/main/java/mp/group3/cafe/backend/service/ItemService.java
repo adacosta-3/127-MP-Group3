@@ -12,6 +12,8 @@ import java.util.Optional;
 public interface ItemService {
     List<ItemDTO> getAllItems();
 
+    public Double getBasePriceByItemCode(String itemCode);
+
     ItemDTO updateItemByItemCode(String itemCode, ItemDTO itemDTO);
 
     Optional<ItemDTO> getItemByCode(String itemCode);
@@ -27,7 +29,9 @@ public interface ItemService {
     void deleteItemByItemCode(String itemCode);
 
     List<ItemSizeDTO> addSizesToItem(String itemCode, List<ItemSizeDTO> sizes);
+
     List<ItemSizeDTO> getSizesForItem(String itemCode);
+
     void deleteSize(Integer sizeId);
 
     List<ItemSizeDTO> uploadSizesToItemFromCSV(String itemCode, MultipartFile file) throws IOException, CsvException;
@@ -40,6 +44,4 @@ public interface ItemService {
 
     List<ItemSizeDTO> modifySizesForItem(String itemCode, List<ItemSizeDTO> sizes);
 
-
 }
-

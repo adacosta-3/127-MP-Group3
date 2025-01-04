@@ -4,7 +4,7 @@ import ManageItems from './ManageItem';
 import ManageCustomizations from './Customization'; // Your ManageCustomizations component
 
 const Manager = () => {
-  const [selectedView, setSelectedView] = useState('ManageItems'); // Default view is ManageItems
+  const [selectedView, setSelectedView] = useState('ManageItem'); // Default view is ManageItems
 
   // Handle button clicks to set the view
   const handleViewChange = (view) => {
@@ -18,7 +18,7 @@ const Manager = () => {
 
       {/* Content Area with scroll and hidden scrollbar */}
       <main style={{ flexGrow: 1, overflowY: 'scroll', padding: '10px', scrollbarWidth: 'none', WebkitOverflowScrolling: 'touch' }}>
-        {selectedView === 'ManageItems' && <ManageItems />}
+        {selectedView === 'ManageItem' && <ManageItems />}
         {selectedView === 'ManageCustomization' && <ManageCustomizations />}
       </main>
     </div>

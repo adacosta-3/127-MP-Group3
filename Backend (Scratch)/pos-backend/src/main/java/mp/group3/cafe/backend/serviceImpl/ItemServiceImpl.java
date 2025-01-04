@@ -68,7 +68,6 @@ public class ItemServiceImpl implements ItemService {
         return ItemMapper.mapToItemDTO(updatedItem);
     }
 
-
     @Override
     public Optional<ItemDTO> getItemByCode(String itemCode) {
         return itemRepository.findById(itemCode)
@@ -153,8 +152,6 @@ public class ItemServiceImpl implements ItemService {
         return String.format("%s-%s-%s", prefix, nameSegment, incrementingNumber);
     }
 
-
-
     @Override
     public void deleteItemByItemCode(String itemCode) {
         // Find the item by itemCode
@@ -172,6 +169,7 @@ public class ItemServiceImpl implements ItemService {
         // Delete the item
         itemRepository.delete(item);
     }
+
     @Override
     public List<ItemSizeDTO> addSizesToItem(String itemCode, List<ItemSizeDTO> sizes) {
         Optional<Item> itemOpt = itemRepository.findById(itemCode);
@@ -187,9 +185,8 @@ public class ItemServiceImpl implements ItemService {
         // Remove duplicates from the incoming sizes list
         List<ItemSizeDTO> uniqueSizes = sizes.stream()
                 .filter(sizeDTO -> existingSizes.stream()
-                        .noneMatch(existingSize ->
-                                existingSize.getSizeName().equalsIgnoreCase(sizeDTO.getSizeName())
-                                        && existingSize.getPriceAdjustment().equals(sizeDTO.getPriceAdjustment())))
+                        .noneMatch(existingSize -> existingSize.getSizeName().equalsIgnoreCase(sizeDTO.getSizeName())
+                                && existingSize.getPriceAdjustment().equals(sizeDTO.getPriceAdjustment())))
                 .collect(Collectors.toList());
 
         // Map the unique sizes to entities
@@ -206,7 +203,6 @@ public class ItemServiceImpl implements ItemService {
                 .map(ItemSizeMapper::mapToItemSizeDTO)
                 .collect(Collectors.toList());
     }
-
 
     @Override
     public List<ItemSizeDTO> getSizesForItem(String itemCode) {
@@ -246,7 +242,8 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public List<ItemSizeDTO> uploadSizesToItemFromCSV(String itemCode, MultipartFile file) throws IOException, CsvException {
+    public List<ItemSizeDTO> uploadSizesToItemFromCSV(String itemCode, MultipartFile file)
+            throws IOException, CsvException {
         Optional<Item> itemOpt = itemRepository.findById(itemCode);
         if (itemOpt.isEmpty()) {
             throw new RuntimeException("Item not found with itemCode: " + itemCode);
