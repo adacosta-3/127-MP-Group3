@@ -29,7 +29,7 @@ public class OrderLine {
     @JoinColumn(name = "item_code", nullable = false)
     private Item item;
 
-    @Column(name = "size_id")
+    @Column(name = "size_id", nullable = true)
     private Integer sizeId; // Nullable for non-sized items
 
     @Column(name = "quantity", nullable = false)
