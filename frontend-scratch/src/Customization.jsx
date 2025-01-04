@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { TextField, Button, FormControl, InputLabel, Select, MenuItem } from '@mui/material';
+import Box from '@mui/material/Box';
+import DeleteIcon from '@mui/icons-material/Delete';
+import SendIcon from '@mui/icons-material/Send';
+import SaveIcon from '@mui/icons-material/Save';
 import './ManageCustomizations.css'; // External CSS for styling
 
 const ManageCustomizations = () => {
     const [customizations, setCustomizations] = useState([]);
     const [items, setItems] = useState([]);
-    const [newCustomization, setNewCustomization] = useState({ name: '', itemId: '' });
+    const [newCustomization, setNewCustomization] = useState({ name: '', itemCode: '' });
     const [newOption, setNewOption] = useState({ optionName: '', additionalCost: '' });
     const [editingOption, setEditingOption] = useState(null);
     const [editingCustomization, setEditingCustomization] = useState(null); // For editing customization name
@@ -39,7 +43,7 @@ const ManageCustomizations = () => {
         try {
             const response = await axios.post(`${API_BASE_URL}/api/customizations`, newCustomization);
             setCustomizations([...customizations, { ...response.data, options: [] }]);
-            setNewCustomization({ name: '', itemId: '' });
+            setNewCustomization({ name: '', itemCode: '' });
         } catch (error) {
             console.error('Error adding customization:', error);
         }
@@ -91,7 +95,7 @@ const ManageCustomizations = () => {
         try {
             // API request to update customization name
             const response = await axios.put(`${API_BASE_URL}/api/customizations/${editingCustomization.customizationId}`, {
-                itemId: editingCustomization.itemId,
+                itemCode: editingCustomization.itemCode,
                 name: editingCustomization.name
             });
             // Update the local state with the new name
@@ -106,29 +110,56 @@ const ManageCustomizations = () => {
         }
     };
 
-    // Function to edit an option
-    const handleEditOption = async (customizationId, optionId) => {
-        if (!editingCustomization) return;
+    const handleEditOption = async (optionId) => {
+        if (!editingOption) return;
+
         try {
-            // API request to update customization name
-            const response = await axios.delete(`${API_BASE_URL}/api/customization-options/${optionId}`);
-            setCustomizations(customizations.map(c =>
-                c.customizationId === customizationId
-                    ? { ...c, options: [...c.options, ...response.data] }
-                    : c
-            ));
-            setNewOption({ optionName: '', additionalCost: '' });
+            // API request to update customization option
+            const response = await axios.put(
+                `${API_BASE_URL}/api/customization-options/${optionId}`,
+                {
+                    optionName: editingOption.optionName,
+                    additionalCost: editingOption.additionalCost,
+                    customizationId: editingOption.customizationId
+                }
+            );
+
+            // Update the state with the modified option
+            setCustomizations(
+                customizations.map((customization) =>
+                    customization.customizationId === editingOption.customizationId
+                        ? {
+                            ...customization,
+                            options: customization.options.map((option) =>
+                                option.optionId === optionId ? response.data : option
+                            ),
+                        }
+                        : customization
+                )
+            );
+
+            // Reset the editing state
+            setEditingOption(null);
         } catch (error) {
-            console.error('Error adding option:', error);
+            if (error.response && error.response.status === 404) {
+                console.error('Option not found:', error);
+                alert('The option you are trying to edit was not found.');
+            } else {
+                console.error('Error updating option:', error);
+                alert('An error occurred while updating the option. Please try again.');
+            }
         }
     };
+
+
+
 
 
 
     return (
         <div className="manage-customizations">
             <div className="header-tabs">
-                <Button variant="contained" className="tab active">Manage Customizations</Button>
+                <h5>Manage Customizations</h5>
             </div>
 
             <div className="form-section">
@@ -136,24 +167,25 @@ const ManageCustomizations = () => {
                 <TextField
                     label="Customization Name"
                     variant="standard"
-                    InputLabelProps={{ shrink: true }} // Ensures label doesn't overlap with text
                     value={newCustomization.name}
-                    onChange={(e) => setNewCustomization({ ...newCustomization, name: e.target.value })}
+                    onChange={(e) => setNewCustomization({...newCustomization, name: e.target.value})}
                 />
+                <p></p>
                 <FormControl fullWidth>
                     <InputLabel id="item-select-label">Associated Item</InputLabel>
                     <Select
                         labelId="item-select-label"
-                        value={newCustomization.itemId}
-                        onChange={(e) => setNewCustomization({ ...newCustomization, itemId: e.target.value })}
+                        value={newCustomization.itemCode}
+                        onChange={(e) => setNewCustomization({...newCustomization, itemCode: e.target.value})}
                     >
                         {items.map(item => (
-                            <MenuItem key={item.itemId} value={item.itemId}>
-                                {`${item.name} (ID ${item.itemId})`}
+                            <MenuItem key={item.itemCode} value={item.itemCode}>
+                                {`${item.name} (ID ${item.itemCode})`}
                             </MenuItem>
                         ))}
                     </Select>
                 </FormControl>
+                <p></p>
                 <Button variant="contained" onClick={handleAddCustomization}>
                     Add Customization
                 </Button>
@@ -165,12 +197,25 @@ const ManageCustomizations = () => {
                     <div key={customization.customizationId} className="customization-card">
                         <div className="customization-details">
                             <h3>{customization.name}</h3>
-                            <p>Associated Item: {items.find(i => i.itemId === customization.itemId)?.name} (ID {customization.itemId})</p>
-                            <Button variant="contained" onClick={() => handleDeleteCustomization(customization.customizationId)}>Delete Customization</Button>
-                            {/* Edit Button */}
-                            <Button variant="contained" onClick={() => setEditingCustomization({ ...customization })}>
-                                Edit Name
-                            </Button>
+                            <p>Associated Item: {items.find(i => i.itemCode === customization.itemCode)?.name} (ID {customization.itemCode})</p>
+                            <Box sx={{ display: 'flex' }}>
+                                <Button
+                                    variant="outlined"
+                                    startIcon={<DeleteIcon />}
+                                    onClick={() => handleDeleteCustomization(customization.customizationId)}
+                                    sx={{ ml: 2 }}
+                                >
+                                    Delete
+                                </Button>
+                                <Button
+                                    variant="contained"
+                                    endIcon={<SendIcon />}
+                                    onClick={() => setEditingCustomization({ ...customization })}
+                                    sx={{ ml: 2 }}
+                                >
+                                    Edit
+                                </Button>
+                            </Box>
                         </div>
 
                         <div className="options-section">
@@ -223,8 +268,14 @@ const ManageCustomizations = () => {
                             value={editingCustomization.name}
                             onChange={(e) => setEditingCustomization({ ...editingCustomization, name: e.target.value })}
                         />
-                        <Button variant="contained" onClick={handleEditCustomization}>Save</Button>
-                        <Button variant="contained" onClick={() => setEditingCustomization(null)}>Cancel</Button>
+                        <Button
+                            variant="contained"
+                            endIcon={<SaveIcon />}
+                            onClick={(handleEditCustomization)}
+                        >
+                            Save
+                        </Button>
+                        <Button variant="outlined" onClick={() => setEditingCustomization(null)}>Cancel</Button>
                     </div>
                 </div>
             )}
@@ -236,18 +287,24 @@ const ManageCustomizations = () => {
                         <TextField
                             label="Option Name"
                             variant="standard"
-                            value={editingOption.optionName}
+                            value={editingOption?.optionName || ''} // Safeguard against undefined
                             onChange={(e) => setEditingOption({ ...editingOption, optionName: e.target.value })}
                         />
                         <TextField
                             label="Additional Cost"
                             type="number"
                             variant="standard"
-                            value={editingOption.additionalCost}
+                            value={editingOption?.additionalCost || ''} // Safeguard against undefined
                             onChange={(e) => setEditingOption({ ...editingOption, additionalCost: e.target.value })}
                         />
-                        <Button variant="contained" onClick={handleEditOption}>Save</Button>
-                        <Button variant="contained" onClick={() => setEditingOption(null)}>Cancel</Button>
+                        <Button
+                            variant="contained"
+                            endIcon={<SaveIcon />}
+                            onClick={() => handleEditOption(editingOption.optionId)}
+                        >
+                            Save
+                        </Button>
+                        <Button variant="outlined" onClick={() => setEditingOption(null)}>Cancel</Button>
                     </div>
                 </div>
             )}

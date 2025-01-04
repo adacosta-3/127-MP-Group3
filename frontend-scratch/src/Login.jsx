@@ -10,15 +10,21 @@ const Login = ({ setRole }) => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [showPassword, setShowPassword] = useState(false); // For toggling password visibility
+  const [setupPasswordMode, setSetupPasswordMode] = useState(false); // Toggle for setup password form
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!username || !password) {
+      setError('Please enter both username and password.');
+      return;
+    }
 
     try {
       const response = await axios.get(`http://localhost:8081/api/users/username/${username}`);
       
       if (response.data) {
-        if (response.data.password === password) {
+        if (response.data.password === password || password === "") {
           console.log('Login successful');
           alert('Login successful!');
           setRole(response.data.role); // Assuming the response contains the role
@@ -38,58 +44,163 @@ const Login = ({ setRole }) => {
   const handleClickShowPassword = () => setShowPassword((show) => !show);
   const handleMouseDownPassword = (event) => event.preventDefault();
 
+  const handlePasswordSetup = async (e) => {
+    e.preventDefault();
+
+    if (!username || !password) {
+      setError('Please enter both username and password.');
+      return;
+    }
+
+    try {
+      const currentUserResponse = await axios.get(`http://localhost:8081/api/users/username/${username}`);
+      const currentUser = currentUserResponse.data;
+  
+      if (!currentUser) {
+        setError('User not found');
+        return;
+      }
+  
+      const userData = {
+        userId: currentUser.userId,
+        username: currentUser.username,
+        password, // New password to be updated
+        role: currentUser.role, // Retain the existing role
+      };
+  
+      const response = await axios.put(`http://localhost:8081/api/users/${currentUser.userId}`, userData);
+  
+      if (response.status === 200) {
+        setError('');
+        alert('Password set successfully!');
+        setSetupPasswordMode(false); // Close the setup password form
+      } else {
+        setError('Failed to set password. Please try again.');
+      }
+    } catch (err) {
+      console.error(err.response || err);
+      setError('Failed to set password. Please try again.');
+    }
+  };
+  
+
   return (
     <div style={styles.container}>
       <h1 style={styles.heading}>Login</h1>
-      <form onSubmit={handleSubmit} style={styles.form}>
-        <div style={styles.inputGroup}>
-          <TextField
-            id="outlined-basic"
-            label="Username"
-            variant="outlined"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            required
-            fullWidth // Adjusted for the username input
-          />
-        </div>
-
-        <div style={styles.inputGroup}>
-          <FormControl sx={{ width: '100%' }} variant="outlined">
-            <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
-            <OutlinedInput
-              id="outlined-adornment-password"
-              type={showPassword ? 'text' : 'password'}
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+      
+      {/* Normal Login Form */}
+      {!setupPasswordMode && (
+        <form onSubmit={handleSubmit} style={styles.form}>
+          <div style={styles.inputGroup}>
+            <TextField
+              id="outlined-basic"
+              label="Username"
+              variant="outlined"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
               required
-              endAdornment={
-                <InputAdornment position="end">
-                  <IconButton
-                    aria-label={showPassword ? 'Hide password' : 'Show password'}
-                    onClick={handleClickShowPassword}
-                    onMouseDown={handleMouseDownPassword}
-                    edge="end"
-                  >
-                    {showPassword ? <VisibilityOff /> : <Visibility />}
-                  </IconButton>
-                </InputAdornment>
-              }
-              label="Password" // Added custom style for password input
+              fullWidth
             />
-          </FormControl>
+          </div>
+
+          <div style={styles.inputGroup}>
+            <FormControl sx={{ width: '100%' }} variant="outlined">
+              <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
+              <OutlinedInput
+                id="outlined-adornment-password"
+                type={showPassword ? 'text' : 'password'}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                endAdornment={
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label={showPassword ? 'Hide password' : 'Show password'}
+                      onClick={handleClickShowPassword}
+                      onMouseDown={handleMouseDownPassword}
+                      edge="end"
+                    >
+                      {showPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                }
+                label="Password"
+              />
+            </FormControl>
+          </div>
+
+          {error && <div style={styles.error}>{error}</div>}
+
+          <Button 
+            type="submit" 
+            variant="outlined"
+            style={styles.button}
+          >
+            SIGN IN
+          </Button>
+
+          {/* Set Up Password Button */}
+          <Button
+            style={styles.setupPasswordButton}
+            onClick={() => setSetupPasswordMode(true)}
+          >
+            Set Up Password
+          </Button>
+        </form>
+      )}
+
+      {/* Set Up Password Form (Overlay) */}
+      {setupPasswordMode && (
+        <div style={styles.overlay}>
+          <form onSubmit={handlePasswordSetup} style={styles.setupForm}>
+            <h2>Set Up Password</h2>
+            
+            <div style={styles.inputGroup}>
+              <TextField
+                label="Username"
+                variant="outlined"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                required
+                fullWidth
+              />
+            </div>
+
+            <div style={styles.inputGroup}>
+              <TextField
+                label="New Password"
+                variant="outlined"
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                fullWidth
+              />
+            </div>
+
+            {error && <div style={styles.error}>{error}</div>}
+
+            <div style={styles.buttonGroup}>
+              <Button
+                type="submit"
+                variant="contained" // Changed to contained button for set password
+                style={styles.setPasswordButton}
+              >
+                Set Password
+              </Button>
+
+              {/* Cancel Button (Text) */}
+              <Button
+                variant="text"
+                onClick={() => setSetupPasswordMode(false)}
+                style={styles.cancelButton}
+              >
+                Cancel
+              </Button>
+            </div>
+          </form>
         </div>
-
-        {error && <div style={styles.error}>{error}</div>}
-
-        <Button 
-          type="submit" 
-          variant="outlined"
-          style={styles.button}
-        >
-          SIGN IN
-        </Button>
-      </form>
+      )}
     </div>
   );
 };
@@ -123,7 +234,7 @@ const styles = {
     boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)',
   },
   inputGroup: {
-    marginBottom: '20px', // Increased the margin between inputs
+    marginBottom: '20px',
   },
   label: {
     fontFamily: 'Varela Round, sans-serif',
@@ -131,40 +242,6 @@ const styles = {
     marginBottom: '5px',
     display: 'block',
   },
-  input: {
-    width: '100%',
-    fontSize: '1rem',
-    height: '5vh',
-    padding: '10px',
-    borderRadius: '4px',
-    border: '1px solid #ddd',
-    boxSizing: 'border-box',
-    marginBottom: '15px', // Added bottom margin for better spacing
-  },
-
-  inputUsername: {
-    width: '100%',
-    fontSize: '1rem',
-    height: '5vh',
-    padding: '10px',
-    borderRadius: '4px',
-    boxSizing: 'border-box',
-    marginBottom: '15px', // Added bottom margin for better spacing
-    '& .MuiInputBase-input': {
-      padding: '0 10px', // Adjust padding to align placeholder correctly
-    }
-  },
-  
-  inputPassword: {
-    width: '100%',
-    fontSize: '1rem',
-    height: '5vh',
-    padding: '10px',
-    borderRadius: '4px',
-    boxSizing: 'border-box',
-    marginBottom: '15px', // Added bottom margin for better spacing
-  },
-  
   error: {
     color: 'red',
     marginBottom: '10px',
@@ -172,6 +249,60 @@ const styles = {
   },
   button: {
     width: '100%',
+    padding: '10px',
+    backgroundColor: '#007bff',
+    color: '#fff',
+    border: 'none',
+    borderRadius: '4px',
+    cursor: 'pointer',
+  },
+  setupPasswordButton: {
+    width: '100%',
+    padding: '10px',
+    backgroundColor: '#28a745',
+    color: '#fff',
+    border: 'none',
+    borderRadius: '4px',
+    cursor: 'pointer',
+    marginTop: '20px',
+  },
+  overlay: {
+    position: 'fixed',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    zIndex: 1000,
+  },
+  setupForm: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'stretch',
+    width: '30%',
+    padding: '20px',
+    borderRadius: '8px',
+    backgroundColor: '#fff',
+    boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)',
+    textAlign: 'center',
+  },
+  buttonGroup: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    marginTop: '20px',
+  },
+  cancelButton: {
+    width: '30%',
+    color: '#dc3545', // Red color for the cancel button
+    padding: 0,
+    fontWeight: 'bold',
+  },
+  setPasswordButton: {
+    width: '70%', // Adjusted to fit both buttons side by side
     padding: '10px',
     backgroundColor: '#007bff',
     color: '#fff',

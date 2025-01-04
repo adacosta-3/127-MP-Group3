@@ -12,15 +12,15 @@ const Manager = () => {
   };
 
   return (
-    <div>
-      {/* AppBar */}
-      <AppBarComponent handleViewChange={handleViewChange} />
+    <div style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
+      {/* AppBar with bottom margin */}
+      <AppBarComponent handleViewChange={handleViewChange} style={{ marginBottom: '20px' }} />
 
-      {/* Content Area */}
-      <div style={{ marginTop: '10px' }}>
-        {selectedView === 'ManageItem' && <ManageItems />}
+      {/* Content Area with scroll and hidden scrollbar */}
+      <main style={{ flexGrow: 1, overflowY: 'scroll', padding: '10px', scrollbarWidth: 'none', WebkitOverflowScrolling: 'touch' }}>
+        {selectedView === 'ManageItems' && <ManageItems />}
         {selectedView === 'ManageCustomization' && <ManageCustomizations />}
-      </div>
+      </main>
     </div>
   );
 };

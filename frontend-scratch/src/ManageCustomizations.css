@@ -79,3 +79,39 @@ button.MuiButton-contained:hover {
 h2, h3, h4 {
   color: #1976d2;
 }
+
+h5 {
+  color: #ffffff;
+  font-size: 22px;
+}
+
+.manage-customizations {
+  padding: 16px;
+}
+
+.form-section {
+  padding: 16px;
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 16px;
+}
+
+.customizations-list {
+  margin-top: 16px;
+}
+
+.customization-card {
+  background-color: #f9f9f9;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 16px;
+  height: 300px;
+  overflow: auto;
+}
+
+.customization-details {
+  margin-bottom: 8px;
+}
+
+.options-section {
+  margin-top: 8px;
+}
