@@ -126,59 +126,52 @@ const PlaceOrder = () => {
     }
   }, [selectedItem, selectedSize, selectedOption, quantity, sizes]);
   const addItemToOrder = async () => {
-    // Ensure orderId is available before proceeding
-    if (!orderId) {
-      console.error("Order ID is missing.");
+    // Ensure orderId and selectedItem are available
+    if (!orderId || !selectedItem) {
+      console.error("Order ID or selected item is missing.");
       return;
     }
   
-    if (!selectedItem || !selectedSize) {
-      console.error("Selected item or size is missing.");
-      return;
-    }
-  
+    // Prepare the order line DTO
     const orderLineDTO = {
-      orderId: orderId,  // Ensure orderId is passed
-      itemCode: selectedItem.itemCode, // Item code
-      sizeId: selectedSize.sizeId, // Size ID
-      quantity: quantity, // Quantity
-      linePrice: totalPrice, // Total price for the line
-      customizations: selectedOption ? [{ optionId: selectedOption.optionId }] : [], // Customizations, if any
+      orderId: orderId,  // Pass the orderId
+      itemCode: selectedItem.itemCode,  // Item code
+      quantity: quantity,  // Quantity
+      customizations: selectedOption ? [{ optionId: selectedOption.optionId }] : [],  // Customizations, if any
     };
   
-    // Log the order line JSON before sending it to the server
-    console.log("Order Line JSON to send:", JSON.stringify(orderLineDTO));
+    // If a size is selected, include the sizeId
+    if (selectedSize) {
+      orderLineDTO.sizeId = selectedSize.sizeId;  // Include the sizeId in the DTO
+    }
+  
+    console.log("Order Line DTO to send:", orderLineDTO);  // Debugging
   
     try {
-      const response = await axios.post(
-        `http://localhost:8081/api/order-lines`,
-        orderLineDTO
-      );
+      const response = await axios.post(`http://localhost:8081/api/order-lines`, orderLineDTO);
       const savedOrderLine = response.data;
-      setItemsOrdered([...itemsOrdered, savedOrderLine]);
+      setItemsOrdered([...itemsOrdered, savedOrderLine]);  // Update the order list with the new line
   
-      // If customizations were selected, send them to /api/order-line-customizations
+      // If customizations are selected, handle them
       if (selectedOption) {
         const customizationDTO = {
-          orderLineId: savedOrderLine.orderLineId, // Get the ID of the newly created order line
-          optionId: selectedOption.optionId, // The selected customization option ID
+          orderLineId: savedOrderLine.orderLineId,  // Get the newly created order line ID
+          optionId: selectedOption.optionId,  // The selected customization option ID
         };
   
         try {
           await axios.post(`http://localhost:8081/api/order-line-customizations`, customizationDTO);
           console.log("Customization added to order line.");
         } catch (error) {
-          console.error("Error adding customization to order line:", error);
+          console.error("Error adding customization:", error);
         }
       }
   
-      resetForm();
+      resetForm();  // Reset form fields
     } catch (error) {
-      console.error("Error adding item to order:", error);
+      console.error("Error adding item to order:", error.response?.data || error.message);
     }
   };
-  
-  
   
   
   const resetForm = () => {

@@ -12,8 +12,6 @@ import java.util.Optional;
 public interface ItemService {
     List<ItemDTO> getAllItems();
 
-    public Double getBasePriceByItemCode(String itemCode);
-
     ItemDTO updateItemByItemCode(String itemCode, ItemDTO itemDTO);
 
     Optional<ItemDTO> getItemByCode(String itemCode);

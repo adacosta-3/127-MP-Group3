@@ -7,7 +7,7 @@ import Admin from './Admin.jsx'
 import Order from './PlaceOrder.jsx';
 
 const ManagerDashboard = () => {
-  return <Order/>;
+  return <Manager/>;
 };
 
 const AdminDashboard = () => {
