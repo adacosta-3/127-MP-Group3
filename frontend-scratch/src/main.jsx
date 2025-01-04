@@ -3,12 +3,13 @@ import { createRoot } from 'react-dom/client';
 import './index.css';
 import Login from './Login.jsx';
 import Manager from './Manager.jsx';
+import Admin from './Admin.jsx';
 const ManagerDashboard = () => {
   return <Manager/>;
 };
 
 const AdminDashboard = () => {
-  return <div>Welcome, Admin!</div>;
+  return <Admin/>;
 };
 
 const CashierDashboard = () => {
