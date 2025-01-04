@@ -22,7 +22,7 @@ public class Categorization {
     @Column(name = "name", nullable = false, length = 20)
     private String name;
 
-    @Column(name = "item_type", nullable = false, length = 10)
+    @Column(name = "item_type", nullable = false, length = 15)
     private String itemType;
 }
 
