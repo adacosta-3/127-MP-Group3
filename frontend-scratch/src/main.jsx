@@ -4,10 +4,10 @@ import './index.css';
 import Login from './Login.jsx';
 import Manager from './Manager.jsx';
 import Admin from './Admin.jsx'
-import Order from './Order.jsx';
+import Order from './PlaceOrder.jsx';
 
 const ManagerDashboard = () => {
-  return <Manager/>;
+  return <Order/>;
 };
 
 const AdminDashboard = () => {

@@ -1,0 +1,117 @@
+/* Ensure "Place Order" title stays left-aligned */
+.place-order h1 {
+    text-align: left;
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+
+/* Properly align form elements and labels */
+.order-form label {
+    display: block;
+    margin: 10px 0 5px;
+}
+
+/* Ensure quantity input is properly aligned */
+.order-form input[type="number"] {
+    width: 100px;
+    margin-bottom: 20px; /* Added spacing after the input */
+    padding: 8px;
+    border-radius: 15px;
+    border: 1px solid #ccc;
+}
+
+.place-order ul {
+    list-style: none;
+    padding: 0;
+    color: #000; /* Set text color to black */
+}
+
+.place-order li {
+    margin: 10px 0;
+    padding: 15px;
+    border-radius: 15px;
+    border: 1px solid #ddd;
+    background-color: #fff;
+    color: #000; /* Set text color to black */
+}
+
+/* Styling for select elements with rounded boxes */
+.order-form select {
+    width: 200px;
+    margin-bottom: 10px;
+    padding: 8px;
+    border-radius: 15px;
+    border: 1px solid #ccc;
+}
+
+/* Styling for buttons */
+button {
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 15px; /* Rounded corners for buttons */
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+/* Styling for list items with rounded boxes */
+.place-order li {
+    margin: 10px 0;
+    padding: 15px;
+    border-radius: 15px;
+    border: 1px solid #ddd;
+    background-color: #f9f9f9;
+}
+
+/* Styling for the receipt section */
+#receipt {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    border: 1px solid #ccc;
+    width: 80%;
+    margin: 0 auto;
+    border-radius: 15px; /* Rounded corners for receipt */
+    background-color: #f9f9f9;
+    color: #000000;
+}
+
+#receipt h2 {
+    text-align: center;
+}
+
+#receipt ul {
+    list-style: none;
+    padding: 0;
+}
+
+#receipt li {
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 15px;
+    border: 1px solid #ddd;
+    background-color: #fff;
+}
+
+#receipt h3 {
+    text-align: center;
+}
+
+#receipt button {
+    display: inline-block;
+    margin: 10px 5px;
+    border-radius: 15px;
+    padding: 10px 15px;
+    background-color: #ccc; 
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+#receipt button:hover {
+    background-color: #e62c22;
+}
