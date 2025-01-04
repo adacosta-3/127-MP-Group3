@@ -41,9 +41,14 @@ public class CustomerOrderServiceImpl implements CustomerOrderService {
 
     @Override
     public Optional<CustomerOrderDTO> getOrderById(Integer orderId) {
-        return orderRepository.findById(orderId)
-                .map(CustomerOrderMapper::mapToCustomerOrderDTO);
+        Optional<CustomerOrder> orderOpt = orderRepository.findById(orderId);
+
+        // Recalculate total price if order exists
+        orderOpt.ifPresent(order -> updateOrderTotalPrice(order.getOrderId()));
+
+        return orderOpt.map(CustomerOrderMapper::mapToCustomerOrderDTO);
     }
+
 
     @Override
     public CustomerOrderDTO createOrder(CustomerOrderDTO orderDTO) {
@@ -188,10 +193,15 @@ public class CustomerOrderServiceImpl implements CustomerOrderService {
 
     @Override
     public List<CustomerOrderDTO> getOrdersByCustomerId(Integer customerId) {
-        return orderRepository.findByCustomer_CustomerId(customerId)
-                .stream()
+        List<CustomerOrder> orders = orderRepository.findByCustomer_CustomerId(customerId);
+
+        // Recalculate total price for each order
+        orders.forEach(order -> updateOrderTotalPrice(order.getOrderId()));
+
+        return orders.stream()
                 .map(CustomerOrderMapper::mapToCustomerOrderDTO)
                 .collect(Collectors.toList());
     }
+
 }
 
