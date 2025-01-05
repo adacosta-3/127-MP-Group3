@@ -19,9 +19,8 @@ The purpose of this project is to serve as the final project requirement for CS1
 * Login & Sign Up
 * User Dashboard
 * Manage Order [Add Order]
-* Manage Bills [View Bill Details - Download Bill - Cancel Bill - Filter Products]
 * Update profile
 * Change Password
 
 ### Built With
-* Java [Spring Boot - Rest Api] , Angular , MYSQL Database
+* Java [Spring Boot - Rest Api] , React, PostgreSQL
