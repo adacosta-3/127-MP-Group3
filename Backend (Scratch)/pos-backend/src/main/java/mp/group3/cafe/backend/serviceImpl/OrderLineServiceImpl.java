@@ -40,31 +40,27 @@ public class OrderLineServiceImpl implements OrderLineService {
             throw new RuntimeException("Order not found with ID: " + orderLineDTO.getOrderId());
         }
 
-        // Fetch the size by ID
-        Optional<ItemSize> sizeOpt = itemSizeRepository.findById(orderLineDTO.getSizeId());
-        if (sizeOpt.isEmpty()) {
-            throw new RuntimeException("Size not found with ID: " + orderLineDTO.getSizeId());
-        }
-
         // Fetch the item by itemCode (primary key)
         Optional<Item> itemOpt = itemRepository.findById(orderLineDTO.getItemCode());
         if (itemOpt.isEmpty()) {
             throw new RuntimeException("Item not found with code: " + orderLineDTO.getItemCode());
         }
-
         Item item = itemOpt.get();
-        ItemSize size = sizeOpt.get();
+
+        // Fetch the size by ID (nullable)
+        ItemSize size = null;
+        if (orderLineDTO.getSizeId() != null) {
+            size = itemSizeRepository.findById(orderLineDTO.getSizeId())
+                    .orElseThrow(() -> new RuntimeException("Size not found with ID: " + orderLineDTO.getSizeId()));
+        }
 
         // Calculate line price
-        double linePrice = (item.getBasePrice() + size.getPriceAdjustment()) * orderLineDTO.getQuantity();
+        double sizeAdjustment = size != null ? size.getPriceAdjustment() : 0;
+        double linePrice = (item.getBasePrice() + sizeAdjustment) * orderLineDTO.getQuantity();
 
-        // Create and save the order line
-        OrderLine orderLine = new OrderLine();
-        orderLine.setOrder(orderOpt.get());
-        orderLine.setItem(item);
-        orderLine.setSizeId(size.getSizeId());
-        orderLine.setQuantity(orderLineDTO.getQuantity());
-        orderLine.setLinePrice(linePrice);
+        // Use the mapper to map DTO to Entity
+        OrderLine orderLine = OrderLineMapper.mapToOrderLine(orderLineDTO, orderOpt.get(), item);
+        orderLine.setLinePrice(linePrice); // Calculate and set price separately, if needed
 
         OrderLine savedOrderLine = orderLineRepository.save(orderLine);
         return OrderLineMapper.mapToOrderLineDTO(savedOrderLine);
