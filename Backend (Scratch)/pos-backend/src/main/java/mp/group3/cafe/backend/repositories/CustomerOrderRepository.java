@@ -25,6 +25,7 @@ public interface CustomerOrderRepository extends JpaRepository<CustomerOrder, In
             "ORDER BY CAST(o.orderDate AS LocalDate) ASC")
     List<OrderHistoryPerDayDTO> findOrderHistoryPerDay();
 
+
     @Query("SELECT new mp.group3.cafe.backend.DTO.AdminDashboard.OrderHistoryForMemberDTO(o.orderId, o.orderDate, o.totalPrice) " +
             "FROM CustomerOrder o " +
             "JOIN o.customer c " +
@@ -32,6 +33,10 @@ public interface CustomerOrderRepository extends JpaRepository<CustomerOrder, In
             "WHERE m.memberId = :memberId " +
             "ORDER BY o.orderDate DESC")
     List<OrderHistoryForMemberDTO> findOrderHistoryForMember(@Param("memberId") String memberId);
+
+
+    @Query("SELECT o FROM CustomerOrder o WHERE o.orderDate = :date")
+    List<CustomerOrder> findOrdersByDate(@Param("date") LocalDate date);
 
 
 

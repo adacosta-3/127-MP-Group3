@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -182,6 +183,16 @@ public class CustomerOrderServiceImpl implements CustomerOrderService {
 
 
     @Override
+    public List<CustomerOrderDTO> getOrdersByDate(LocalDate date) {
+        List<CustomerOrder> orders = orderRepository.findOrdersByDate(date);
+        return orders.stream()
+                .map(CustomerOrderMapper::mapToCustomerOrderDTO)
+                .collect(Collectors.toList());
+    }
+
+
+
+    @Override
     public void deleteOrder(Integer orderId) {
         orderRepository.deleteById(orderId);
     }
@@ -190,13 +201,16 @@ public class CustomerOrderServiceImpl implements CustomerOrderService {
     public List<CustomerOrderDTO> getOrdersByCustomerId(Integer customerId) {
         List<CustomerOrder> orders = orderRepository.findByCustomer_CustomerId(customerId);
 
+
         // Recalculate total price for each order
         orders.forEach(order -> updateOrderTotalPrice(order.getOrderId()));
+
 
         return orders.stream()
                 .map(CustomerOrderMapper::mapToCustomerOrderDTO)
                 .collect(Collectors.toList());
     }
+
 
 }
 
