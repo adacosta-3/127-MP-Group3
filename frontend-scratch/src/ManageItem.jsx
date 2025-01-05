@@ -12,6 +12,7 @@ import InputAdornment from '@mui/material/InputAdornment';
 import axios from 'axios';
 import DeleteIcon from '@mui/icons-material/Delete';
 import SendIcon from '@mui/icons-material/Send';
+import Typography from '@mui/material/Typography';
 
 const ManageItems = () => {
   const [filteredCategories, setFilteredCategories] = useState([]);
@@ -94,7 +95,7 @@ const ManageItems = () => {
     setEditingItem(item);
     setIsEditing(true);
   };
-  
+
   const handleSizeChange = (index, field, value) => {
     const updatedSizes = [...newItem.sizes];
     updatedSizes[index] = { ...updatedSizes[index], [field]: value };
@@ -144,6 +145,7 @@ const ManageItems = () => {
       alert('Error adding item. Please try again.');
     }
   };
+
   const handleUpdateItem = async () => {
     try {
       // Make sure sizes are unique
@@ -193,15 +195,14 @@ const ManageItems = () => {
       );
       setItems(updatedItems); // Update state with modified item
       setNewItem(updatedItem); // Update the newly created item
-  
     } catch (error) {
       console.error("Error updating item:", error);
       alert("Failed to update item. Please try again.");
     }
   };
-  
+
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', minHeight: 'calc(100vh - 64px)', padding: 2, paddingTop: '10vh', position: 'relative', marginTop: '64px', width: '70vh' }}>
+    <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', padding: 2, minHeight: 'calc(100vh - 64px)', marginTop: '64px', width: '70vh' }}>
       <form>
         <Grid container spacing={2} justifyContent="center" sx={{ mb: 3 }}>
           <Grid item xs={5} sx={{ minWidth: 250 }}>
@@ -334,55 +335,73 @@ const ManageItems = () => {
               {isEditing ? 'Update Item' : 'Add Item'}
             </Button>
           </Grid>
+          <Grid item sx={{ ml: 2 }}>
+            <Button
+              variant="outlined"
+              onClick={() => {
+                setIsEditing(false);
+                setNewItem({ name: '', basePrice: '', hasSizes: false, sizes: [] });
+              }}
+            >
+              Cancel
+            </Button>
+          </Grid>
         </Grid>
-
-        <Box sx={{ mt: 3, width: '70vh', maxWidth: '90%' }}>
-          {items.length > 0 ? (
-            <ul>
-              {items.map((item) => (
-                <Box key={item.itemCode} sx={{ width: '100%', mb: 2 }}>
-                  <Box
-                    sx={{
-                      display: 'flex',
-                      justifyContent: 'space-between',
-                      alignItems: 'center',
-                      padding: 1,
-                      border: '1px solid #ddd',
-                      borderRadius: '4px',
-                      backgroundColor: '#f5f5f5',
-                    }}
-                  >
-                    <Box sx={{ flex: 1, marginRight: '20px' }}>
-                      <strong>{item.name}</strong> - ₱{item.basePrice}
-                    </Box>
-                    <Box sx={{ display: 'flex' }}>
-                      <Button
-                        variant="outlined"
-                        startIcon={<DeleteIcon />}
-                        onClick={() => handleDeleteItem(item.itemCode)}
-                        sx={{ ml: 2 }}
-                      >
-                        Delete
-                      </Button>
-                      <Button
-                        variant="contained"
-                        endIcon={<SendIcon />}
-                        onClick={() => handleEditItem(item.itemCode)}
-                        sx={{ ml: 2 }}
-                      >
-                        Edit
-                      </Button>
-                    </Box>
-                  </Box>
-                  <Divider sx={{ mt: 1 }} />
-                </Box>
-              ))}
-            </ul>
-          ) : (
-            <p>No items found for this category</p>
-          )}
-        </Box>
       </form>
+
+      <Divider sx={{ width: '100%', marginTop: 3, marginBottom: 3 }} />
+
+
+      <Grid container spacing={2}>
+  {items.map((item) => (
+    <Grid item xs={12} sm={6} md={4} lg={3} key={item.itemCode}>
+      <Box
+        sx={{
+          p: 2,
+          border: '1px solid #ccc',
+          borderRadius: 2,
+          width: '14vh', // Fixed width
+          height: '20vh', // Fixed height
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'space-between', // Ensures content is spaced out evenly
+          marginBottom: 2, // Add margin to separate cards
+        }}
+      >
+        <Box sx={{ flex: 0.45, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+          <Typography variant="h6" sx={{ fontSize: '16px', fontWeight: 'bold', textAlign: 'center' }}>
+            {item.name}
+          </Typography>
+        </Box>
+
+        <Box sx={{ flex: 0.5, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+          <p style={{ textAlign: 'center' }}>{`₱${item.basePrice}`}</p>
+        </Box>
+
+        <Box sx={{ flex: 0.5, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'space-between' }}>
+          <Button
+            variant="outlined"
+            color="error"
+            onClick={() => handleDeleteItem(item.itemCode)}
+            startIcon={<DeleteIcon />}
+            sx={{ width: '80%' }} // Button takes 80% of the container width
+          >
+            Delete
+          </Button>
+          <Button
+            variant="outlined"
+            color="info"
+            onClick={() => handleEditItem(item.itemCode)}
+            sx={{ width: '80%', mt: 1 }} // Add margin top for spacing between buttons
+          >
+            Edit
+          </Button>
+        </Box>
+      </Box>
+    </Grid>
+  ))}
+</Grid>
+
     </Box>
   );
 };
