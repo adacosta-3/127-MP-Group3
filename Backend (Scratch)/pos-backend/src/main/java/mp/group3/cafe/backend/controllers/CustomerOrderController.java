@@ -52,7 +52,8 @@ public class CustomerOrderController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<CustomerOrderDTO> updateOrder(@PathVariable Integer id, @RequestBody CustomerOrderDTO orderDTO) {
+    public ResponseEntity<CustomerOrderDTO> updateOrder(@PathVariable Integer id,
+            @RequestBody CustomerOrderDTO orderDTO) {
         try {
             CustomerOrderDTO updatedOrder = customerOrderService.updateOrder(id, orderDTO);
             return ResponseEntity.ok(updatedOrder);
@@ -91,4 +92,3 @@ public class CustomerOrderController {
         }
     }
 }
-

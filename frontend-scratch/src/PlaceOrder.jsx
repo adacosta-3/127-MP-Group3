@@ -176,31 +176,34 @@ const PlaceOrder = () => {
       const response = await axios.post(
         `http://localhost:8081/api/customer-orders/${orderId}/complete`
       );
-      console.log("Order finalized", response.data);
+      console.log("Full API Response:", response.data);
   
       // Prepare the order details for the receipt page
       const orderDetails = {
         orderId: response.data.orderId,
         customer: guestName || memberDetails.name,
-        date: new Date().toISOString().split('T')[0],
-        items: itemsOrdered.map((item) => ({
-          name: item.name,
-          price: item.basePrice,
-          size: item.sizeName,
-          customizations: item.customizations || [],
+        date: new Date(response.data.orderDate).toISOString().split('T')[0],
+        items: response.data.items.map((item) => ({
+          itemCode: item.itemCode, // Assuming you have an itemCode
+          name: item.itemName,
+          size: item.size, // Assuming you have size information
+          quantity: item.quantity,
+          customizations: item.customizations.map((custom) => ({
+            name: custom.customizationName,
+            additionalCost: custom.additionalCost,
+          })),
+          totalPrice: item.totalPrice,
         })),
-        totalPrice: totalPrice,
+        totalPrice: response.data.totalPrice,
       };
   
-      // Redirect to the Receipt page with order details
-      history.push("/receipt", { orderDetails });
+      console.log("Prepared Order Details:", orderDetails);
+      navigate('/receipt', { state: { orderDetails } });
     } catch (error) {
       console.error("Error finalizing order:", error);
-      // Handle error (e.g., show error message)
-    
     }
-    navigate('/receipt');
   };
+  
 
   const resetForm = () => {
     setSelectedCategory(null);
