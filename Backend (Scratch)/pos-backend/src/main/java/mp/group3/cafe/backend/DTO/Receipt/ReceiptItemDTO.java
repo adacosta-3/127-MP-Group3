@@ -11,7 +11,7 @@ import java.util.List;
 public class ReceiptItemDTO {
     private String itemName;
     private int quantity;
-    private double totalPrice; // Includes customizations and quantity
+    private double linePrice; // Includes customizations and quantity
     private List<ReceiptCustomizationDTO> customizations;
 }
 
