@@ -4,16 +4,591 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="214aebc8-7f3a-42b5-8101-315558b2cb09" name="Changes" comment="Signup API of User &amp; Structure">
+    <list default="true" id="3fa19611-fc1f-4dbc-83f8-b79bd70c0d12" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/DATABASE DESIGN &amp; ERD.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/.package-lock.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/@kurkle/color/LICENSE.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/@kurkle/color/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/@kurkle/color/dist/color.cjs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/@kurkle/color/dist/color.d.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/@kurkle/color/dist/color.esm.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/@kurkle/color/dist/color.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/@kurkle/color/dist/color.min.js.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/@kurkle/color/package.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/chart.js/LICENSE.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/chart.js/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/chart.js/auto/auto.cjs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/chart.js/auto/auto.d.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/chart.js/auto/auto.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/chart.js/auto/package.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/chart.cjs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/chart.cjs.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/chart.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/chart.js.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/chart.umd.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/chart.umd.js.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/chunks/helpers.segment.cjs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/chunks/helpers.segment.cjs.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/chunks/helpers.segment.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/chunks/helpers.segment.js.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/controllers/controller.bar.d.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/controllers/controller.bubble.d.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/controllers/controller.doughnut.d.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/controllers/controller.line.d.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/controllers/controller.pie.d.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/controllers/controller.polarArea.d.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/controllers/controller.radar.d.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/controllers/controller.scatter.d.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/controllers/index.d.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/core/core.adapters.d.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/core/core.animation.d.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/core/core.animations.d.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/core/core.animations.defaults.d.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/core/core.animator.d.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/core/core.config.d.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/core/core.controller.d.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/core/core.datasetController.d.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/core/core.defaults.d.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/core/core.element.d.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/core/core.interaction.d.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/core/core.layouts.d.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/core/core.layouts.defaults.d.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/core/core.plugins.d.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/core/core.registry.d.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/core/core.scale.autoskip.d.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/core/core.scale.d.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/core/core.scale.defaults.d.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/core/core.ticks.d.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/core/core.typedRegistry.d.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/core/index.d.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/elements/element.arc.d.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/elements/element.bar.d.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/elements/element.line.d.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/elements/element.point.d.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/elements/index.d.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/helpers.cjs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/helpers.cjs.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/helpers.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/helpers.js.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/helpers/helpers.canvas.d.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/helpers/helpers.collection.d.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/helpers/helpers.color.d.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/helpers/helpers.config.d.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/helpers/helpers.config.types.d.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/helpers/helpers.core.d.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/helpers/helpers.curve.d.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/helpers/helpers.dom.d.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/helpers/helpers.easing.d.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/helpers/helpers.extras.d.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/helpers/helpers.interpolation.d.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/helpers/helpers.intl.d.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/helpers/helpers.math.d.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/helpers/helpers.options.d.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/helpers/helpers.rtl.d.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/helpers/helpers.segment.d.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/helpers/index.d.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/index.d.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/index.umd.d.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/platform/index.d.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/platform/platform.base.d.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/platform/platform.basic.d.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/platform/platform.dom.d.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/plugins/index.d.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/plugins/plugin.colors.d.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/plugins/plugin.decimation.d.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/plugins/plugin.filler/filler.drawing.d.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/plugins/plugin.filler/filler.helper.d.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/plugins/plugin.filler/filler.options.d.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/plugins/plugin.filler/filler.segment.d.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/plugins/plugin.filler/filler.target.d.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/plugins/plugin.filler/filler.target.stack.d.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/plugins/plugin.filler/index.d.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/plugins/plugin.filler/simpleArc.d.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/plugins/plugin.legend.d.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/plugins/plugin.subtitle.d.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/plugins/plugin.title.d.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/plugins/plugin.tooltip.d.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/scales/index.d.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/scales/scale.category.d.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/scales/scale.linear.d.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/scales/scale.linearbase.d.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/scales/scale.logarithmic.d.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/scales/scale.radialLinear.d.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/scales/scale.time.d.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/scales/scale.timeseries.d.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/types.d.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/types/animation.d.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/types/basic.d.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/types/color.d.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/types/geometric.d.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/types/index.d.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/types/layout.d.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/types/utils.d.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/chart.js/helpers/helpers.cjs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/chart.js/helpers/helpers.d.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/chart.js/helpers/helpers.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/chart.js/helpers/package.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/chart.js/package.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/react-chartjs-2/LICENSE" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/react-chartjs-2/LICENSE.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/react-chartjs-2/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/react-chartjs-2/dist/chart.d.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/react-chartjs-2/dist/chart.d.ts.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/react-chartjs-2/dist/index.cjs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/react-chartjs-2/dist/index.cjs.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/react-chartjs-2/dist/index.d.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/react-chartjs-2/dist/index.d.ts.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/react-chartjs-2/dist/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/react-chartjs-2/dist/index.js.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/react-chartjs-2/dist/typedCharts.d.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/react-chartjs-2/dist/typedCharts.d.ts.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/react-chartjs-2/dist/types.d.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/react-chartjs-2/dist/types.d.ts.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/react-chartjs-2/dist/utils.d.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/react-chartjs-2/dist/utils.d.ts.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/react-chartjs-2/package.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/react/LICENSE" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/react/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/react/cjs/react-compiler-runtime.development.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/react/cjs/react-compiler-runtime.production.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/react/cjs/react-compiler-runtime.profiling.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/react/cjs/react-jsx-dev-runtime.development.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/react/cjs/react-jsx-dev-runtime.production.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/react/cjs/react-jsx-dev-runtime.profiling.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/react/cjs/react-jsx-dev-runtime.react-server.development.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/react/cjs/react-jsx-dev-runtime.react-server.production.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/react/cjs/react-jsx-runtime.development.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/react/cjs/react-jsx-runtime.production.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/react/cjs/react-jsx-runtime.profiling.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/react/cjs/react-jsx-runtime.react-server.development.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/react/cjs/react-jsx-runtime.react-server.production.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/react/cjs/react.development.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/react/cjs/react.production.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/react/cjs/react.react-server.development.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/react/cjs/react.react-server.production.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/react/compiler-runtime.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/react/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/react/jsx-dev-runtime.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/react/jsx-dev-runtime.react-server.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/react/jsx-runtime.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/react/jsx-runtime.react-server.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/react/package.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/react/react.react-server.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/com.inn.cafe/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/com.inn.cafe/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/com.inn.cafe/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/com.inn.cafe/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/com.inn.cafe/src/main/java/com/inn/cafe/POJO/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/com.inn.cafe/src/main/java/com/inn/cafe/POJO/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/com.inn.cafe/src/main/java/com/inn/cafe/constents/CafeConstants.java" beforeDir="false" afterPath="$PROJECT_DIR$/com.inn.cafe/src/main/java/com/inn/cafe/constents/CafeConstants.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/com.inn.cafe/src/main/java/com/inn/cafe/rest/UserRest.java" beforeDir="false" afterPath="$PROJECT_DIR$/com.inn.cafe/src/main/java/com/inn/cafe/rest/UserRest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/com.inn.cafe/src/main/java/com/inn/cafe/restImpl/UserRestImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/com.inn.cafe/src/main/java/com/inn/cafe/restImpl/UserRestImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/com.inn.cafe/src/main/java/com/inn/cafe/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/com.inn.cafe/src/main/java/com/inn/cafe/service/UserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/com.inn.cafe/src/main/java/com/inn/cafe/serviceImpl/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/com.inn.cafe/src/main/java/com/inn/cafe/serviceImpl/UserServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/DTO/CategorizationDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/DTO/CategorizationDTO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/DTO/CustomerDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/DTO/CustomerDTO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/DTO/CustomerOrderDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/DTO/CustomerOrderDTO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/DTO/CustomizationDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/DTO/CustomizationDTO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/DTO/CustomizationOptionsDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/DTO/CustomizationOptionsDTO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/DTO/ItemDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/DTO/ItemDTO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/DTO/ItemSizeDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/DTO/ItemSizeDTO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/DTO/MemberDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/DTO/MemberDTO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/DTO/OrderLineCustomizationDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/DTO/OrderLineCustomizationDTO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/DTO/OrderLineDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/DTO/OrderLineDTO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/DTO/Receipt/ReceiptCustomizationDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/DTO/Receipt/ReceiptCustomizationDTO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/DTO/Receipt/ReceiptDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/DTO/Receipt/ReceiptDTO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/DTO/Receipt/ReceiptItemDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/DTO/Receipt/ReceiptItemDTO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/DTO/UserDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/DTO/UserDTO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/DTO/UserResponseDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/DTO/UserResponseDTO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/PosBackendApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/PosBackendApplication.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/controllers/CategorizationController$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/controllers/CategorizationController$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/controllers/CategorizationController.class" beforeDir="false" afterPath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/controllers/CategorizationController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/controllers/CustomerController.class" beforeDir="false" afterPath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/controllers/CustomerController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/controllers/CustomerOrderController.class" beforeDir="false" afterPath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/controllers/CustomerOrderController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/controllers/CustomizationController.class" beforeDir="false" afterPath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/controllers/CustomizationController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/controllers/CustomizationOptionsController.class" beforeDir="false" afterPath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/controllers/CustomizationOptionsController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/controllers/ItemController.class" beforeDir="false" afterPath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/controllers/ItemController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/controllers/MemberController.class" beforeDir="false" afterPath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/controllers/MemberController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/controllers/OrderLineController.class" beforeDir="false" afterPath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/controllers/OrderLineController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/controllers/OrderLineCustomizationController.class" beforeDir="false" afterPath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/controllers/OrderLineCustomizationController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/controllers/UserController.class" beforeDir="false" afterPath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/controllers/UserController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/entities/Categorization.class" beforeDir="false" afterPath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/entities/Categorization.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/entities/Customer.class" beforeDir="false" afterPath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/entities/Customer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/entities/CustomerOrder.class" beforeDir="false" afterPath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/entities/CustomerOrder.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/entities/Customization.class" beforeDir="false" afterPath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/entities/Customization.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/entities/CustomizationOptions.class" beforeDir="false" afterPath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/entities/CustomizationOptions.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/entities/Item.class" beforeDir="false" afterPath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/entities/Item.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/entities/ItemSize.class" beforeDir="false" afterPath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/entities/ItemSize.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/entities/Member.class" beforeDir="false" afterPath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/entities/Member.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/entities/OrderLine.class" beforeDir="false" afterPath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/entities/OrderLine.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/entities/OrderLineCustomization.class" beforeDir="false" afterPath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/entities/OrderLineCustomization.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/entities/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/entities/User.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/mapper/CategorizationMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/mapper/CategorizationMapper.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/mapper/CustomerMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/mapper/CustomerMapper.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/mapper/CustomerOrderMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/mapper/CustomerOrderMapper.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/mapper/CustomizationMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/mapper/CustomizationMapper.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/mapper/CustomizationOptionsMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/mapper/CustomizationOptionsMapper.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/mapper/ItemMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/mapper/ItemMapper.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/mapper/ItemSizeMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/mapper/ItemSizeMapper.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/mapper/MemberMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/mapper/MemberMapper.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/mapper/OrderLineCustomizationMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/mapper/OrderLineCustomizationMapper.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/mapper/OrderLineMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/mapper/OrderLineMapper.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/mapper/UserMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/mapper/UserMapper.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/repositories/CategorizationRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/repositories/CategorizationRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/repositories/CustomerOrderRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/repositories/CustomerOrderRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/repositories/CustomerRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/repositories/CustomerRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/repositories/CustomizationOptionsRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/repositories/CustomizationOptionsRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/repositories/CustomizationRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/repositories/CustomizationRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/repositories/ItemRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/repositories/ItemRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/repositories/ItemSizeRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/repositories/ItemSizeRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/repositories/MemberRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/repositories/MemberRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/repositories/OrderLineCustomizationRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/repositories/OrderLineCustomizationRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/repositories/OrderLineRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/repositories/OrderLineRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/repositories/UserRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/repositories/UserRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/service/CategorizationService.class" beforeDir="false" afterPath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/service/CategorizationService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/service/CustomerOrderService.class" beforeDir="false" afterPath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/service/CustomerOrderService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/service/CustomerService.class" beforeDir="false" afterPath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/service/CustomerService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/service/CustomizationOptionsService.class" beforeDir="false" afterPath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/service/CustomizationOptionsService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/service/CustomizationService.class" beforeDir="false" afterPath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/service/CustomizationService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/service/ItemService.class" beforeDir="false" afterPath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/service/ItemService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/service/MemberService.class" beforeDir="false" afterPath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/service/MemberService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/service/OrderLineCustomizationService.class" beforeDir="false" afterPath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/service/OrderLineCustomizationService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/service/OrderLineService.class" beforeDir="false" afterPath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/service/OrderLineService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/service/UserService.class" beforeDir="false" afterPath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/service/UserService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/serviceImpl/CategorizationServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/serviceImpl/CategorizationServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/serviceImpl/CustomerOrderServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/serviceImpl/CustomerOrderServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/serviceImpl/CustomerServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/serviceImpl/CustomerServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/serviceImpl/CustomizationOptionsServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/serviceImpl/CustomizationOptionsServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/serviceImpl/CustomizationServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/serviceImpl/CustomizationServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/serviceImpl/ItemServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/serviceImpl/ItemServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/serviceImpl/MemberServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/serviceImpl/MemberServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/serviceImpl/OrderLineCustomizationServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/serviceImpl/OrderLineCustomizationServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/serviceImpl/OrderLineServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/serviceImpl/OrderLineServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/serviceImpl/UserServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/Backend (Scratch)/pos-backend/target/classes/mp/group3/cafe/backend/serviceImpl/UserServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend (Translated)/cafe-backend.zip" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend (Translated)/cafe-backend/.gitattributes" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend (Translated)/cafe-backend/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend (Translated)/cafe-backend/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend (Translated)/cafe-backend/mvnw" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend (Translated)/cafe-backend/mvnw.cmd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend (Translated)/cafe-backend/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend (Translated)/cafe-backend/src/main/java/mp/group3/backend/CafeBackendApplication.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend (Translated)/cafe-backend/src/main/java/mp/group3/backend/constants/CafeConstants.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend (Translated)/cafe-backend/src/main/java/mp/group3/backend/controllers/BillController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend (Translated)/cafe-backend/src/main/java/mp/group3/backend/controllers/CategoryController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend (Translated)/cafe-backend/src/main/java/mp/group3/backend/controllers/DashboardController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend (Translated)/cafe-backend/src/main/java/mp/group3/backend/controllers/ProductController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend (Translated)/cafe-backend/src/main/java/mp/group3/backend/controllers/UserController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend (Translated)/cafe-backend/src/main/java/mp/group3/backend/dtos/ProductDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend (Translated)/cafe-backend/src/main/java/mp/group3/backend/dtos/UserDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend (Translated)/cafe-backend/src/main/java/mp/group3/backend/entities/Bill.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend (Translated)/cafe-backend/src/main/java/mp/group3/backend/entities/Category.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend (Translated)/cafe-backend/src/main/java/mp/group3/backend/entities/Product.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend (Translated)/cafe-backend/src/main/java/mp/group3/backend/entities/User.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend (Translated)/cafe-backend/src/main/java/mp/group3/backend/exceptions/ResourceNotFoundException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend (Translated)/cafe-backend/src/main/java/mp/group3/backend/jwt/CustomerDetailsService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend (Translated)/cafe-backend/src/main/java/mp/group3/backend/jwt/JWTFilter.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend (Translated)/cafe-backend/src/main/java/mp/group3/backend/jwt/JWTUtil.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend (Translated)/cafe-backend/src/main/java/mp/group3/backend/jwt/SecurityConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend (Translated)/cafe-backend/src/main/java/mp/group3/backend/repositories/BillRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend (Translated)/cafe-backend/src/main/java/mp/group3/backend/repositories/CategoryRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend (Translated)/cafe-backend/src/main/java/mp/group3/backend/repositories/ProductRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend (Translated)/cafe-backend/src/main/java/mp/group3/backend/repositories/UserRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend (Translated)/cafe-backend/src/main/java/mp/group3/backend/serviceImpl/BillServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend (Translated)/cafe-backend/src/main/java/mp/group3/backend/serviceImpl/CategoryServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend (Translated)/cafe-backend/src/main/java/mp/group3/backend/serviceImpl/DashboardServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend (Translated)/cafe-backend/src/main/java/mp/group3/backend/serviceImpl/ProductServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend (Translated)/cafe-backend/src/main/java/mp/group3/backend/serviceImpl/UserServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend (Translated)/cafe-backend/src/main/java/mp/group3/backend/services/BillService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend (Translated)/cafe-backend/src/main/java/mp/group3/backend/services/CategoryService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend (Translated)/cafe-backend/src/main/java/mp/group3/backend/services/DashboardService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend (Translated)/cafe-backend/src/main/java/mp/group3/backend/services/ProductService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend (Translated)/cafe-backend/src/main/java/mp/group3/backend/services/UserService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend (Translated)/cafe-backend/src/main/java/mp/group3/backend/utils/CafeUtils.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend (Translated)/cafe-backend/src/main/java/mp/group3/backend/utils/EmailUtils.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend (Translated)/cafe-backend/src/main/resources/application.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend (Translated)/cafe-backend/src/test/java/mp/group3/backend/CafeBackendApplicationTests.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/.browserslistrc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/.editorconfig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/.vscode/launch.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/angular.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/e2e/protractor.conf.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/e2e/src/app.e2e-spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/e2e/src/app.po.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/e2e/tsconfig.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/hell-week-cafe-pos/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/hell-week-cafe-pos/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/hell-week-cafe-pos/eslint.config.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/hell-week-cafe-pos/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/hell-week-cafe-pos/package-lock.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/hell-week-cafe-pos/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/hell-week-cafe-pos/postcss.config.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/hell-week-cafe-pos/public/vite.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/hell-week-cafe-pos/src/App.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/hell-week-cafe-pos/src/App.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/hell-week-cafe-pos/src/assets/Icons/HELL.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/hell-week-cafe-pos/src/assets/Icons/MainLogo.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/hell-week-cafe-pos/src/assets/react.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/hell-week-cafe-pos/src/components/LoginSignUp.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/hell-week-cafe-pos/src/components/LoginSignUp.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/hell-week-cafe-pos/src/components/Navbar.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/hell-week-cafe-pos/src/components/Navbar.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/hell-week-cafe-pos/src/index.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/hell-week-cafe-pos/src/main.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/hell-week-cafe-pos/src/pages/HomePage.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/hell-week-cafe-pos/src/pages/HomePage.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/hell-week-cafe-pos/src/pages/Pages.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/hell-week-cafe-pos/tailwind.config.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/hell-week-cafe-pos/vite.config.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/karma.conf.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/package-lock.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/regex.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/app/app-routing.module.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/app/app.component.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/app/app.component.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/app/app.component.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/app/app.component.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/app/app.module.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/app/best-seller/best-seller.component.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/app/best-seller/best-seller.component.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/app/best-seller/best-seller.component.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/app/best-seller/best-seller.component.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/app/dashboard/dashboard.component.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/app/dashboard/dashboard.component.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/app/dashboard/dashboard.component.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/app/dashboard/dashboard.module.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/app/dashboard/dashboard.routing.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/app/forgot-password/forgot-password.component.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/app/forgot-password/forgot-password.component.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/app/forgot-password/forgot-password.component.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/app/forgot-password/forgot-password.component.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/app/home/home.component.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/app/home/home.component.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/app/home/home.component.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/app/home/home.component.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/app/layouts/full/full.component.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/app/layouts/full/full.component.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/app/layouts/full/header/header.component.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/app/layouts/full/header/header.component.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/app/layouts/full/sidebar/sidebar.component.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/app/layouts/full/sidebar/sidebar.component.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/app/login/login.component.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/app/login/login.component.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/app/login/login.component.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/app/login/login.component.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/app/material-component/dialog/view-bill-products/category/category.component.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/app/material-component/dialog/view-bill-products/category/category.component.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/app/material-component/dialog/view-bill-products/category/category.component.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/app/material-component/dialog/view-bill-products/category/category.component.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/app/material-component/dialog/view-bill-products/change-password/change-password.component.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/app/material-component/dialog/view-bill-products/change-password/change-password.component.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/app/material-component/dialog/view-bill-products/change-password/change-password.component.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/app/material-component/dialog/view-bill-products/change-password/change-password.component.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/app/material-component/dialog/view-bill-products/confirmation/confirmation.component.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/app/material-component/dialog/view-bill-products/confirmation/confirmation.component.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/app/material-component/dialog/view-bill-products/confirmation/confirmation.component.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/app/material-component/dialog/view-bill-products/confirmation/confirmation.component.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/app/material-component/dialog/view-bill-products/product/product.component.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/app/material-component/dialog/view-bill-products/product/product.component.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/app/material-component/dialog/view-bill-products/product/product.component.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/app/material-component/dialog/view-bill-products/product/product.component.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/app/material-component/dialog/view-bill-products/view-bill-products.component.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/app/material-component/dialog/view-bill-products/view-bill-products.component.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/app/material-component/dialog/view-bill-products/view-bill-products.component.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/app/material-component/dialog/view-bill-products/view-bill-products.component.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/app/material-component/manage-category/manage-category.component.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/app/material-component/manage-category/manage-category.component.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/app/material-component/manage-category/manage-category.component.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/app/material-component/manage-category/manage-category.component.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/app/material-component/manage-order/manage-order.component.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/app/material-component/manage-order/manage-order.component.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/app/material-component/manage-order/manage-order.component.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/app/material-component/manage-order/manage-order.component.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/app/material-component/manage-product/manage-product.component.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/app/material-component/manage-product/manage-product.component.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/app/material-component/manage-product/manage-product.component.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/app/material-component/manage-product/manage-product.component.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/app/material-component/manage-user/manage-user.component.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/app/material-component/manage-user/manage-user.component.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/app/material-component/manage-user/manage-user.component.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/app/material-component/manage-user/manage-user.component.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/app/material-component/material.module.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/app/material-component/material.routing.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/app/material-component/view-bill/view-bill.component.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/app/material-component/view-bill/view-bill.component.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/app/material-component/view-bill/view-bill.component.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/app/material-component/view-bill/view-bill.component.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/app/services/auth.service.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/app/services/auth.service.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/app/services/bill.service.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/app/services/bill.service.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/app/services/category.service.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/app/services/category.service.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/app/services/dashboard.service.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/app/services/dashboard.service.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/app/services/product.service.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/app/services/product.service.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/app/services/route-guard.service.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/app/services/route-guard.service.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/app/services/snackbar.service.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/app/services/snackbar.service.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/app/services/token-interceptor.interceptor.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/app/services/token-interceptor.interceptor.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/app/services/user.service.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/app/services/user.service.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/app/shared/accordion/accordion.directive.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/app/shared/accordion/accordionanchor.directive.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/app/shared/accordion/accordionlink.directive.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/app/shared/accordion/index.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/app/shared/global-constants.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/app/shared/material-module.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/app/shared/menu-items.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/app/shared/shared.module.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/app/signup/signup.component.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/app/signup/signup.component.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/app/signup/signup.component.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/app/signup/signup.component.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/app/snackbar.service.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/app/snackbar.service.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/app/user.service.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/app/user.service.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/assets/.gitkeep" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/assets/favicon.ico" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/assets/img/1.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/assets/img/2.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/assets/img/3.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/assets/img/4.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/assets/img/food1.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/assets/logo.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/assets/styles/app.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/assets/styles/header.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/assets/styles/icons/material-design-iconic-font/css/material-design-iconic-font.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/assets/styles/icons/material-design-iconic-font/css/material-design-iconic-font.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/assets/styles/icons/material-design-iconic-font/css/materialdesignicons.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/assets/styles/icons/material-design-iconic-font/fonts/Material-Design-Iconic-Font.eot" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/assets/styles/icons/material-design-iconic-font/fonts/Material-Design-Iconic-Font.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/assets/styles/icons/material-design-iconic-font/fonts/Material-Design-Iconic-Font.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/assets/styles/icons/material-design-iconic-font/fonts/Material-Design-Iconic-Font.woff" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/assets/styles/icons/material-design-iconic-font/fonts/Material-Design-Iconic-Font.woff2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/assets/styles/icons/material-design-iconic-font/fonts/materialdesignicons-webfont.eot" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/assets/styles/icons/material-design-iconic-font/fonts/materialdesignicons-webfont.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/assets/styles/icons/material-design-iconic-font/fonts/materialdesignicons-webfont.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/assets/styles/icons/material-design-iconic-font/fonts/materialdesignicons-webfont.woff" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/assets/styles/icons/material-design-iconic-font/fonts/materialdesignicons-webfont.woff2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/assets/styles/pages.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/assets/styles/responsive.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/assets/styles/sidebar.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/assets/styles/spinner.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/assets/styles/style.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/assets/styles/variable.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/environments/environment.prod.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/environments/environment.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/favicon.ico" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/main.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/polyfills.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/styles.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/test.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/tsconfig.app.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/tsconfig.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/tsconfig.spec.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/tslint.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.inn.cafe/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.inn.cafe/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.inn.cafe/.idea/compiler.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.inn.cafe/.idea/encodings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.inn.cafe/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.inn.cafe/.idea/jarRepositories.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.inn.cafe/.idea/jpa-buddy.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.inn.cafe/.idea/libraries/io_jsonwebtoken_jjwt.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.inn.cafe/.idea/libraries/mysql_connector_java_5_1_48.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.inn.cafe/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.inn.cafe/.idea/uiDesigner.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.inn.cafe/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.inn.cafe/CafeStoredFiles/BILL1673205447509.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.inn.cafe/CafeStoredFiles/BILL1673284227877.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.inn.cafe/CafeStoredFiles/BILL1674616148878.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.inn.cafe/CafeStoredFiles/BILL1674616766624.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.inn.cafe/CafeStoredFiles/BILL1674754529020.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.inn.cafe/CafeStoredFiles/BILL1674784110598.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.inn.cafe/HELP.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.inn.cafe/jars/mysql-connector-java-5.1.48.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.inn.cafe/mvnw" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.inn.cafe/mvnw.cmd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.inn.cafe/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.inn.cafe/src/main/java/com/inn/cafe/Application.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.inn.cafe/src/main/java/com/inn/cafe/JWT/CustomerUserDetailsService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.inn.cafe/src/main/java/com/inn/cafe/JWT/JwtFilter.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.inn.cafe/src/main/java/com/inn/cafe/JWT/SecurityConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.inn.cafe/src/main/java/com/inn/cafe/JWT/jwtUtil.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.inn.cafe/src/main/java/com/inn/cafe/POJO/Bill.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.inn.cafe/src/main/java/com/inn/cafe/POJO/Category.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.inn.cafe/src/main/java/com/inn/cafe/POJO/Customization.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.inn.cafe/src/main/java/com/inn/cafe/POJO/CustomizationOption.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.inn.cafe/src/main/java/com/inn/cafe/POJO/Product.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.inn.cafe/src/main/java/com/inn/cafe/POJO/User.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.inn.cafe/src/main/java/com/inn/cafe/constents/CafeConstants.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.inn.cafe/src/main/java/com/inn/cafe/dao/BillDao.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.inn.cafe/src/main/java/com/inn/cafe/dao/CategoryDao.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.inn.cafe/src/main/java/com/inn/cafe/dao/CustomizationDao.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.inn.cafe/src/main/java/com/inn/cafe/dao/CustomizationOptionDao.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.inn.cafe/src/main/java/com/inn/cafe/dao/UserDao.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.inn.cafe/src/main/java/com/inn/cafe/dao/productDao.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.inn.cafe/src/main/java/com/inn/cafe/rest/BillRest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.inn.cafe/src/main/java/com/inn/cafe/rest/CategoryRest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.inn.cafe/src/main/java/com/inn/cafe/rest/CustomizationRest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.inn.cafe/src/main/java/com/inn/cafe/rest/DashboardRest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.inn.cafe/src/main/java/com/inn/cafe/rest/UserRest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.inn.cafe/src/main/java/com/inn/cafe/rest/productRest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.inn.cafe/src/main/java/com/inn/cafe/restImpl/BillRestImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.inn.cafe/src/main/java/com/inn/cafe/restImpl/CategoryRestImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.inn.cafe/src/main/java/com/inn/cafe/restImpl/CustomizationRestImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.inn.cafe/src/main/java/com/inn/cafe/restImpl/DashboardRestImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.inn.cafe/src/main/java/com/inn/cafe/restImpl/UserRestImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.inn.cafe/src/main/java/com/inn/cafe/restImpl/productRestImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.inn.cafe/src/main/java/com/inn/cafe/service/BillService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.inn.cafe/src/main/java/com/inn/cafe/service/CategoryService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.inn.cafe/src/main/java/com/inn/cafe/service/CustomizationOptionService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.inn.cafe/src/main/java/com/inn/cafe/service/CustomizationService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.inn.cafe/src/main/java/com/inn/cafe/service/DashboardService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.inn.cafe/src/main/java/com/inn/cafe/service/UserService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.inn.cafe/src/main/java/com/inn/cafe/service/productService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.inn.cafe/src/main/java/com/inn/cafe/serviceImpl/BillServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.inn.cafe/src/main/java/com/inn/cafe/serviceImpl/CategoryServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.inn.cafe/src/main/java/com/inn/cafe/serviceImpl/DashboardServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.inn.cafe/src/main/java/com/inn/cafe/serviceImpl/UserServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.inn.cafe/src/main/java/com/inn/cafe/serviceImpl/customizationServiceImpl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.inn.cafe/src/main/java/com/inn/cafe/serviceImpl/productServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.inn.cafe/src/main/java/com/inn/cafe/utils/CafeUtils.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.inn.cafe/src/main/java/com/inn/cafe/utils/EmailUtil.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.inn.cafe/src/main/java/com/inn/cafe/wrapper/CustomizationOptionWrapper.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.inn.cafe/src/main/java/com/inn/cafe/wrapper/CustomizationWrapper.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.inn.cafe/src/main/java/com/inn/cafe/wrapper/ProductWrapper.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.inn.cafe/src/main/java/com/inn/cafe/wrapper/UserWrapper.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.inn.cafe/src/main/resources/application.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend-scratch/node_modules/.vite/deps/@mui_icons-material_Delete.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend-scratch/node_modules/.vite/deps/@mui_icons-material_Delete.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend-scratch/node_modules/.vite/deps/@mui_icons-material_Delete.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/frontend-scratch/node_modules/.vite/deps/@mui_icons-material_Delete.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend-scratch/node_modules/.vite/deps/@mui_icons-material_Send.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend-scratch/node_modules/.vite/deps/@mui_icons-material_Send.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend-scratch/node_modules/.vite/deps/@mui_icons-material_Send.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/frontend-scratch/node_modules/.vite/deps/@mui_icons-material_Send.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend-scratch/node_modules/.vite/deps/@mui_icons-material_Visibility.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend-scratch/node_modules/.vite/deps/@mui_icons-material_Visibility.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend-scratch/node_modules/.vite/deps/@mui_icons-material_Visibility.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/frontend-scratch/node_modules/.vite/deps/@mui_icons-material_Visibility.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend-scratch/node_modules/.vite/deps/@mui_icons-material_VisibilityOff.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend-scratch/node_modules/.vite/deps/@mui_icons-material_VisibilityOff.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend-scratch/node_modules/.vite/deps/@mui_icons-material_VisibilityOff.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/frontend-scratch/node_modules/.vite/deps/@mui_icons-material_VisibilityOff.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend-scratch/node_modules/.vite/deps/@mui_material.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend-scratch/node_modules/.vite/deps/@mui_material.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend-scratch/node_modules/.vite/deps/@mui_material.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/frontend-scratch/node_modules/.vite/deps/@mui_material.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend-scratch/node_modules/.vite/deps/@mui_material_AppBar.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend-scratch/node_modules/.vite/deps/@mui_material_AppBar.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend-scratch/node_modules/.vite/deps/@mui_material_Box.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend-scratch/node_modules/.vite/deps/@mui_material_Box.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend-scratch/node_modules/.vite/deps/@mui_material_Button.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend-scratch/node_modules/.vite/deps/@mui_material_Button.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend-scratch/node_modules/.vite/deps/@mui_material_Divider.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend-scratch/node_modules/.vite/deps/@mui_material_Divider.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend-scratch/node_modules/.vite/deps/@mui_material_FormControl.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend-scratch/node_modules/.vite/deps/@mui_material_FormControl.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend-scratch/node_modules/.vite/deps/@mui_material_Grid.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend-scratch/node_modules/.vite/deps/@mui_material_Grid.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend-scratch/node_modules/.vite/deps/@mui_material_Input.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend-scratch/node_modules/.vite/deps/@mui_material_Input.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend-scratch/node_modules/.vite/deps/@mui_material_InputAdornment.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend-scratch/node_modules/.vite/deps/@mui_material_InputAdornment.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend-scratch/node_modules/.vite/deps/@mui_material_InputLabel.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend-scratch/node_modules/.vite/deps/@mui_material_InputLabel.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend-scratch/node_modules/.vite/deps/@mui_material_MenuItem.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend-scratch/node_modules/.vite/deps/@mui_material_MenuItem.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend-scratch/node_modules/.vite/deps/@mui_material_Select.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend-scratch/node_modules/.vite/deps/@mui_material_Select.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend-scratch/node_modules/.vite/deps/@mui_material_Toolbar.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend-scratch/node_modules/.vite/deps/@mui_material_Toolbar.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend-scratch/node_modules/.vite/deps/_metadata.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend-scratch/node_modules/.vite/deps/_metadata.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend-scratch/node_modules/.vite/deps/axios.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/frontend-scratch/node_modules/.vite/deps/axios.js.map" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,28 +601,65 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="ProjectId" id="2IplwJBWMaf05aFkWHu6XnU2D6j" />
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 7
+}</component>
+  <component name="ProjectId" id="2rC45sdHe9YUbHVdB9ofAbGjjeZ" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "Spring Boot.PosBackendApplication.executor": "Run",
+    "git-widget-placeholder": "cleanup",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "D:/DOWNLOADS/THIRD-YEAR/127 LAB/last/127-MP-Group3",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "run.configurations.included.in.services": "true",
+    "ts.external.directory.path": "C:\\Program Files\\JetBrains\\IntelliJ IDEA 2023.3.4\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
-  <component name="RunManager">
-    <configuration default="true" type="JetRunConfigurationType">
-      <module name="Cafe-Management-System" />
+}]]></component>
+  <component name="RunDashboard">
+    <option name="configurationTypes">
+      <set>
+        <option value="MicronautRunConfigurationType" />
+        <option value="QuarkusRunConfigurationType" />
+        <option value="SpringBootApplicationConfigurationType" />
+      </set>
+    </option>
+  </component>
+  <component name="RunManager" selected="Spring Boot.PosBackendApplication">
+    <configuration name="Application" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="com.inn.cafe (2)" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.inn.cafe.Application" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
-      <module name="Cafe-Management-System" />
-      <option name="filePath" />
+    <configuration name="CafeBackendApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="com.inn.cafe (1)" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="mp.group3.backend.CafeBackendApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="PosBackendApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="pos-backend" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="mp.group3.cafe.backend.PosBackendApplication" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -56,42 +668,18 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="214aebc8-7f3a-42b5-8101-315558b2cb09" name="Changes" comment="" />
-      <created>1670886642980</created>
+      <changelist id="3fa19611-fc1f-4dbc-83f8-b79bd70c0d12" name="Changes" comment="" />
+      <created>1736049543818</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1670886642980</updated>
+      <updated>1736049543818</updated>
+      <workItem from="1736049545174" duration="3980000" />
+      <workItem from="1736067083917" duration="2412000" />
+      <workItem from="1736093353688" duration="320000" />
     </task>
-    <task id="LOCAL-00001" summary="Signup API of User &amp; Structure">
-      <created>1670886744440</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1670886744440</updated>
-    </task>
-    <task id="LOCAL-00002" summary="Signup API of User &amp; Structure">
-      <created>1670887285524</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1670887285524</updated>
-    </task>
-    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
-  <component name="Vcs.Log.Tabs.Properties">
-    <option name="TAB_STATES">
-      <map>
-        <entry key="MAIN">
-          <value>
-            <State />
-          </value>
-        </entry>
-      </map>
-    </option>
-  </component>
-  <component name="VcsManagerConfiguration">
-    <MESSAGE value="Signup API of User &amp; Structure" />
-    <option name="LAST_COMMIT_MESSAGE" value="Signup API of User &amp; Structure" />
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
   </component>
 </project>
