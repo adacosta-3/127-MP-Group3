@@ -156,24 +156,19 @@ public class CustomerOrderServiceImpl implements CustomerOrderService {
                     ))
                     .collect(Collectors.toList());
 
-            // Calculate price per item
-            double itemPrice = orderLine.getLinePrice();
-
-            // Return the ReceiptItemDTO
+            // Map to ReceiptItemDTO
             return new ReceiptItemDTO(
                     orderLine.getItem().getName(),
                     orderLine.getQuantity(),
-                    itemPrice,
+                    orderLine.getLinePrice(), // Ensure this is set
                     customizationDTOs
             );
         }).collect(Collectors.toList());
 
-        // Calculate total price
-        double totalPrice = order.getTotalPrice();
-
-        // Return the receipt
-        return new ReceiptDTO(orderId, order.getOrderDate(), receiptItems, totalPrice);
+        // Return ReceiptDTO
+        return new ReceiptDTO(orderId, order.getOrderDate(), receiptItems, order.getTotalPrice());
     }
+
 
     @Override
     public List<OrderHistoryPerDayDTO> getOrderHistoryPerDay() {

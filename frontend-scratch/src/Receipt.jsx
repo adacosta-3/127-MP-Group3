@@ -5,6 +5,7 @@ const Receipt = () => {
   const location = useLocation();
   const { orderDetails } = location.state || {};
 
+  console.log("Order Details in Receipt.jsx:", orderDetails);
   console.log("Order Details in Receipt:", JSON.stringify(orderDetails, null, 2));
 
   if (!orderDetails) {
@@ -87,44 +88,44 @@ const Receipt = () => {
         </thead>
         <tbody>
           {orderDetails.items.map((item, index) => (
-            <tr key={index}>
-              {/* Item Name */}
-              <td style={tdStyle}>{item.name || 'N/A'}</td>
-              
-              {/* Quantity */}
-              <td style={tdStyle}>{item.quantity}</td>
-              
-              {/* Customizations */}
-              <td style={tdStyle}>
-                {item.customizations && item.customizations.length > 0 ? (
-                  item.customizations.map((custom, i) => (
-                    <div key={i}>{custom.customizationName}</div>
-                  ))
-                ) : (
-                  'Default'
-                )}
-              </td>
-              
-              {/* Customization Price */}
-              <td style={tdStyle}>
-                {item.customizations && item.customizations.length > 0 ? (
-                  item.customizations.reduce((sum, custom) => sum + (custom.additionalCost || 0), 0).toFixed(2)
-                ) : (
-                  '0.00'
-                )}
-              </td>
-              
-              {/* Total Price */}
-              <td style={tdStyle}>
-                ${item.totalPrice ? item.totalPrice.toFixed(2) : '0.00'}
-              </td>
-            </tr>
+              <tr key={index}>
+                {/* Item Name */}
+                <td style={tdStyle}>{item.name || 'N/A'}</td>
+
+                {/* Quantity */}
+                <td style={tdStyle}>{item.quantity}</td>
+
+                {/* Customizations */}
+                <td style={tdStyle}>
+                  {item.customizations && item.customizations.length > 0 ? (
+                      item.customizations.map((custom, i) => (
+                          <div key={i}>{custom.customizationName}</div>
+                      ))
+                  ) : (
+                      'Default'
+                  )}
+                </td>
+
+                {/* Customization Price */}
+                <td style={tdStyle}>
+                  {item.customizations && item.customizations.length > 0 ? (
+                      item.customizations.reduce((sum, custom) => sum + (custom.additionalCost || 0), 0).toFixed(2)
+                  ) : (
+                      '0.00'
+                  )}
+                </td>
+
+                {/* Total Price */}
+                <td style={tdStyle}>
+                  ${item.linePrice ? item.linePrice.toFixed(2) : "0.00"}
+                </td>
+              </tr>
           ))}
         </tbody>
       </table>
 
       <p style={totalPriceStyle}>
-        <strong>Total Amount: </strong>
+      <strong>Total Amount: </strong>
         ${orderDetails.totalPrice.toFixed(2)}
       </p>
 

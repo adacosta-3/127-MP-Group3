@@ -34,72 +34,116 @@ public class OrderLineServiceImpl implements OrderLineService {
 
     @Override
     public OrderLineDTO createOrderLine(OrderLineDTO orderLineDTO) {
-        // Fetch the order by ID
-        Optional<CustomerOrder> orderOpt = orderRepository.findById(orderLineDTO.getOrderId());
-        if (orderOpt.isEmpty()) {
-            throw new RuntimeException("Order not found with ID: " + orderLineDTO.getOrderId());
-        }
+        CustomerOrder order = orderRepository.findById(orderLineDTO.getOrderId())
+                .orElseThrow(() -> new RuntimeException("Order not found with ID: " + orderLineDTO.getOrderId()));
 
-        // Fetch the item by itemCode (primary key)
-        Optional<Item> itemOpt = itemRepository.findById(orderLineDTO.getItemCode());
-        if (itemOpt.isEmpty()) {
-            throw new RuntimeException("Item not found with code: " + orderLineDTO.getItemCode());
-        }
-        Item item = itemOpt.get();
+        Item item = itemRepository.findById(orderLineDTO.getItemCode())
+                .orElseThrow(() -> new RuntimeException("Item not found with code: " + orderLineDTO.getItemCode()));
 
-        // Fetch the size by ID (nullable)
         ItemSize size = null;
         if (orderLineDTO.getSizeId() != null) {
             size = itemSizeRepository.findById(orderLineDTO.getSizeId())
                     .orElseThrow(() -> new RuntimeException("Size not found with ID: " + orderLineDTO.getSizeId()));
         }
 
-        // Calculate line price
         double sizeAdjustment = size != null ? size.getPriceAdjustment() : 0;
         double linePrice = (item.getBasePrice() + sizeAdjustment) * orderLineDTO.getQuantity();
 
-        // Use the mapper to map DTO to Entity
-        OrderLine orderLine = OrderLineMapper.mapToOrderLine(orderLineDTO, orderOpt.get(), item);
-        orderLine.setLinePrice(linePrice); // Calculate and set price separately, if needed
+        OrderLine orderLine = OrderLineMapper.mapToOrderLine(orderLineDTO, order, item);
+        orderLine.setLinePrice(linePrice);
 
+        // Save the order line to generate an ID
         OrderLine savedOrderLine = orderLineRepository.save(orderLine);
+
+        // Process customizations (if any)
+        if (orderLineDTO.getCustomizations() != null && !orderLineDTO.getCustomizations().isEmpty()) {
+            for (OrderLineCustomizationDTO custDTO : orderLineDTO.getCustomizations()) {
+                CustomizationOptions option = customizationOptionsRepository.findById(custDTO.getOptionId())
+                        .orElseThrow(() -> new RuntimeException("Customization option not found with ID: " + custDTO.getOptionId()));
+                OrderLineCustomization customization = new OrderLineCustomization();
+                customization.setCustomizationOption(option);
+                savedOrderLine.addCustomization(customization);
+            }
+        }
+
+        // Save the customizations with updated relationships
+        orderLineRepository.save(savedOrderLine);
+
+        // Update the order total price
+        updateOrderTotalPrice(order.getOrderId());
+
         return OrderLineMapper.mapToOrderLineDTO(savedOrderLine);
     }
 
     @Override
     public OrderLineDTO updateOrderLine(Integer orderLineId, OrderLineDTO orderLineDTO) {
-        Optional<OrderLine> existingOrderLineOpt = orderLineRepository.findById(orderLineId);
-        if (existingOrderLineOpt.isEmpty()) {
-            throw new RuntimeException("Order line not found with ID: " + orderLineId);
+        OrderLine existingOrderLine = orderLineRepository.findById(orderLineId)
+                .orElseThrow(() -> new RuntimeException("Order line not found with ID: " + orderLineId));
+
+        CustomerOrder order = existingOrderLine.getOrder();
+
+        Item item = itemRepository.findById(orderLineDTO.getItemCode())
+                .orElseThrow(() -> new RuntimeException("Item not found with code: " + orderLineDTO.getItemCode()));
+
+        ItemSize size = null;
+        if (orderLineDTO.getSizeId() != null) {
+            size = itemSizeRepository.findById(orderLineDTO.getSizeId())
+                    .orElseThrow(() -> new RuntimeException("Size not found with ID: " + orderLineDTO.getSizeId()));
         }
 
-        Optional<CustomerOrder> orderOpt = orderRepository.findById(orderLineDTO.getOrderId());
-        if (orderOpt.isEmpty()) {
-            throw new RuntimeException("Order not found with ID: " + orderLineDTO.getOrderId());
-        }
+        double sizeAdjustment = size != null ? size.getPriceAdjustment() : 0;
+        double linePrice = (item.getBasePrice() + sizeAdjustment) * orderLineDTO.getQuantity();
 
-        Optional<Item> itemOpt = itemRepository.findById(orderLineDTO.getItemCode());
-        if (itemOpt.isEmpty()) {
-            throw new RuntimeException("Item not found with ID: " + orderLineDTO.getItemCode());
-        }
-
-        // Retrieve existing order line, order, and item
-        OrderLine existingOrderLine = existingOrderLineOpt.get();
-        CustomerOrder order = orderOpt.get();
-        Item item = itemOpt.get();
-
-        // Calculate line price: item base price * quantity
-        double linePrice = item.getBasePrice() * orderLineDTO.getQuantity();
-
-        // Update order line details
-        existingOrderLine.setOrder(order);
         existingOrderLine.setItem(item);
+        existingOrderLine.setSizeId(orderLineDTO.getSizeId());
         existingOrderLine.setQuantity(orderLineDTO.getQuantity());
-        existingOrderLine.setLinePrice(linePrice); // Update calculated line price
+        existingOrderLine.setLinePrice(linePrice);
 
+        // Update customizations
+        List<OrderLineCustomization> existingCustomizations = existingOrderLine.getCustomizations();
+        existingCustomizations.clear(); // Clear the existing customizations
+
+        if (orderLineDTO.getCustomizations() != null && !orderLineDTO.getCustomizations().isEmpty()) {
+            for (OrderLineCustomizationDTO custDTO : orderLineDTO.getCustomizations()) {
+                CustomizationOptions option = customizationOptionsRepository.findById(custDTO.getOptionId())
+                        .orElseThrow(() -> new RuntimeException("Customization option not found with ID: " + custDTO.getOptionId()));
+                OrderLineCustomization customization = new OrderLineCustomization();
+                customization.setCustomizationOption(option);
+                existingOrderLine.addCustomization(customization);
+            }
+        }
+
+        // Save the updated order line
         OrderLine updatedOrderLine = orderLineRepository.save(existingOrderLine);
 
+        // Update the order total price
+        updateOrderTotalPrice(order.getOrderId());
+
         return OrderLineMapper.mapToOrderLineDTO(updatedOrderLine);
+    }
+
+    public void updateOrderTotalPrice(Integer orderId) {
+        CustomerOrder order = orderRepository.findById(orderId)
+                .orElseThrow(() -> new RuntimeException("Order not found with ID: " + orderId));
+
+        // Fetch all order lines associated with the order
+        List<OrderLine> orderLines = orderLineRepository.findByOrder_OrderId(orderId);
+
+        // Calculate the total price by summing up line prices and customization costs
+        double totalPrice = orderLines.stream()
+                .mapToDouble(orderLine -> {
+                    // Calculate the total customization cost for each order line
+                    double customizationCost = orderLine.getCustomizations().stream()
+                            .mapToDouble(c -> c.getCustomizationOption().getAdditionalCost())
+                            .sum();
+                    // Add the line price and customization costs
+                    return orderLine.getLinePrice() + customizationCost;
+                })
+                .sum();
+
+        // Update the order's total price
+        order.setTotalPrice(totalPrice);
+        orderRepository.save(order); // Persist the updated total price
     }
 
     @Override

@@ -40,6 +40,17 @@ public class OrderLine {
 
     @OneToMany(mappedBy = "orderLine", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<OrderLineCustomization> customizations = new ArrayList<>();
+
+    // Add a method to manage the customizations list
+    public void addCustomization(OrderLineCustomization customization) {
+        customizations.add(customization);
+        customization.setOrderLine(this);
+    }
+
+    public void removeCustomization(OrderLineCustomization customization) {
+        customizations.remove(customization);
+        customization.setOrderLine(null);
+    }
 }
 
 

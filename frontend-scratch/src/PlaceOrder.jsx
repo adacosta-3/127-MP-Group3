@@ -134,10 +134,17 @@ const PlaceOrder = () => {
       return;
     }
 
+    const basePrice = selectedItem.basePrice || 0;
+    const sizeAdjustment = sizes.find((size) => size.sizeName === selectedSize)?.priceAdjustment || 0;
+    const customizationAdjustment = selectedOption ? selectedOption.additionalCost : 0;
+
+    const linePrice = (basePrice + sizeAdjustment + customizationAdjustment) * quantity;
+
     const orderLineDTO = {
       orderId: orderId,
       itemCode: selectedItem.itemCode,
       quantity: quantity,
+      linePrice: linePrice, // Add linePrice here
       customizations: selectedOption ? [{ optionId: selectedOption.optionId }] : [],
     };
 
@@ -150,7 +157,10 @@ const PlaceOrder = () => {
     try {
       const response = await axios.post(`http://localhost:8081/api/order-lines`, orderLineDTO);
       const savedOrderLine = response.data;
-      setItemsOrdered([...itemsOrdered, savedOrderLine]);
+      setItemsOrdered([
+        ...itemsOrdered,
+        { ...savedOrderLine, linePrice: linePrice }, // Add linePrice to the state
+      ]);
 
       if (selectedOption) {
         const customizationDTO = {
@@ -171,20 +181,21 @@ const PlaceOrder = () => {
       console.error("Error adding item to order:", error.response?.data || error.message);
     }
   };
+
   const finalizeOrder = async () => {
     try {
       const response = await axios.post(
-        `http://localhost:8081/api/customer-orders/${orderId}/complete`
+          `http://localhost:8081/api/customer-orders/${orderId}/complete`
       );
       console.log("Full API Response:", response.data);
-  
+
       // Prepare the order details for the receipt page
       const orderDetails = {
         orderId: response.data.orderId,
         customer: guestName || memberDetails.name,
         date: new Date(response.data.orderDate).toISOString().split('T')[0],
-        items: response.data.items.map((item) => ({
-          itemCode: item.itemCode, // Assuming you have an itemCode
+        items: itemsOrdered.map((item) => ({
+          itemCode: item.itemCode,
           name: item.itemName,
           size: item.size, // Assuming you have size information
           quantity: item.quantity,
@@ -192,17 +203,18 @@ const PlaceOrder = () => {
             name: custom.customizationName,
             additionalCost: custom.additionalCost,
           })),
-          totalPrice: item.totalPrice,
+          linePrice: item.linePrice, // Include linePrice here
         })),
         totalPrice: response.data.totalPrice,
       };
-  
+
       console.log("Prepared Order Details:", orderDetails);
       navigate('/receipt', { state: { orderDetails } });
     } catch (error) {
       console.error("Error finalizing order:", error);
     }
   };
+
   
 
   const resetForm = () => {
