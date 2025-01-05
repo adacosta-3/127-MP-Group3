@@ -171,7 +171,6 @@ const Admin = () => {
           <FormControl fullWidth variant="outlined" margin="normal">
             <InputLabel>Role</InputLabel>
             <Select value={role} onChange={(e) => setRole(e.target.value)} label="Role">
-              <MenuItem value="Admin">Admin</MenuItem>
               <MenuItem value="Manager">Manager</MenuItem>
               <MenuItem value="Cashier">Cashier</MenuItem>
             </Select>

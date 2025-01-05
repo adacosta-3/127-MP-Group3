@@ -40,6 +40,7 @@ const Main = () => {
     <Router>
       <Routes>
         <Route path="/" element={renderContent()} />
+        <Route path="/cashier" element={<CashierDashboard />} />
         <Route path="/receipt" element={<Receipt />} />
       </Routes>
     </Router>

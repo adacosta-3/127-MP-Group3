@@ -1,5 +1,4 @@
-import React from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import React from 'react';import { useLocation, useNavigate } from 'react-router-dom';
 
 const Receipt = () => {
   const location = useLocation();
@@ -16,6 +15,10 @@ const Receipt = () => {
   localStorage.setItem('role', userRole);
   localStorage.setItem('orderDetails', JSON.stringify(orderDetails));
 
+  if (!orderDetails) {
+    return <div>No order details available.</div>;
+  }
+  console.log("Received Order Details:", orderDetails);
   const tableStyle = {
     width: '100%',
     borderCollapse: 'collapse',
@@ -40,15 +43,12 @@ const Receipt = () => {
     fontSize: '1.2em',
     marginTop: '10px',
   };
-
+  const handleBackToOrder = () => {
+    navigate('/cashier'); // Redirect back to the cashier order page
+  };
   const headerStyle = {
     fontSize: '1.5em',
     marginBottom: '10px',
-  };
-
-  // Function to navigate back to the Order page
-  const handleBackToOrder = () => {
-    navigate('/cashier'); // Redirect back to the cashier order page
   };
 
   return (
@@ -65,6 +65,20 @@ const Receipt = () => {
         msOverflowStyle: 'none', // For IE to hide scrollbar
       }}
     >
+      {/* Custom Webkit Scrollbar Styling */}
+      <style>
+        {`
+          ::-webkit-scrollbar {
+            width: 0px; /* Hide the scrollbar */
+            background: transparent; /* Optional: make the background transparent */
+          }
+          
+          ::-webkit-scrollbar-thumb {
+            background: transparent; /* Optional: make the thumb transparent */
+          }
+        `}
+      </style>
+
       <h2 style={headerStyle}>Receipt</h2>
       <p><strong>Order ID:</strong> {orderDetails.orderId}</p>
       <p><strong>Order Date:</strong> {new Date(orderDetails.date).toLocaleString()}</p>
@@ -82,41 +96,52 @@ const Receipt = () => {
           </tr>
         </thead>
         <tbody>
-          {orderDetails.items.map((item, index) => (
-            <tr key={index}>
-              <td style={tdStyle}>{item.name || 'N/A'}</td>
-              <td style={tdStyle}>{item.quantity}</td>
-              <td style={tdStyle}>
-                {item.customizations && item.customizations.length > 0 ? (
-                  item.customizations.map((custom, i) => (
-                    <div key={i}>{custom.customizationName}</div>
-                  ))
-                ) : (
-                  'Default'
-                )}
-              </td>
-              <td style={tdStyle}>
-                {item.customizations && item.customizations.length > 0 ? (
-                  item.customizations.reduce((sum, custom) => sum + (custom.additionalCost || 0), 0).toFixed(2)
-                ) : (
-                  '0.00'
-                )}
-              </td>
-              <td style={tdStyle}>
-                ${item.totalPrice ? item.totalPrice.toFixed(2) : '0.00'}
-              </td>
-            </tr>
-          ))}
-        </tbody>
+  {orderDetails.items.map((item, index) => (
+    <tr key={index}>
+      {/* Item Name */}
+      <td style={tdStyle}>{item.itemName || 'N/A'}</td>
+
+      {/* Quantity */}
+      <td style={tdStyle}>{item.quantity}</td>
+
+      {/* Customizations */}
+      <td style={tdStyle}>
+        {item.customizations && item.customizations.length > 0 ? (
+          item.customizations.map((custom, i) => (
+            <div key={i}>{custom.customizationName}</div>
+          ))
+        ) : (
+          'Default'
+        )}
+      </td>
+
+      {/* Customization Price */}
+      <td style={tdStyle}>
+        {item.customizations && item.customizations.length > 0 ? (
+          item.customizations
+            .reduce((sum, custom) => sum + (custom.additionalCost || 0), 0)
+            .toFixed(2)
+        ) : (
+          '0.00'
+        )}
+      </td>
+
+      {/* Total Price */}
+      <td style={tdStyle}>
+        ${item.linePrice ? item.linePrice.toFixed(2) : '0.00'}
+      </td>
+    </tr>
+  ))}
+</tbody>
+
       </table>
 
       <p style={totalPriceStyle}>
-        <strong>Total Amount: </strong>
+      <strong>Total Amount: </strong>
         ${orderDetails.totalPrice.toFixed(2)}
       </p>
 
       <button onClick={() => window.print()}>Print Receipt</button>
-
       <button onClick={handleBackToOrder} style={{ marginTop: '20px' }}>
         Back to Order
       </button>

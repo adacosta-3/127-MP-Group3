@@ -52,5 +52,3 @@ public class OrderLine {
         customization.setOrderLine(null);
     }
 }
-
-

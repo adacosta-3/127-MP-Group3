@@ -49,7 +49,6 @@ public class CustomerOrderServiceImpl implements CustomerOrderService {
         return orderOpt.map(CustomerOrderMapper::mapToCustomerOrderDTO);
     }
 
-
     @Override
     public CustomerOrderDTO createOrder(CustomerOrderDTO orderDTO) {
         logger.info("Starting to create order with payload: {}", orderDTO);
@@ -152,8 +151,7 @@ public class CustomerOrderServiceImpl implements CustomerOrderService {
             List<ReceiptCustomizationDTO> customizationDTOs = customizations.stream()
                     .map(c -> new ReceiptCustomizationDTO(
                             c.getCustomizationOption().getOptionName(),
-                            c.getCustomizationOption().getAdditionalCost()
-                    ))
+                            c.getCustomizationOption().getAdditionalCost()))
                     .collect(Collectors.toList());
 
             // Map to ReceiptItemDTO
@@ -161,14 +159,12 @@ public class CustomerOrderServiceImpl implements CustomerOrderService {
                     orderLine.getItem().getName(),
                     orderLine.getQuantity(),
                     orderLine.getLinePrice(), // Ensure this is set
-                    customizationDTOs
-            );
+                    customizationDTOs);
         }).collect(Collectors.toList());
 
         // Return ReceiptDTO
         return new ReceiptDTO(orderId, order.getOrderDate(), receiptItems, order.getTotalPrice());
     }
-
 
     @Override
     public List<OrderHistoryPerDayDTO> getOrderHistoryPerDay() {
@@ -179,7 +175,6 @@ public class CustomerOrderServiceImpl implements CustomerOrderService {
     public List<OrderHistoryForMemberDTO> getOrderHistoryForMember(String memberId) {
         return orderRepository.findOrderHistoryForMember(memberId);
     }
-
 
     @Override
     public void deleteOrder(Integer orderId) {
@@ -199,4 +194,3 @@ public class CustomerOrderServiceImpl implements CustomerOrderService {
     }
 
 }
-

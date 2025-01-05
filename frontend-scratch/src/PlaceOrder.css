@@ -19,7 +19,13 @@
     border-radius: 15px;
     border: 1px solid #ccc;
 }
-
+.order-functions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+  }
+  
 .place-order ul {
     list-style: none;
     padding: 0;
