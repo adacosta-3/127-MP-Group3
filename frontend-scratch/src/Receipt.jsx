@@ -1,127 +1,111 @@
-import React from 'react'; 
-import { useLocation, useNavigate } from 'react-router-dom';
+import React from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const Receipt = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  
+  // Get the order data passed from the previous page
+  const orderData = location.state?.orderData;
 
-  const { orderDetails } = location.state || {}; // Get orderDetails passed through location.state
-  const userRole = location.state?.role || localStorage.getItem('role'); // Retrieve role from localStorage
-
-  if (!orderDetails) {
-    return <div>No order details available.</div>;
+  // If no order data is passed, show an error
+  if (!orderData) {
+    return <div>No receipt data available.</div>;
   }
 
-  // Save role and order details in localStorage
-  localStorage.setItem('role', userRole);
-  localStorage.setItem('orderDetails', JSON.stringify(orderDetails));
-
-  const tableStyle = {
-    width: '100%',
-    borderCollapse: 'collapse',
-    marginBottom: '20px',
-  };
-
-  const thStyle = {
-    borderBottom: '1px solid #000',
-    padding: '8px',
-    textAlign: 'left',
-  };
-
-  const tdStyle = {
-    borderBottom: '1px solid #ddd',
-    padding: '8px',
-    textAlign: 'left',
-  };
-
-  const totalPriceStyle = {
-    textAlign: 'right',
-    fontWeight: 'bold',
-    fontSize: '1.2em',
-    marginTop: '10px',
-  };
-
-  const headerStyle = {
-    fontSize: '1.5em',
-    marginBottom: '10px',
-  };
-
-  // Function to navigate back to the Order page
-  const handleBackToOrder = () => {
-    navigate('/cashier'); // Redirect back to the cashier order page
+  // Function to print the receipt
+  const handlePrint = () => {
+    window.print();
   };
 
   return (
-    <div
-      style={{
-        padding: '20px',
-        textAlign: 'left',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'flex-start',
-        overflowY: 'auto', // Enable vertical scrolling
-        maxHeight: '80vh', // Limit height to 80% of the viewport height
-        scrollbarWidth: 'none', // For Firefox to hide scrollbar
-        msOverflowStyle: 'none', // For IE to hide scrollbar
-      }}
-    >
-      <h2 style={headerStyle}>Receipt</h2>
-      <p><strong>Order ID:</strong> {orderDetails.orderId}</p>
-      <p><strong>Order Date:</strong> {new Date(orderDetails.date).toLocaleString()}</p>
-      <p><strong>Total Price:</strong> ${orderDetails.totalPrice ? orderDetails.totalPrice.toFixed(2) : '0.00'}</p>
-      
-      <h3>Items</h3>
-      <table style={tableStyle}>
+    <div style={{ padding: "20px", fontFamily: "Arial, sans-serif" }}>
+      <h2>Receipt for Order {orderData.orderId}</h2>
+      <p>Order Date: {new Date(orderData.orderDate).toLocaleString()}</p>
+
+      {/* Ordered Items Table */}
+      <h3>Ordered Items:</h3>
+      <table style={{ width: "100%", borderCollapse: "collapse", marginBottom: "20px" }}>
         <thead>
-          <tr>
-            <th style={thStyle}>Item Code</th> {/* Changed to Item Code */}
-            <th style={thStyle}>Quantity</th>
-            <th style={thStyle}>Customizations</th>
-            <th style={thStyle}>Customization Price</th>
-            <th style={thStyle}>Total Price</th>
+          <tr style={{ backgroundColor: "#f4f4f4", textAlign: "left" }}>
+            <th style={{ padding: "8px", border: "1px solid #ddd" }}>Item Name</th>
+            <th style={{ padding: "8px", border: "1px solid #ddd" }}>Quantity</th>
+            <th style={{ padding: "8px", border: "1px solid #ddd" }}>Price per Item</th>
+            <th style={{ padding: "8px", border: "1px solid #ddd" }}>Customization Options</th>
+            <th style={{ padding: "8px", border: "1px solid #ddd" }}>Customization Additional Cost</th>
+            <th style={{ padding: "8px", border: "1px solid #ddd" }}>Item Total</th>
           </tr>
         </thead>
         <tbody>
-          {orderDetails.items.map((item, index) => (
-            <tr key={index}>
-              <td style={tdStyle}>{item.itemCode || 'N/A'}</td> {/* Display Item Code */}
-              <td style={tdStyle}>{item.quantity}</td>
-              <td style={tdStyle}>
-                {item.customizations && item.customizations.length > 0 ? (
-                  item.customizations.map((custom, i) => (
-                    <div key={i}>{custom.customizationName}</div>
-                  ))
-                ) : (
-                  'Default'
-                )}
-              </td>
-              <td style={tdStyle}>
-                {item.customizations && item.customizations.length > 0 ? (
-                  item.customizations.reduce((sum, custom) => sum + (custom.additionalCost || 0), 0).toFixed(2)
-                ) : (
-                  '0.00'
-                )}
-              </td>
-              <td style={tdStyle}>
-                ${item.totalPrice ? item.totalPrice.toFixed(2) : '0.00'}
-              </td>
-            </tr>
-          ))}
+          {orderData.items.map((item, index) => {
+            const totalCustomizationCost = item.customizations.reduce(
+              (sum, customization) => sum + customization.additionalCost,
+              0
+            );
+
+            return (
+              <tr key={index}>
+                <td style={{ padding: "8px", border: "1px solid #ddd" }}>{item.itemName}</td>
+                <td style={{ padding: "8px", border: "1px solid #ddd" }}>{item.quantity}</td>
+                <td style={{ padding: "8px", border: "1px solid #ddd" }}>${(item.linePrice / item.quantity).toFixed(2)}</td>
+                <td style={{ padding: "8px", border: "1px solid #ddd" }}>
+                  {item.customizations.length > 0 ? (
+                    <ul style={{ margin: 0, paddingLeft: "20px" }}>
+                      {item.customizations.map((customization, idx) => (
+                        <li key={idx}>{customization.customizationName}</li>
+                      ))}
+                    </ul>
+                  ) : (
+                    "No customizations"
+                  )}
+                </td>
+                <td style={{ padding: "8px", border: "1px solid #ddd" }}>
+                  {item.customizations.length > 0 ? (
+                    <ul style={{ margin: 0, paddingLeft: "20px" }}>
+                      {item.customizations.map((customization, idx) => (
+                        <li key={idx}>${customization.additionalCost.toFixed(2)}</li>
+                      ))}
+                    </ul>
+                  ) : (
+                    "$0.00"
+                  )}
+                </td>
+                <td style={{ padding: "8px", border: "1px solid #ddd" }}>${item.linePrice.toFixed(2)}</td>
+              </tr>
+            );
+          })}
         </tbody>
       </table>
 
-      <p style={totalPriceStyle}>
-        <strong>Total Amount: </strong>
-        ${orderDetails.totalPrice.toFixed(2)}
-      </p>
+      {/* Total Transaction Price */}
+      <h3>Total Transaction Price:</h3>
+      <table style={{ width: "100%", borderCollapse: "collapse" }}>
+        <thead>
+          <tr style={{ backgroundColor: "#f4f4f4", textAlign: "left" }}>
+            <th style={{ padding: "8px", border: "1px solid #ddd" }}>Total</th>
+            <th style={{ padding: "8px", border: "1px solid #ddd" }}>Amount</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style={{ padding: "8px", border: "1px solid #ddd" }}>Total Transaction Price</td>
+            <td style={{ padding: "8px", border: "1px solid #ddd" }}>${orderData.totalPrice.toFixed(2)}</td>
+          </tr>
+        </tbody>
+      </table>
 
-      <button onClick={() => window.print()}>Print Receipt</button>
-
-      <button onClick={handleBackToOrder} style={{ marginTop: '20px' }}>
-        Back to Order
-      </button>
+      {/* Print and Back to Order Buttons */}
+      <div style={{ marginTop: "20px" }}>
+        <button onClick={handlePrint} style={{ marginRight: "10px" }}>
+          Print Receipt
+        </button>
+        <button onClick={() => navigate("/orders")} style={{ marginLeft: "10px" }}>
+          Back to Orders
+        </button>
+      </div>
     </div>
   );
 };
 
 export default Receipt;
+  

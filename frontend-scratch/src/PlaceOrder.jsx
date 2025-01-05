@@ -1,6 +1,7 @@
+
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 const PlaceOrder = () => {
   const [itemTypes, setItemTypes] = useState(["Food", "Merchandise", "Drink"]);
@@ -20,8 +21,8 @@ const PlaceOrder = () => {
   const [itemsOrdered, setItemsOrdered] = useState([]);
   const [showReceipt, setShowReceipt] = useState(false);
 
-  const [isMember, setIsMember] = useState(null);
-  const [guestName, setGuestName] = useState("");
+  const [isMember, setIsMember] = useState(null); // This determines if the user is a guest or a member
+  const [guestName, setGuestName] = useState(""); // Used for guest
   const [orderId, setOrderId] = useState(null);
 
   const [memberDetails, setMemberDetails] = useState({
@@ -30,10 +31,123 @@ const PlaceOrder = () => {
     phoneNumber: "",
     dateOfBirth: "",
   });
+
   const [isDetailsSubmitted, setIsDetailsSubmitted] = useState(false);
-  const [error, setError] = useState("");
+  const [error, setError] = useState(""); // Used to display error messages if there are issues
 
   const navigate = useNavigate();
+
+  const handleCustomerTypeSelection = (type) => {
+    setIsMember(type); // Sets if the user is a guest or a member
+    setError(""); // Reset error
+    if (type === "member") {
+      // Ask for Member ID if they choose Member
+      setMemberDetails({ id: "" }); // Clear previous member details
+    }
+  };
+
+  const handleMemberIdSubmit = async (e) => {
+    e.preventDefault();
+    const memberId = memberDetails.id.trim();
+  
+    // Validate member ID
+    if (!memberId || memberId.length !== 5 || !/^[A-Za-z0-9]+$/.test(memberId)) {
+      setError("Please enter a valid 5-character alphanumeric Member ID.");
+      return;
+    }
+  
+    try {
+      // Check if member ID exists
+      const response = await axios.get(`http://localhost:8081/api/members/${memberId}`);
+      const memberData = response.data;
+  
+      // Auto-fill member details
+      setMemberDetails({
+        ...memberData,
+        id: memberId, // Keep the ID as it is
+      });
+  
+      setError(""); // Clear any error
+    } catch (error) {
+      setError("Member ID does not exist.");
+    }
+  };
+
+
+  const handleDetailsSubmit = async (e) => {
+    e.preventDefault();
+    if (isMember === null) {
+      setError("Please select whether you are a guest or member.");
+      return;
+    }
+
+    if (isMember === "guest") {
+      if (!guestName) {
+        setError("Please enter your name.");
+        return;
+      }
+    } else if (isMember === "member") {
+      if (!memberDetails.name || !memberDetails.email) {
+        setError("Please provide both name and email.");
+        return;
+      }
+    }
+
+    // Proceed with creating the customer (guest or member) and order
+    let customerDTO = {};
+    let memberDTO = null;
+
+    if (isMember === "guest") {
+      customerDTO = {
+        type: "Guest",
+        firstName: guestName,
+        lastName: "",
+      };
+    } else if (isMember === "member") {
+      customerDTO = {
+        type: "Member",
+        firstName: memberDetails.name.split(" ")[0],
+        lastName: memberDetails.name.split(" ")[1] || "",
+      };
+
+      memberDTO = {
+        fullName: memberDetails.name,
+        email: memberDetails.email,
+        phoneNumber: memberDetails.phoneNumber,
+        dateOfBirth: memberDetails.dateOfBirth,
+      };
+    }
+
+    try {
+      const customerResponse = await axios.post("http://localhost:8081/api/customers", customerDTO);
+
+      if (isMember === "member") {
+        await axios.post("http://localhost:8081/api/members", {
+          ...memberDTO,
+          customerId: customerResponse.data.customerId,
+        });
+      }
+
+      const cashierId = 1; // Assuming cashierId is 1 for now
+
+      const orderDTO = {
+        customerId: customerResponse.data.customerId,
+        cashierId: cashierId,
+        orderDate: new Date().toISOString().split('T')[0],
+        totalPrice: totalPrice,
+      };
+
+      const orderResponse = await axios.post("http://localhost:8081/api/customer-orders", orderDTO);
+      setOrderId(orderResponse.data.orderId);
+      setIsDetailsSubmitted(true); // Set that the details have been submitted
+      setError("");
+    } catch (error) {
+      console.error("Error creating order:", error);
+      setError("An error occurred while creating the customer/member or the order.");
+    }
+  };
+
+  // Fetch categories based on selected item type
   useEffect(() => {
     if (selectedItemType) {
       const fetchCategories = async () => {
@@ -41,18 +155,17 @@ const PlaceOrder = () => {
           const response = await axios.get(
             `http://localhost:8081/api/categories/item-type/${selectedItemType}`
           );
-          console.log("Fetched Categories:", response.data);
           setCategories(response.data);
         } catch (error) {
           console.error("Error fetching categories:", error);
           setCategories([]);
         }
       };
-
       fetchCategories();
     }
   }, [selectedItemType]);
 
+  // Fetch items based on selected category
   useEffect(() => {
     if (selectedCategory) {
       const fetchItems = async () => {
@@ -69,6 +182,7 @@ const PlaceOrder = () => {
     }
   }, [selectedCategory]);
 
+  // Fetch sizes and customizations when an item is selected
   useEffect(() => {
     if (selectedItem) {
       const fetchSizes = async () => {
@@ -98,8 +212,8 @@ const PlaceOrder = () => {
     }
   }, [selectedItem]);
 
+  // Fetch customization options based on selected customization
   useEffect(() => {
-    setCustomizationOptions([]);
     if (selectedCustomization) {
       const fetchCustomizationOptions = async () => {
         try {
@@ -115,18 +229,28 @@ const PlaceOrder = () => {
     }
   }, [selectedCustomization]);
 
-  useEffect(() => {
-    if (selectedItem && quantity > 0) {
-      const basePrice = selectedItem.basePrice || 0;
-      const sizeAdjustment = sizes.find((size) => size.sizeName === selectedSize)?.priceAdjustment || 0;
-      const customizationAdjustment = selectedOption ? selectedOption.additionalCost : 0;
+  const handleItemTypeChange = (e) => {
+    setSelectedItemType(e.target.value);
+    setSelectedCategory(null);
+    setItems([]);
+  };
 
-      const calculatedPrice = (basePrice + sizeAdjustment + customizationAdjustment) * quantity;
-      setTotalPrice(calculatedPrice);
-    } else {
-      setTotalPrice(0);
-    }
-  }, [selectedItem, selectedSize, selectedOption, quantity, sizes]);
+  const handleItemSelection = (e) => {
+    setSelectedItem(items.find((item) => item.itemCode === e.target.value));
+  };
+
+  const handleSizeSelection = (e) => {
+    setSelectedSize(sizes.find((size) => size.sizeName === e.target.value));
+  };
+
+  const handleCustomizationSelection = (e) => {
+    setSelectedCustomization(e.target.value);
+    setSelectedOption(null); // Reset selected option when customization changes
+  };
+
+  const handleCustomizationOptionSelection = (e) => {
+    setSelectedOption(customizationOptions.find((option) => option.optionId === e.target.value));
+  };
 
   const addItemToOrder = async () => {
     if (!orderId || !selectedItem) {
@@ -144,7 +268,7 @@ const PlaceOrder = () => {
       orderId: orderId,
       itemCode: selectedItem.itemCode,
       quantity: quantity,
-      linePrice: linePrice, // Add linePrice here
+      linePrice: linePrice,
       customizations: selectedOption ? [{ optionId: selectedOption.optionId }] : [],
     };
 
@@ -152,182 +276,36 @@ const PlaceOrder = () => {
       orderLineDTO.sizeId = selectedSize.sizeId;
     }
 
-    console.log("Order Line DTO to send:", orderLineDTO);
-
     try {
       const response = await axios.post(`http://localhost:8081/api/order-lines`, orderLineDTO);
       const savedOrderLine = response.data;
-      setItemsOrdered([
-        ...itemsOrdered,
-        { ...savedOrderLine, linePrice: linePrice }, // Add linePrice to the state
-      ]);
-
-      if (selectedOption) {
-        const customizationDTO = {
-          orderLineId: savedOrderLine.orderLineId,
-          optionId: selectedOption.optionId,
-        };
-
-        try {
-          await axios.post(`http://localhost:8081/api/order-line-customizations`, customizationDTO);
-          console.log("Customization added to order line.");
-        } catch (error) {
-          console.error("Error adding customization:", error);
-        }
-      }
-
+      setItemsOrdered([ ...itemsOrdered, { ...savedOrderLine, linePrice: linePrice } ]);
       resetForm();
     } catch (error) {
       console.error("Error adding item to order:", error.response?.data || error.message);
     }
   };
 
-  const finalizeOrder = async () => {
+  const completeOrderTransaction = async () => {
     try {
       const response = await axios.post(
-          `http://localhost:8081/api/customer-orders/${orderId}/complete`
+        `http://localhost:8081/api/customer-orders/${orderId}/complete`
       );
-      console.log("Full API Response:", response.data);
-
-      // Prepare the order details for the receipt page
-      const orderDetails = {
-        orderId: response.data.orderId,
-        customer: guestName || memberDetails.name,
-        date: new Date(response.data.orderDate).toISOString().split('T')[0],
-        items: itemsOrdered.map((item) => ({
-          itemCode: item.itemCode,
-          name: item.itemName,
-          size: item.size, // Assuming you have size information
-          quantity: item.quantity,
-          customizations: item.customizations.map((custom) => ({
-            name: custom.customizationName,
-            additionalCost: custom.additionalCost,
-          })),
-          linePrice: item.linePrice, // Include linePrice here
-        })),
-        totalPrice: response.data.totalPrice,
-      };
-
-      console.log("Prepared Order Details:", orderDetails);
-      navigate('/receipt', { state: { orderDetails } });
+      console.log('Order Completion Response:', response.data); // Log the response data
+  
+      setTotalPrice(response.data.totalPrice); // Update total price
+      // Navigate to Receipt page after order completion
+      navigate('/receipt', { state: { totalPrice: response.data.totalPrice } });
     } catch (error) {
-      console.error("Error finalizing order:", error);
+      console.error("Error completing order:", error.response?.data || error.message);
+      setError("An error occurred while completing the order.");
     }
   };
-
   
-
+  
   const resetForm = () => {
     setSelectedCategory(null);
     setSelectedItem(null);
-    setSelectedSize(null);
-    setSelectedCustomization(null);
-    setSelectedOption(null);
-    setQuantity(1);
-    setTotalPrice(0);
-  };
-
-  const handleItemTypeChange = (e) => {
-    const selectedType = e.target.value;
-    setSelectedItemType(selectedType);
-    setSelectedCategory(null);
-    setItems([]); // Clear items when item type changes
-    clearSelections();
-  };
-
-  const handleDetailsSubmit = async (e) => {
-    e.preventDefault();
-    let customerDTO = {};
-    let memberDTO = null;
-
-    if (isMember === "guest") {
-      if (!guestName) {
-        setError("Please enter your first name.");
-        return;
-      }
-
-      customerDTO = {
-        type: "Guest",
-        firstName: guestName,
-        lastName: "",
-      };
-    } else if (isMember === "member") {
-      if (!memberDetails.name) {
-        setError("Please enter your full name.");
-        return;
-      }
-
-      if (!memberDetails.phoneNumber && !memberDetails.email) {
-        setError("Please provide either a phone number or an email.");
-        return;
-      }
-
-      customerDTO = {
-        type: "Member",
-        firstName: memberDetails.name.split(" ")[0],
-        lastName: memberDetails.name.split(" ")[1] || "",
-      };
-
-      memberDTO = {
-        fullName: memberDetails.name,
-        email: memberDetails.email,
-        phoneNumber: memberDetails.phoneNumber,
-        dateOfBirth: memberDetails.dateOfBirth,
-      };
-    }
-
-    try {
-      const customerResponse = await axios.post("http://localhost:8081/api/customers", customerDTO);
-
-      if (isMember === "member") {
-        await axios.post("http://localhost:8081/api/members", {
-          ...memberDTO,
-          customerId: customerResponse.data.customerId,
-        });
-      }
-
-      const cashierId = 1; // Assume cashier ID is 1 for now.
-
-      const orderDTO = {
-        customerId: customerResponse.data.customerId,
-        cashierId: cashierId,
-        orderDate: new Date().toISOString().split('T')[0],
-        totalPrice: totalPrice,
-        orderLines: itemsOrdered.map((orderLine) => ({
-          itemCode: orderLine.itemCode,
-          sizeId: orderLine.sizeId,
-          quantity: orderLine.quantity,
-          linePrice: orderLine.linePrice,
-          customizations: orderLine.customizations || [],
-        })),
-      };
-
-      const orderResponse = await axios.post("http://localhost:8081/api/customer-orders", orderDTO);
-
-      const createdOrderId = orderResponse.data.orderId;
-      setOrderId(createdOrderId);
-
-      setIsDetailsSubmitted(true);
-      setError("");
-    } catch (error) {
-      console.error("Error creating order:", error);
-      setError("An error occurred while creating the customer/member or the order.");
-    }
-  };
-
-  const handleGuestNameChange = (e) => {
-    setGuestName(e.target.value);
-  };
-
-  const handleMemberDetailsChange = (e) => {
-    const { name, value } = e.target;
-    setMemberDetails((prevDetails) => ({
-      ...prevDetails,
-      [name]: value,
-    }));
-  };
-
-  const clearSelections = () => {
     setSelectedSize(null);
     setSelectedCustomization(null);
     setSelectedOption(null);
@@ -336,188 +314,212 @@ const PlaceOrder = () => {
 
   return (
     <div>
-      <h1>Place Your Order</h1>
+      <h1>Place Order</h1>
 
-      {/* Member/Guest Section */}
-      {isMember === null && !isDetailsSubmitted && (
+      {error && <div>{error}</div>}
+
+      {/* Step 1: Ask if Guest or Member */}
+      {!isDetailsSubmitted && !orderId && (
         <div>
-          <label>Are you a member or guest?</label>
-          <select onChange={(e) => setIsMember(e.target.value)} value={isMember || ""}>
-            <option value="" disabled>Select an option</option>
-            <option value="guest">Guest</option>
-            <option value="member">Member</option>
-          </select>
+          <h2>Select Customer Type</h2>
+          <button onClick={() => handleCustomerTypeSelection("guest")}>Guest</button>
+          <button onClick={() => handleCustomerTypeSelection("member")}>Member</button>
         </div>
       )}
 
-      {isMember === "guest" && !isDetailsSubmitted && (
-        <div>
-          <h3>Enter your name</h3>
-          <label>Name:</label>
+{isMember && !isDetailsSubmitted && (
+  <div>
+    {/* Member ID for Member selection */}
+    {isMember === "guest" ? (
+      <div>
+        <label>
+          Name
           <input
             type="text"
-            name="guestName"
             value={guestName}
-            onChange={handleGuestNameChange}
-            required
+            onChange={(e) => setGuestName(e.target.value)}
           />
-          <button onClick={handleDetailsSubmit}>Submit</button>
-        </div>
-      )}
-
-      {isMember === "member" && !isDetailsSubmitted && (
-        <div>
-          <h3>Enter your details</h3>
-          <label>Name:</label>
+        </label>
+      </div>
+    ) : (
+      <div>
+        <label>
+          Member ID
           <input
             type="text"
-            name="name"
-            value={memberDetails.name}
-            onChange={handleMemberDetailsChange}
-            required
+            value={memberDetails.id}
+            onChange={(e) => setMemberDetails({ ...memberDetails, id: e.target.value })}
+            maxLength={5}
           />
-          <label>Email:</label>
-          <input
-            type="email"
-            name="email"
-            value={memberDetails.email}
-            onChange={handleMemberDetailsChange}
-            required
-          />
-          <label>Phone Number:</label>
-          <input
-            type="text"
-            name="phoneNumber"
-            value={memberDetails.phoneNumber}
-            onChange={handleMemberDetailsChange}
-            required
-          />
-          <label>Date of Birth:</label>
-          <input
-            type="date"
-            name="dateOfBirth"
-            value={memberDetails.dateOfBirth}
-            onChange={handleMemberDetailsChange}
-          />
-          <button onClick={handleDetailsSubmit}>Submit</button>
-        </div>
-      )}
+        </label>
+        <button onClick={handleMemberIdSubmit}>Submit Member ID</button>
 
-      {/* Item Selection */}
+        {/* Display Member details once ID is verified */}
+        {memberDetails.name && (
+          <div>
+            <label>
+              Full Name
+              <input
+                type="text"
+                value={memberDetails.name}
+                onChange={(e) => setMemberDetails({ ...memberDetails, name: e.target.value })}
+              />
+            </label>
+            <label>
+              Email
+              <input
+                type="email"
+                value={memberDetails.email}
+                onChange={(e) => setMemberDetails({ ...memberDetails, email: e.target.value })}
+              />
+            </label>
+            <label>
+              Phone Number
+              <input
+                type="text"
+                value={memberDetails.phoneNumber}
+                onChange={(e) => setMemberDetails({ ...memberDetails, phoneNumber: e.target.value })}
+              />
+            </label>
+          </div>
+        )}
+      </div>
+    )}
+    <button onClick={handleDetailsSubmit}>Submit</button>
+  </div>
+)}
+
+      {/* Step 3: Show Order Form after details submission */}
       {isDetailsSubmitted && (
         <div>
-          <h3>Item Selection</h3>
-          <label>Select Item Type:</label>
-          <select onChange={handleItemTypeChange} value={selectedItemType || ""}>
-            <option value="" disabled>Select an item type</option>
-            {itemTypes.map((type) => (
-              <option key={type} value={type}>{type}</option>
-            ))}
-          </select>
+          {/* Select item type */}
+          <label>
+            Item Type
+            <select value={selectedItemType} onChange={handleItemTypeChange}>
+              <option value="">Select Item Type</option>
+              {itemTypes.map((type) => (
+                <option key={type} value={type}>
+                  {type}
+                </option>
+              ))}
+            </select>
+          </label>
 
-          {selectedItemType && categories.length > 0 && (
-            <div>
-              <label>Select Category:</label>
-              <select
-                onChange={(e) => {
-                  setSelectedCategory(e.target.value);
-                  setItems([]); // Clear items when category changes
-                  clearSelections();
-                }}
-                value={selectedCategory || ""}
-              >
-                <option value="" disabled>Select a category</option>
-                {categories.map((category) => (
-                  <option key={category.categoryId} value={category.categoryId}>{category.name}</option>
-                ))}
-              </select>
-            </div>
-          )}
+          {/* Select category */}
+          <label>
+            Category
+            <select
+              value={selectedCategory}
+              onChange={(e) => setSelectedCategory(e.target.value)}
+            >
+              <option value="">Select Category</option>
+              {categories.map((category) => (
+                <option key={category.categoryId} value={category.categoryId}>
+                  {category.name}
+                </option>
+              ))}
+            </select>
+          </label>
 
-          {selectedCategory && items.length > 0 && (
-            <div>
-              <label>Select Item:</label>
-              <select
-                onChange={(e) => {
-                  const selectedItem = items.find(item => item.itemCode === e.target.value);
-                  setSelectedItem(selectedItem);
-                  clearSelections();
-                }}
-                value={selectedItem?.itemCode || ""}
-              >
-                <option value="" disabled>Select an item</option>
-                {items.map((item) => (
-                  <option key={item.itemCode} value={item.itemCode}>{item.name}</option>
-                ))}
-              </select>
-            </div>
-          )}
+          {/* Select item */}
+          <label>
+            Item
+            <select
+              value={selectedItem ? selectedItem.itemCode : ""}
+              onChange={handleItemSelection}
+            >
+              <option value="">Select Item</option>
+              {items.map((item) => (
+                <option key={item.itemCode} value={item.itemCode}>
+                  {item.name}
+                </option>
+              ))}
+            </select>
+          </label>
 
-          {selectedItem && sizes.length > 0 && (
-            <div>
-              <label>Select Size:</label>
-              <select onChange={(e) => {
-                const selectedSize = sizes.find(size => size.sizeName === e.target.value);
-                setSelectedSize(selectedSize);
-              }} value={selectedSize?.sizeName || ""}>
-                <option value="" disabled>Select a size</option>
+          {/* Select size */}
+          {selectedItem && (
+            <label>
+              Size
+              <select value={selectedSize ? selectedSize.sizeName : ""} onChange={handleSizeSelection}>
+                <option value="">Select Size</option>
                 {sizes.map((size) => (
                   <option key={size.sizeName} value={size.sizeName}>
-                    {size.sizeName} (+${size.priceAdjustment.toFixed(2)})
+                    {size.sizeName}
                   </option>
                 ))}
               </select>
-            </div>
+            </label>
           )}
 
-          {selectedItem && customizations.length > 0 && (
-            <div>
-              <label>Select Customization:</label>
-              <select onChange={(e) => setSelectedCustomization(e.target.value)} value={selectedCustomization || ""}>
-                <option value="" disabled>Select a customization</option>
+          {/* Select customization */}
+          {selectedItem && (
+            <label>
+              Customization
+              <select value={selectedCustomization} onChange={handleCustomizationSelection}>
+                <option value="">Select Customization</option>
                 {customizations.map((customization) => (
                   <option key={customization.customizationId} value={customization.customizationId}>
                     {customization.name}
                   </option>
                 ))}
               </select>
-            </div>
+            </label>
           )}
 
-          {selectedCustomization && customizationOptions.length > 0 && (
-            <div>
-              <label>Select Option:</label>
+          {/* Select customization option */}
+          {selectedCustomization && (
+            <label>
+              Customization Option
               <select
-                onChange={(e) => {
-                  const selectedOption = customizationOptions.find(option => option.optionId === parseInt(e.target.value));
-                  setSelectedOption(selectedOption);
-                }}
                 value={selectedOption ? selectedOption.optionId : ""}
+                onChange={handleCustomizationOptionSelection}
               >
-                <option value="" disabled>Select an option</option>
+                <option value="">Select Option</option>
                 {customizationOptions.map((option) => (
                   <option key={option.optionId} value={option.optionId}>
-                    {option.optionName} (+${option.additionalCost.toFixed(2)})
+                    {option.optionName}
                   </option>
                 ))}
               </select>
-            </div>
+            </label>
           )}
 
-          <label>Quantity:</label>
-          <input type="number" value={quantity} onChange={(e) => setQuantity(e.target.value)} />
+          {/* Quantity input */}
+          <label>
+            Quantity
+            <input
+              type="number"
+              value={quantity}
+              onChange={(e) => setQuantity(Number(e.target.value))}
+              min="1"
+            />
+          </label>
 
-          <div>Total Price: ${totalPrice.toFixed(2)}</div>
-          <button onClick={addItemToOrder}>Add Item to Order</button>
+          {/* Add item to order */}
+          <button onClick={addItemToOrder}>Add Item</button>
 
-          <h3>Order Summary</h3>
-          <ul>
-            {itemsOrdered.map((item, index) => (
-              <li key={index}>{item.itemCode}</li>
+          {/* Finalize Order */}
+          <button onClick={completeOrderTransaction}>Finalize Order</button>
+
+          {/* Show items added */}
+          <div>
+            <h2>Order Items</h2>
+            {itemsOrdered.map((line, index) => (
+              <div key={index}>
+                <p>{line.itemName}</p>
+                <p>{line.linePrice}</p>
+              </div>
             ))}
-          </ul>
+          </div>
+        </div>
+      )}
 
-          <button onClick={finalizeOrder}>Finalize Order</button>
+      {/* Receipt */}
+      {showReceipt && (
+        <div>
+          <h1>Receipt</h1>
+          <p>Total Price: {totalPrice}</p>
         </div>
       )}
     </div>

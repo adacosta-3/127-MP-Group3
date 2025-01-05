@@ -1,7 +1,7 @@
 import { StrictMode, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import './index.css';
-import { BrowserRouter as Router, Route, Routes, useNavigate } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Login from './Login.jsx';
 import Manager from './Manager.jsx';
 import Admin from './Admin.jsx';
@@ -41,7 +41,7 @@ const Main = () => {
       <Routes>
         <Route path="/" element={renderContent()} />
         <Route path="/receipt" element={<Receipt />} />
-        <Route path="/cashier" element={<CashierDashboard />} />
+        <Route path="/orders" element={<Order />} />  {/* Add this route */}
       </Routes>
     </Router>
   );
