@@ -14,4 +14,3 @@ public class OrderHistoryForMemberDTO {
     private Date orderDate;
     private Double totalPrice;
 }
-

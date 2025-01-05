@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'; 
 import { useLocation, useNavigate } from 'react-router-dom';
 
 const Receipt = () => {
@@ -74,7 +74,7 @@ const Receipt = () => {
       <table style={tableStyle}>
         <thead>
           <tr>
-            <th style={thStyle}>Item Name</th>
+            <th style={thStyle}>Item Code</th> {/* Changed to Item Code */}
             <th style={thStyle}>Quantity</th>
             <th style={thStyle}>Customizations</th>
             <th style={thStyle}>Customization Price</th>
@@ -84,7 +84,7 @@ const Receipt = () => {
         <tbody>
           {orderDetails.items.map((item, index) => (
             <tr key={index}>
-              <td style={tdStyle}>{item.name || 'N/A'}</td>
+              <td style={tdStyle}>{item.itemCode || 'N/A'}</td> {/* Display Item Code */}
               <td style={tdStyle}>{item.quantity}</td>
               <td style={tdStyle}>
                 {item.customizations && item.customizations.length > 0 ? (
