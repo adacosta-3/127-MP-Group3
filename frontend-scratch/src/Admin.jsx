@@ -1,12 +1,37 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import {
-  TextField, Button, MenuItem, Select, InputLabel, FormControl, Container, Typography, Alert, Paper, Grid,
+  TextField,
+  Button,
+  MenuItem,
+  Select,
+  InputLabel,
+  FormControl,
+  Container,
+  Typography,
+  Alert,
+  Paper,
+  Grid,
+  List,
+  ListItem,
+  ListItemText,
 } from "@mui/material";
 import { Line, Bar } from "react-chartjs-2";
-import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, LineElement, PointElement, Title, Tooltip, Legend } from "chart.js";
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  LineElement,
+  PointElement,
+  Title,
+  Tooltip,
+  Legend,
+} from "chart.js";
+
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, LineElement, PointElement, Title, Tooltip, Legend);
+
 
 const Admin = () => {
   const [username, setUsername] = useState("");
@@ -15,11 +40,17 @@ const Admin = () => {
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState("");
   const [viewDashboard, setViewDashboard] = useState(false);
+
+
   const [orderHistoryPerDay, setOrderHistoryPerDay] = useState([]);
+  const [ordersByDate, setOrdersByDate] = useState([]);
+  const [selectedDate, setSelectedDate] = useState("");
   const [orderHistoryForMember, setOrderHistoryForMember] = useState([]);
   const [mostOrderedItems, setMostOrderedItems] = useState([]);
   const [leastOrderedItems, setLeastOrderedItems] = useState([]);
+  const [memberId, setMemberId] = useState("");
   const [loading, setLoading] = useState(true);
+
 
   useEffect(() => {
     if (viewDashboard) {
@@ -27,25 +58,64 @@ const Admin = () => {
     }
   }, [viewDashboard]);
 
+
   const fetchData = async () => {
     setLoading(true);
     try {
-      const [orderHistoryPerDayData, orderHistoryForMemberData, mostOrderedItemsData, leastOrderedItemsData] = await Promise.all([
+      const [orderHistoryPerDayData, mostOrderedItemsData, leastOrderedItemsData] = await Promise.all([
         axios.get("http://localhost:8081/api/admin/order-history-per-day"),
-        axios.get("http://localhost:8081/api/admin/order-history/member/1"),
         axios.get("http://localhost:8081/api/admin/most-ordered-items"),
         axios.get("http://localhost:8081/api/admin/least-ordered-items"),
       ]);
       setOrderHistoryPerDay(orderHistoryPerDayData.data);
-      setOrderHistoryForMember(orderHistoryForMemberData.data);
       setMostOrderedItems(mostOrderedItemsData.data);
       setLeastOrderedItems(leastOrderedItemsData.data);
-    } catch (error) {
-      console.error("Error fetching data:", error);
+    } catch (err) {
+      console.error("Error fetching dashboard data:", err);
+      setError("Failed to fetch dashboard data.");
     } finally {
       setLoading(false);
     }
   };
+
+
+  const fetchOrdersByDate = async () => {
+    if (!selectedDate) {
+      setError("Please select a date.");
+      return;
+    }
+    setLoading(true);
+    try {
+      const response = await axios.get(`http://localhost:8081/api/admin/order-history-by-date/${selectedDate}`);
+      setOrdersByDate(response.data);
+      setError("");
+    } catch (err) {
+      console.error("Error fetching orders by date:", err);
+      setError("Failed to fetch orders for the selected date.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+
+  const fetchOrderHistoryForMember = async () => {
+    if (!memberId) {
+      setError("Please enter a member ID.");
+      return;
+    }
+    setLoading(true);
+    try {
+      const response = await axios.get(`http://localhost:8081/api/admin/order-history/member/${memberId}`);
+      setOrderHistoryForMember(response.data);
+      setError("");
+    } catch (err) {
+      console.error("Error fetching member order history:", err);
+      setError("Failed to fetch member order history.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -59,132 +129,200 @@ const Admin = () => {
         setSuccess(true);
         setError("");
       }
-    } catch (error) {
-      console.error("Error creating user:", error);
+    } catch (err) {
+      console.error("Error creating user:", err);
       setError("Failed to create user. Please try again.");
       setSuccess(false);
     }
   };
 
+
   const chartOptions = {
     responsive: true,
     plugins: {
-      legend: {
-        position: 'top',
-      },
-      title: {
-        display: true,
-      },
+      legend: { position: "top" },
+      title: { display: true },
     },
   };
 
+
   const orderHistoryPerDayData = {
-    labels: orderHistoryPerDay.map(item => item.orderDate),
-    datasets: [{
-      label: "Orders per Day",
-      data: orderHistoryPerDay.map(item => item.orderCount),
-      borderColor: 'rgba(75, 192, 192, 1)',
-      backgroundColor: 'rgba(75, 192, 192, 0.2)',
-    }],
+    labels: orderHistoryPerDay.map((item) => item.orderDate),
+    datasets: [
+      {
+        label: "Orders per Day",
+        data: orderHistoryPerDay.map((item) => item.orderCount),
+        borderColor: "rgba(75, 192, 192, 1)",
+        backgroundColor: "rgba(75, 192, 192, 0.2)",
+      },
+    ],
   };
+
 
   const mostOrderedItemsData = {
-    labels: mostOrderedItems.map(item => item.itemName),
-    datasets: [{
-      label: "Most Ordered Items",
-      data: mostOrderedItems.map(item => item.totalQuantity),
-      backgroundColor: 'rgba(75, 192, 192, 0.2)',
-      borderColor: 'rgba(75, 192, 192, 1)',
-      borderWidth: 1,
-    }],
+    labels: mostOrderedItems.map((item) => item.itemName),
+    datasets: [
+      {
+        label: "Most Ordered Items",
+        data: mostOrderedItems.map((item) => item.totalQuantity),
+        backgroundColor: "rgba(75, 192, 192, 0.2)",
+        borderColor: "rgba(75, 192, 192, 1)",
+        borderWidth: 1,
+      },
+    ],
   };
+
 
   const leastOrderedItemsData = {
-    labels: leastOrderedItems.map(item => item.itemName),
-    datasets: [{
-      label: "Least Ordered Items",
-      data: leastOrderedItems.map(item => item.totalQuantity),
-      backgroundColor: 'rgba(255, 99, 132, 0.2)',
-      borderColor: 'rgba(255, 99, 132, 1)',
-      borderWidth: 1,
-    }],
+    labels: leastOrderedItems.map((item) => item.itemName),
+    datasets: [
+      {
+        label: "Least Ordered Items",
+        data: leastOrderedItems.map((item) => item.totalQuantity),
+        backgroundColor: "rgba(255, 99, 132, 0.2)",
+        borderColor: "rgba(255, 99, 132, 1)",
+        borderWidth: 1,
+      },
+    ],
   };
 
+
   return (
-    <Container style={{ width: "100vw", height: "100vh", padding: 20, minHeight: "100vh", overflowY: "auto" }}>
-      <Typography variant="h4" gutterBottom align="center">
-        {viewDashboard ? "ADMIN DASHBOARD" : "CREATE NEW USER"}
-      </Typography>
+      <Container maxWidth="lg" style={{ padding: 20 }}>
+        <Typography variant="h4" gutterBottom align="center">
+          {viewDashboard ? "ADMIN DASHBOARD" : "CREATE NEW USER"}
+        </Typography>
 
-      {success && <Alert severity="success" style={{ marginBottom: "20px" }}>User created successfully!</Alert>}
-      {error && <Alert severity="error" style={{ marginBottom: "20px" }}>{error}</Alert>}
 
-      {viewDashboard ? (
-        <Container style={{ width: "100%", padding: 0, height: "80%" }}>
-          {loading ? (
-            <Typography variant="h6" align="center">Loading...</Typography>
-          ) : (
-            <Grid container spacing={2} style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-around', height: "100%" }}>
-              <Grid item xs={12} md={6}>
-                <Paper style={{ padding: 10, height: "90%" }}>
-                  <Typography variant="h6" gutterBottom align="center">ORDER HISTORY PER DAY</Typography>
+        {success && <Alert severity="success">User created successfully!</Alert>}
+        {error && <Alert severity="error">{error}</Alert>}
+
+
+        {viewDashboard ? (
+            <Grid container spacing={3}>
+              <Grid item xs={12}>
+                <Paper style={{ padding: 20 }}>
+                  <Typography variant="h6">Order History Per Day</Typography>
                   <Line data={orderHistoryPerDayData} options={chartOptions} />
                 </Paper>
               </Grid>
-              <Grid item xs={12} md={6}>
-                <Paper style={{ padding: 10, height: "90%" }}>
-                  <Typography variant="h6" gutterBottom align="center">MOST ORDERED ITEMS</Typography>
+
+
+              <Grid item xs={12} sm={6}>
+                <Paper style={{ padding: 20, maxHeight: "300px", overflowY: "auto" }}>
+                  <Typography variant="h6">Orders for a Specific Day</Typography>
+                  <TextField
+                      label="Date (YYYY-MM-DD)"
+                      variant="outlined"
+                      fullWidth
+                      value={selectedDate}
+                      onChange={(e) => setSelectedDate(e.target.value)}
+                      margin="normal"
+                  />
+                  <Button variant="contained" color="primary" onClick={fetchOrdersByDate} fullWidth>
+                    Fetch Orders
+                  </Button>
+                  {ordersByDate.map((order) => (
+                      <List key={order.orderId}>
+                        <ListItem>
+                          <ListItemText primary={`Order ID: ${order.orderId}`} secondary={`Total: $${order.totalPrice}`} />
+                        </ListItem>
+                      </List>
+                  ))}
+                </Paper>
+              </Grid>
+
+
+              <Grid item xs={12} sm={6}>
+                <Paper style={{ padding: 20, maxHeight: "300px", overflowY: "auto" }}>
+                  <Typography variant="h6">Order History for Member</Typography>
+                  <TextField
+                      label="Member ID"
+                      variant="outlined"
+                      fullWidth
+                      value={memberId}
+                      onChange={(e) => setMemberId(e.target.value)}
+                      margin="normal"
+                  />
+                  <Button variant="contained" color="primary" onClick={fetchOrderHistoryForMember} fullWidth>
+                    Fetch Member Orders
+                  </Button>
+                  {orderHistoryForMember.map((order) => (
+                      <List key={order.orderId}>
+                        <ListItem>
+                          <ListItemText
+                              primary={`Order ID: ${order.orderId}`}
+                              secondary={`Date: ${order.orderDate} | Total: $${order.totalPrice}`}
+                          />
+                        </ListItem>
+                      </List>
+                  ))}
+                </Paper>
+              </Grid>
+
+
+              <Grid item xs={12} sm={6}>
+                <Paper style={{ padding: 20 }}>
+                  <Typography variant="h6">Most Ordered Items</Typography>
                   <Bar data={mostOrderedItemsData} options={chartOptions} />
                 </Paper>
               </Grid>
-              <Grid item xs={12} md={6}>
-                <Paper style={{ padding: 10, height: "90%" }}>
-                  <Typography variant="h6" gutterBottom align="center">LEAST ORDERED ITEMS</Typography>
+
+
+              <Grid item xs={12} sm={6}>
+                <Paper style={{ padding: 20 }}>
+                  <Typography variant="h6">Least Ordered Items</Typography>
                   <Bar data={leastOrderedItemsData} options={chartOptions} />
                 </Paper>
               </Grid>
-              <Grid item xs={12} md={6}>
-                <Paper style={{ padding: 10, height: "90%" }}>
-                  <Typography variant="h6" gutterBottom align="center">ORDER HISTORY OF MEMBERS</Typography>
-                  <Grid container spacing={2}>
-                    {orderHistoryForMember.length ? orderHistoryForMember.map(order => (
-                      <Grid item xs={12} key={order.orderId}>
-                        <Paper style={{ padding: 10 }}>
-                          <Typography>Order ID: {order.orderId}</Typography>
-                          <Typography>Date: {order.orderDate}</Typography>
-                          <Typography>Total Price: ${order.totalPrice}</Typography>
-                        </Paper>
-                      </Grid>
-                    )) : (
-                      <Typography>No order history available for this member.</Typography>
-                    )}
-                  </Grid>
-                </Paper>
-              </Grid>
             </Grid>
-          )}
-        </Container>
-      ) : (
-        <form onSubmit={handleSubmit}>
-          <TextField label="Username" variant="outlined" fullWidth value={username} onChange={(e) => setUsername(e.target.value)} required margin="normal" />
-          <TextField label="Password (Optional)" variant="outlined" fullWidth type="password" value={password} onChange={(e) => setPassword(e.target.value)} margin="normal" />
-          <FormControl fullWidth variant="outlined" margin="normal">
-            <InputLabel>Role</InputLabel>
-            <Select value={role} onChange={(e) => setRole(e.target.value)} label="Role">
-              <MenuItem value="Admin">Admin</MenuItem>
-              <MenuItem value="Manager">Manager</MenuItem>
-              <MenuItem value="Cashier">Cashier</MenuItem>
-            </Select>
-          </FormControl>
-          <Button type="submit" variant="contained" color="primary" fullWidth>Create User</Button>
-        </form>
-      )}
+        ) : (
+            <form onSubmit={handleSubmit}>
+              <TextField
+                  label="Username"
+                  variant="outlined"
+                  fullWidth
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  required
+                  margin="normal"
+              />
+              <TextField
+                  label="Password (Optional)"
+                  variant="outlined"
+                  fullWidth
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  margin="normal"
+              />
+              <FormControl fullWidth margin="normal">
+                <InputLabel>Role</InputLabel>
+                <Select value={role} onChange={(e) => setRole(e.target.value)} label="Role">
+                  <MenuItem value="Admin">Admin</MenuItem>
+                  <MenuItem value="Manager">Manager</MenuItem>
+                  <MenuItem value="Cashier">Cashier</MenuItem>
+                </Select>
+              </FormControl>
+              <Button type="submit" variant="contained" color="primary" fullWidth>
+                Create User
+              </Button>
+            </form>
+        )}
 
-      <Button variant="contained" color="secondary" onClick={() => setViewDashboard(prev => !prev)} fullWidth style={{ marginTop: "20px" }}>
-        {viewDashboard ? "Go Back to Create User" : "View Dashboard"}
-      </Button>
-    </Container>
+
+        <Button
+            variant="contained"
+            color="secondary"
+            onClick={() => setViewDashboard(!viewDashboard)}
+            fullWidth
+            style={{ marginTop: 20 }}
+        >
+          {viewDashboard ? "Go Back to Create User" : "View Dashboard"}
+        </Button>
+      </Container>
   );
 };
+
 
 export default Admin;
