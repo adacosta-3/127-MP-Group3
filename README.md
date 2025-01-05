@@ -1,4 +1,4 @@
-<h1 align="center">Hell Week Coffee</h1>
+<h1 align="center">Cat-astrophe Cafe</h1>
 
 ## About The Project
 <h3>PURPOSE</h3> 
