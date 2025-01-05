@@ -1,21 +1,23 @@
 import { StrictMode, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import './index.css';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Login from './Login.jsx';
 import Manager from './Manager.jsx';
-import Admin from './Admin.jsx'
+import Admin from './Admin.jsx';
 import Order from './PlaceOrder.jsx';
+import Receipt from './Receipt.jsx';
 
 const ManagerDashboard = () => {
-  return <Manager/>;
+  return <Manager />;
 };
 
 const AdminDashboard = () => {
-  return <Admin/>;
+  return <Admin />;
 };
 
 const CashierDashboard = () => {
-  return <Order/>;
+  return <Order />;
 };
 
 const Main = () => {
@@ -34,11 +36,18 @@ const Main = () => {
     }
   };
 
-  return <div>{renderContent()}</div>;
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={renderContent()} />
+        <Route path="/receipt" element={<Receipt />} />
+      </Routes>
+    </Router>
+  );
 };
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <Main />
-  </StrictMode>,
+  </StrictMode>
 );
